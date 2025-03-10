@@ -1,13 +1,178 @@
-*{
+* {
     margin: 0;
     padding: 0;
-    
+    box-sizing: border-box;
 }
+
 .fondo {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-image: url('fondo.png');
-    
+    background-image: url(fondo.png);
+    background-size: cover;
+    background-position: center;
+}
+
+/* Estilos comunes para los menús */
+.menu {
+    text-align: center;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 139, 0.8));
+    padding: 30px;
+    box-shadow: 0 5px rgba(0, 0, 0, 0.3);
+    color: white;
+    border-radius: 10px; /* Añadido aquí para ser común */
+}
+.logo {
+    width: 45px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.menu h1, .continuar h2 {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.menu h1 {
+    font-size: 26px; /* Específico para el h1 del menú principal */
+}
+
+/* Texto del usuario */
+.user-info p {
+    font-size: 28px;
+    color: #f39c12;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Estilos comunes para los botones */
+.menu-button, .opcion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 180px;
+    margin: 10px auto;
+    padding: 12px 20px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.menu-button {
+    background: linear-gradient(to right, #7b1fa2, #ff9800);
+}
+
+.menu-button:hover, .opcion:hover {
+    transform: scale(1.05);
+    background: linear-gradient(to right, #bb1717, #2010b1);
+}
+
+/* Estilos específicos para las opciones de "Continuar" */
+.opcion {
+    width: 80%;
+    padding: 15px;
+    border-radius: 5px; /* Sobreescribe el radio del botón común */
+    background: linear-gradient(to right, #7b1fa2, #ff9800); /* Mismo degradado que menu-button */
+}
+
+/*-------------pantalla crearNegocio---------------------------*/
+.crear-negocio {
+    width: 500px;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.crear-negocio h1 {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.form-group input, .input-group {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.input-group {
+    display: flex;
+}
+
+.input-group input {
+    flex: 1;
+    border: none;
+}
+
+.input-group-prepend, .input-group-append {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input-group-prepend, .input-group-append, .input-group-prepend i, .input-group-append i {
+    color: #007bff;
+    font-size: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.input-group-prepend {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.input-group-append {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.botones {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+/* Estilos para los botones de crearNegocio */
+.menu-button {
+    padding: 12px 25px; /* Sobreescribe el padding común */
+}
+
+/*----------------------------------------*/
+/* Estilos para la pantalla Continuar */
+.continuar {
+    padding: 30px; /* Ya definido en .menu, pero se mantiene por claridad */
+}
+
+.opciones {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
 }
