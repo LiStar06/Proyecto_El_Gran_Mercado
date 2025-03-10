@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+
+}
+
+.fondo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('fondo.png');
+    background-size: cover;
+    background-position: center;
+
+}
+#Caja_de_contenido {
+    
+    height: 70%;
+    width: 30%;
+    justify-content: center;
+    text-align: center;
+    background-color: blue;
+    border-radius: 20px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(53, 51, 205, 1) 77%);
+}
+#Logo{
+    margin-top: 20px;
+    height: 15%;
+    width: 18%;
+}
+#Titulo {
+    margin-top: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 25px;
+    color: #ff914d;
+
+}
+form{
+    
+    margin-top: 5%;
+    /* width: 80%; */
+}
+label{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+    font-size: x-large;
+    text-align: left;
+    display: block;
+    margin-left: 13%;
+    
+ 
+}
+input{
+    background-color: white;
+    height: 30px;
+    width: 80%;
+    border-radius: 20px;
+
+}
+
+button{
+    width: 30%;
+    height: 40px;
+    margin-top: 20px;
+    background-color: #7ed957;
+    color: white;
+    border-radius: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: medium;
+    border-color: #7ed957;
+}
+h4,a{
+    margin-top: 20px;
+    color: white;
+}
