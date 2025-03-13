@@ -1,0 +1,183 @@
+body{
+
+
+    background-image: url("fondo.png");
+   
+    #SvgInventario {
+        position: relative;
+        top: 275px;  
+        left: 195px;
+        fill:#ff914d;
+        
+    }
+   
+    
+   
+        
+        }
+        
+
+       body{
+        #SvgFnanzas {
+            position: absolute;
+            top: 275px;  
+            left: 490px; 
+            fill: #d9d9d9;
+        }
+
+       }
+
+       #SvgIndicadores {
+        position: absolute;
+        top: 275px; 
+        left: 785px; 
+        fill: #53bcc2;
+        
+    }
+
+
+    body{
+
+
+
+        #administracion{
+            background-color:#002071;
+            background-repeat: no-repeat;
+            background-position: center; 
+            position:absolute;
+            top: 50px;
+            left: 125px;
+            padding-left: 15px; 
+            padding-right: 575px;
+            padding-top: 10px;
+            padding-bottom: 25px;
+            border-radius: 35px 35px;
+            font-size: 50px;
+          }
+            
+        
+
+
+ }
+ #negocios{
+      color: #ff914d;  
+      position:absolute;
+      top: 90px;
+      left: 700px;
+    }
+
+    #capital{
+        color: #ff914d;  
+        position:absolute;
+        top: 90px;
+      left: 900px;
+       
+      
+
+
+    }
+    #comprar{
+
+       position: absolute;
+       top:750px;
+       left: 150px;
+        height: 50px;
+        width: 225px;
+        margin: 10px auto;
+        padding: 12px 20px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+        border-radius: 20px;
+        border: none;
+        background: linear-gradient(to right, #7b1fa2, #ff9800);
+        cursor: pointer;
+        transition: 0.3s;
+
+    }
+    #comprar:hover {
+        transform: scale(1.05);
+        background: linear-gradient(to right, #bb1717, #2010b1);
+    }
+
+
+    #vender{
+
+        position: absolute;
+        top: 750px;  
+        left: 425px;
+         height: 50px;
+         width: 175px;
+         margin: 10px auto;
+         padding: 12px 20px;
+         text-align: center;
+         font-size: 16px;
+         font-weight: bold;
+         color: white;
+         text-decoration: none;
+         border-radius: 20px;
+         border: none;
+         background: linear-gradient(to right, #7b1fa2, #ff9800);
+         cursor: pointer;
+         transition: 0.3s;
+
+    }
+    #vender:hover {
+        transform: scale(1.05);
+        background: linear-gradient(to right, #bb1717, #2010b1);
+    }
+
+    #ajustar{
+
+        position: absolute;
+        top: 750px;  
+        left: 650px;
+         height: 50px;
+         width: 175px;
+         margin: 10px auto;
+         padding: 12px 20px;
+         text-align: center;
+         font-size: 16px;
+         font-weight: bold;
+         color: white;
+         text-decoration: none;
+         border-radius: 20px;
+         border: none;
+         background: linear-gradient(to right, #7b1fa2, #ff9800);
+         cursor: pointer;
+         transition: 0.3s;
+
+            
+    }
+    #ajustar:hover {
+        transform: scale(1.05);
+        background: linear-gradient(to right, #bb1717, #2010b1);
+    }
+
+
+
+    #resumen{
+        position: absolute;
+        top: 750px;  
+        left: 875px;
+         height: 50px;
+         width: 175px;
+         margin: 10px auto;
+         padding: 12px 20px;
+         text-align: center;
+         font-size: 16px;
+         font-weight: bold;
+         color: white;
+         text-decoration: none;
+         border-radius: 20px;
+         border: none;
+         background: linear-gradient(to right, #7b1fa2, #ff9800);
+         cursor: pointer;
+         transition: 0.3s;
+    }
+    #resumen:hover{
+        transform: scale(1.05);
+        background: linear-gradient(to right, #bb1717, #2010b1);
+    }
