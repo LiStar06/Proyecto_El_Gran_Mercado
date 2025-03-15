@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-image: url('fondo.png');
+    background-image: url('../Imagenes/fondo.png');
     background-size: cover;
     background-position: center;
 
@@ -56,10 +56,13 @@ input{
     height: 30px;
     width: 80%;
     border-radius: 20px;
+    padding-left: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: large;
 
 }
 
-button{
+#Iniciar_sesion{
     width: 30%;
     height: 40px;
     margin-top: 20px;
@@ -69,6 +72,10 @@ button{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: medium;
     border-color: #7ed957;
+    cursor: pointer;
+}
+#Iniciar_sesion:hover{
+    background-color: #34b450;
 }
 h4,a{
     margin-top: 20px;

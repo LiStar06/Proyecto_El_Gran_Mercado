@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Gran Mercado</title>
-    <link rel="stylesheet" href="estilos_p_principal.css"> 
+    <link rel="stylesheet" href="../Css/estilos_p_principal.css"> 
 </head>
 <body>
     <main class="fondo">
         <nav class = "barra_de_botones">
-            <img id = "Logo" src="logo.png" alt="logo">
+            <img id = "Logo" src="../Imagenes/logo.png" alt="logo">
             <h2 id="Nombre_del_juego">El Gran Mercado</h2>
-            <button id = "Jugar">Jugar</button>
-            <button id = "Registrarse">Registrarse</button>
+            <button id = "Jugar" onclick = "window.location.href='p_iniciar_sesion.php'">Jugar</button>
+            <button id = "Registrarse" onclick = "window.location.href='p_crear_cuenta.php'">Registrarse</button>
         </nav>
         <section id = "Caja_de_contenido">
             <h1 id="Titulo">¡Bienvenido a El Gran Mercado!</h1>

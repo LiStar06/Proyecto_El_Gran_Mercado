@@ -8,7 +8,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-image: url('fondo.png');
+    background-image: url('../Imagenes/fondo.png');
     background-size: cover;
     background-position: center;
     
@@ -44,6 +44,11 @@
     border-radius: 10px;
     border-color: #ff914d;
     background-color: #ff914d;
+    cursor: pointer;
+    
+}
+#Jugar:hover{
+    background-color: #d7552a;
 }
 #Registrarse{
     height: 60%;
@@ -53,6 +58,10 @@
     border-radius: 10px;
     border-color: #1df48c;
     background-color: #1df48c;
+    cursor: pointer;
+}
+#Registrarse:hover {
+    background-color: #13ca13;
 }
 #Caja_de_contenido{
     height: 60%;

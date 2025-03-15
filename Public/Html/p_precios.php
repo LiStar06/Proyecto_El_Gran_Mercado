@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imagen Completa</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>El Gran Mercado</title>
+    <link rel="stylesheet" href="../Css/styles2.css">
 </head>
 
 <body>
     <div class="fondo">
         <header class="header-bar">
-            <img src="logo.png" alt="Logo" class="logo">
+            <img src="../Imagenes/logo.png" alt="Logo" class="logo">
             <h1>Ajustar Precios</h1>
             <p>Capital: $<span id="capital">0</span></p>
         </header>
@@ -37,15 +37,15 @@
                 </div>
             </section>
             <button class="action-btn" onclick="guardarPrecio()">
-                <img src="ajustar-icon.png" alt="Ajustar" class="btn-icon"> Ajustar
+                <img src="../Imagenes/ajustar-icon.png" alt="Ajustar" class="btn-icon"> Ajustar
             </button>
         </main>
         <footer class="botones">
             <button class="nav-btn" onclick="mostrarDetalles()">
-                <img src="detalle-icon.png" alt="Detalles" class="btn-icon"> Detalles
+                <img src="../Imagenes/detalle-icon.png" alt="Detalles" class="btn-icon"> Detalles
             </button>
             <button class="nav-btn" onclick="location.href='Index.php'">
-                <img src="menu-icon.png" alt="Menú" class="btn-icon"> Menú Principal
+                <img src="../Imagenes/menu-icon.png" alt="Menú" class="btn-icon"> Menú Principal
             </button>
         </footer>
     </div>

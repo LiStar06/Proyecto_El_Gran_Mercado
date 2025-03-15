@@ -10,7 +10,7 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-image: url('fondo.png');
+    background-image: url('../Imagenes/fondo.png');
     background-size: cover;
     background-position: center;
     padding: 20px;
