@@ -44,6 +44,7 @@ let paginaActual = 1;
 const productosPorPagina = 5;
 let tipoOrden = 'masVendidos';
 let totalPaginas = 0; // Variable para almacenar el total de páginas
+let chartInitialized = false;
 
 
 // Formatear el dinero
@@ -76,6 +77,10 @@ function calcularInversionYGanancias() {
  */
 function actualizarTabla(productos, pagina) {
     const tablaBody = resumenTabla.querySelector('tbody');
+    if (!tablaBody) {
+        console.error("No se encontró el elemento tbody de la tabla.");
+        return;
+    }
     tablaBody.innerHTML = '';
 
     const inicio = (pagina - 1) * productosPorPagina;
@@ -145,6 +150,10 @@ function actualizarProductosVendidos() {
  * Crea y muestra el gráfico de histórico de precios
  */
 function createChart(historicoPrecios) {
+    if (typeof Chart === 'undefined') {
+        console.error("Chart.js is not loaded.");
+        return;
+    }
     const chartData = {
         labels: historicoPrecios[Object.keys(historicoPrecios)[0]].map(item => item.fecha),
         datasets: Object.keys(historicoPrecios).map(nombreProducto => ({
@@ -202,6 +211,7 @@ function createChart(historicoPrecios) {
         data: chartData,
         options: chartOptions,
     });
+    chartInitialized = true;
 }
 
 /**
@@ -276,8 +286,20 @@ function actualizarPaginacion() {
 
 // Inicialización de la página
 function inicializarPagina() {
+    // Establecer el valor por defecto del select
+    masVendidosSelect.value = tipoOrden;
+
+    let productosIniciales = [];
+    if (tipoOrden === 'masVendidos') {
+        productosMasVendidos.sort((a, b) => b.cantidad - a.cantidad);
+        productosIniciales = productosMasVendidos;
+    } else {
+        productosMenosVendidos.sort((a, b) => a.cantidad - b.cantidad);
+        productosIniciales = productosMenosVendidos;
+    }
+
     actualizarProductosVendidos();
-    actualizarTabla(productosMasVendidos, paginaActual);
+    actualizarTabla(productosIniciales, paginaActual);
     const historicoPreciosData = {
         'Producto A': [
             { fecha: '2023-01-01', precio: 25 },
@@ -343,16 +365,76 @@ function inicializarPagina() {
 masVendidosSelect.addEventListener('change', () => {
     paginaActual = 1;
     tipoOrden = masVendidosSelect.value;
-    const productos = tipoOrden === 'masVendidos' ? productosMasVendidos : productosMenosVendidos;
-     // Ordenar los productos aquí, antes de actualizar la tabla y las listas
+    let productos = [];
     if (tipoOrden === 'masVendidos') {
+        productos = productosMasVendidos.slice(); // Crear una copia antes de ordenar
         productos.sort((a, b) => b.cantidad - a.cantidad);
     } else {
+        productos = productosMenosVendidos.slice(); // Crear una copia antes de ordenar
         productos.sort((a, b) => a.cantidad - b.cantidad);
     }
     actualizarTabla(productos, paginaActual);
     actualizarProductosVendidos();
     actualizarPaginacion();
+    if (chartInitialized) {
+      const historicoPreciosData = {
+        'Producto A': [
+            { fecha: '2023-01-01', precio: 25 },
+            { fecha: '2023-01-08', precio: 27 },
+            { fecha: '2023-01-15', precio: 30 },
+            { fecha: '2023-01-22', precio: 28 },
+            { fecha: '2023-01-29', precio: 32 },
+            { fecha: '2023-02-05', precio: 35 },
+            { fecha: '2023-02-12', precio: 33 },
+        ],
+        'Producto B': [
+            { fecha: '2023-01-01', precio: 15 },
+            { fecha: '2023-01-08', precio: 16 },
+            { fecha: '2023-01-15', precio: 18 },
+            { fecha: '2023-01-22', precio: 17 },
+            { fecha: '2023-01-29', precio: 20 },
+            { fecha: '2023-02-05', precio: 22 },
+            { fecha: '2023-02-12', precio: 21 },
+        ],
+        'Producto X': [
+            { fecha: '2023-01-01', precio: 40 },
+            { fecha: '2023-01-08', precio: 42 },
+            { fecha: '2023-01-15', precio: 45 },
+            { fecha: '2023-01-22', precio: 43 },
+            { fecha: '2023-01-29', precio: 47 },
+            { fecha: '2023-02-05', precio: 50 },
+            { fecha: '2023-02-12', precio: 48 },
+        ],
+        'Producto Y': [
+            { fecha: '2023-01-01', precio: 35 },
+            { fecha: '2023-01-08', precio: 37 },
+            { fecha: '2023-01-15', precio: 39 },
+            { fecha: '2023-01-22', precio: 38 },
+            { fecha: '2023-01-29', precio: 41 },
+            { fecha: '2023-02-05', precio: 43 },
+            { fecha: '2023-02-12', precio: 42 },
+        ],
+        'Producto Z': [
+            { fecha: '2023-01-01', precio: 50 },
+            { fecha: '2023-01-08', precio: 52 },
+            { fecha: '2023-01-15', precio: 55 },
+            { fecha: '2023-01-22', precio: 53 },
+            { fecha: '2023-01-29', precio: 57 },
+            { fecha: '2023-02-05', precio: 60 },
+            { fecha: '2023-02-12', precio: 58 },
+        ],
+        'Producto W': [
+                { fecha: '2023-01-01', precio: 100 },
+                { fecha: '2023-01-08', precio: 105 },
+                { fecha: '2023-01-15', precio: 110 },
+                { fecha: '2023-01-22', precio: 108 },
+                { fecha: '2023-01-29', precio: 115 },
+                { fecha: '2023-02-05', precio: 120 },
+                { fecha: '2023-02-12', precio: 118 },
+        ],
+    };
+      createChart(historicoPreciosData);
+    }
 });
 
 
