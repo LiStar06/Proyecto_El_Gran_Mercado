@@ -1,16 +1,24 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Gran Mercado</title>
-    <link rel="stylesheet" href="../Css/styles2.css">
+    <link rel="stylesheet" href="../Css/p_resumen.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <div class="fondo">
         <header class="header-bar">
-            <img src="../Imagenes/logo.png" alt="Logo" class="logo">
-            <h1>Resumen del Negocio</h1>
+            <div class="logo-container">
+                <img src="../Imagenes/logo.png" alt="Logo" class="logo">
+                <h1>Resumen del Negocio</h1>
+            </div>
             <p class="capital">Capital: $<span id="capital">0</span></p>
         </header>
 
@@ -22,6 +30,7 @@
                 <div class="seccion izquierda">
                     <h2>Productos</h2>
                     <select id="masVendidosSelect">
+                        <option value="" disabled selected>Seleccione una opción</option>
                         <option value="masVendidos">Más vendidos</option>
                         <option value="menosVendidos">Menos vendidos</option>
                     </select>
@@ -35,11 +44,6 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><—</td>
-                                <td>—</td>
-                                <td>—</td>
-                            </tr>
-                            <tr>
                                 <td>—</td>
                                 <td>—</td>
                                 <td>—</td>
@@ -48,7 +52,11 @@
                                 <td>—</td>
                                 <td>—</td>
                                 <td>—</td>
-                                
+                            </tr>
+                            <tr>
+                                <td>—</td>
+                                <td>—</td>
+                                <td>—</td>
                             </tr>
                         </tbody>
                     </table>
@@ -67,23 +75,22 @@
                         <label for="ganancias">Ganancias</label>
                         <input type="number" id="ganancias" class="resumen-input" placeholder="Ganancias" readonly>
                     </div>
+                    
                 </div>
             </section>
-            <div id="historico-precios-container">
-                <canvas id="historico-precios" width="400" height="200"></canvas>
-            </div>
+            
+
         </main>
 
         <nav class="botones">
-            <button class="nav-btn" onclick="mostrarDetalles()">
-                <img src="../Imagenes/detalle-icon.png" alt="Detalles" class="btn-icon"> Detalles
-            </button>
-            <button class="nav-btn" onclick="location.href='Index.php'">
-                <img src="../Imagenes/menu-icon.png" alt="Menú" class="btn-icon"> Menú Principal
-            </button>
+            <a href="EGM-002.php" class="menu-button">
+                <i class="fas fa-play"></i>  Menú Principal
+            </a>
+            <a href="p_resumen_historico.php" class="menu-button">Histórico de Precios
+                
+            </a>
         </nav>
     </div>
-
-    <script src="../javascript/script.js"></script>  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../Javascript/p_resumen.js"></script>
 </body>
 </html>
