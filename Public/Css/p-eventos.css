@@ -401,6 +401,16 @@
             width: 80%;
             max-width: 500px;
         }
+       .container image{
+        width: 50%;
+        height: 50%;
+        object-fit: cover;
+    }
+
+
+
+       
+
         .logo {
             width: 75px;
             margin-bottom: 10px;
