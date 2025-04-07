@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Gran Mercado</title>
-    <link rel="stylesheet" href="../Css/styles2.css"> <!-- Enlace a hoja de estilos -->
+    <link rel="stylesheet" href="../Css/estilo_venta_compra.css"> <!-- Enlace a hoja de estilos -->
 </head>
 
 <body>
