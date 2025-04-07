@@ -63,7 +63,7 @@
             <button class="nav-btn" onclick="mostrarDetalles()">
                 <img src="../Imagenes/detalle-icon.png" alt="Detalles" class="btn-icon"> Detalles
             </button>
-            <button class="nav-btn" onclick="window.location.href='Index.php'">
+            <button class="nav-btn" onclick="window.location.href='EGM-002.php'">
                 <img src="../Imagenes/menu-icon.png" alt="Menú" class="btn-icon"> Menú Principal
             </button>
         </footer>
