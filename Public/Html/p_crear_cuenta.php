@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imagen Completa</title>
+    <title>Registro</title>
     <link rel="stylesheet" href="../Css/estilos_crear_cuenta.css"> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
     <div class="fondo">
@@ -12,8 +14,8 @@
             <img id = "Logo" src="../Imagenes/logo.png" alt="Logo">
             <h1 id="Titulo">Bienvenido al menú de Registro</h1>
 
-            <form action="" method="POST">
-                <label for="nombre">Nombre<br></label>
+            <form  id="registroForm" action="" method="POST">
+                <label for="nombre_del_jugador">Nombre<br></label>
                 <input type="text" id="nombre_del_jugador" name="nombre" required>
                 <br><br>
                 <label for="usuario">Correo electronico <br></label>
@@ -27,5 +29,6 @@
             
         </section>
     </div>
+    <script src="../Javascript/crear_registro.js"></script>
 </body>
 </html>
