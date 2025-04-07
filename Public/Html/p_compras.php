@@ -68,6 +68,6 @@
             </button>
         </footer>
     </div>
-    <script src="../Javascript/script.js"></script>
+    <script src="../Javascript/compras.js"></script>
 </body>
 </html>
