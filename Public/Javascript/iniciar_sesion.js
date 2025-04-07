@@ -16,7 +16,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
     const formData = new FormData(this);
 
-    fetch('http://localhost/Proyecto_El_Gran_Mercado/Config/procesar_login.php', {
+    fetch('../../Config/procesar_login.php', {
         method: 'POST',
         body: formData
     })
