@@ -49,7 +49,7 @@
             </button>
         </footer>
     </div>
-    <script src="script.js"></script>
+    <script src="/Javascript/script.js"></script>
 </body>
 
 </html>
