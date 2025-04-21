@@ -118,26 +118,25 @@ function mostrarDetallesProducto(productoId) {
     const producto = productos.find(p => p.id === productoId);
     if (producto) {
         detallesProductoContainer.innerHTML = `
-            <div class="flex flex-col md:flex-row gap-8">
-                <div class="md:w-1/2">
-                    <img src="${producto.imagen}" alt="${producto.nombre}" class="rounded-md w-full">
-                </div>
-                <div class="md:w-1/2">
-                    <h3 class="text-3xl font-bold text-gray-800 mb-4">${producto.nombre}</h3>
-                    <p class="text-gray-600 text-lg mb-4">${producto.descripcion}</p>
-                    <p class="text-2xl font-semibold text-green-600 mb-4">Precio: ${formatMoney(producto.precio)}</p>
-                    <p class="${producto.disponible ? 'text-green-500' : 'text-red-500'} font-medium mb-4">
-                        Disponibilidad: ${producto.disponible ? 'Disponible' : 'Agotado'}
-                    </p>
-                    <button class="btn-agregar-carrito" onclick="agregarAlCarrito(${producto.id})" ${producto.disponible ? '' : 'disabled'}>
-                        Agregar al Carrito
-                    </button>
-                </div>
-            </div>
-        `;
+    <div class="flex flex-col md:flex-row gap-8">
+        <div class="md:w-1/2">
+            <img src="${producto.imagen}" alt="${producto.nombre}" class="rounded-md w-full product-details-image">
+        </div>
+        </div>
+        <div class="md:w-1/2">
+            <h3 class="text-3xl font-bold text-gray-800 mb-4">${producto.nombre}</h3>
+            <p class="text-gray-600 text-lg mb-4">${producto.descripcion}</p>
+            <p class="text-2xl font-semibold text-green-600 mb-4">Precio: ${formatMoney(producto.precio)}</p>
+            <p class="${producto.disponible ? 'text-green-500' : 'text-red-500'} font-medium mb-4">
+                Disponibilidad: ${producto.disponible ? 'Disponible' : 'Agotado'}
+            </p>
+            <button class="btn-agregar-carrito" onclick="agregarAlCarrito(${producto.id})" ${producto.disponible ? '' : 'disabled'}>
+                Agregar al Carrito
+            </button>
+        </div>
+    </div>
+`;
         detallesProductoContainer.classList.add('show');
-        // Hacer scroll hasta la sección de detalles
-        detallesProductoContainer.scrollIntoView({ behavior: 'smooth' });
     }
 }
 
