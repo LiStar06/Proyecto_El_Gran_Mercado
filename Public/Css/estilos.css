@@ -44,6 +44,34 @@
     font-size: 26px;
     /* Específico para el h1 del menú principal */
 }
+/*-------------------------------------*/
+.crear-negocio select {
+    width: 100%; /* Para que ocupen el ancho del contenedor */
+    padding: 15px; /* Aumenta el relleno vertical y horizontal */
+    font-size: 18px; /* Aumenta el tamaño de la fuente */
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 5px; /* O el radio que prefieras */
+    appearance: none; /* Para remover estilos por defecto del navegador y poder aplicar los nuestros */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>'); /* Añade un icono de flecha para el desplegable */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 1em;
+    cursor: pointer;
+    margin-bottom: 20px; /* Para tener un espacio similar al de los inputs */
+    color: #333; /* Color del texto dentro del select */
+}
+
+.crear-negocio select:focus {
+    outline: none; /* Remueve el outline por defecto al enfocar */
+    border-color: #007bff; /* Cambia el color del borde al enfocar */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Añade una sombra suave al enfocar */
+}
+
+.crear-negocio option {
+    padding: 10px; /* Espacio dentro de cada opción del select */
+    font-size: 16px; /* Tamaño de la fuente para las opciones */
+}
 
 /* Texto del usuario */
 .user-info p {
@@ -83,6 +111,7 @@
     transform: scale(1.05);
     background: linear-gradient(to right, #bb1717, #2010b1);
 }
+
 
 /* Estilos específicos para las opciones de "Continuar" */
 .opcion {
@@ -175,7 +204,6 @@
 /* Estilos para los botones de crearNegocio */
 .menu-button {
     padding: 12px 25px;
-    /* Sobreescribe el padding común */
 }
 
 /*----------------------------------------*/
