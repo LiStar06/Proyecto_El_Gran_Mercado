@@ -1,0 +1,289 @@
+body{
+
+    background-image: url('../Imagenes/fondo.png');
+
+    #SvgListaDeProducto {
+        position: absolute;
+        top: 250px;
+        left: 225px;
+        fill: #344b48;
+    }
+
+    #administracion{
+        background-color:#002071;
+        background-repeat: no-repeat;
+        background-position: center; 
+        position:absolute;
+        top: 50px;
+        left: 125px;
+        padding-left: 15px; 
+        padding-right: 575px;
+        padding-top: 10px;
+        padding-bottom: 25px;
+        border-radius: 35px 35px;
+        font-size: 50px;
+      }
+}
+    
+body{
+#cliente{
+    color: white;
+    position:absolute;   
+    font-size: 30px;
+    top: 300px;
+    left: 230px;
+    border-radius: 35px 35px;
+
+    }
+
+    #administracion{
+        background-color:#002071;
+        background-repeat: no-repeat;
+        background-position: center; 
+        position:absolute;
+        top: 50px;
+        left: 125px;
+        padding-left: 15px; 
+        padding-right: 575px;
+        padding-top: 10px;
+        padding-bottom: 25px;
+        border-radius: 35px 35px;
+        font-size: 50px;
+
+       
+
+}
+#capital{
+    color: #ff914d;  
+    position:absolute;
+    top: 90px;
+    left: 900px;
+    border-radius: 35px 35px;
+}
+
+#opciones{
+    position:absolute;
+    color: white;
+    font-size: 40px;
+    border-radius: 35px 35px;
+
+
+}
+#pedido{
+    position:absolute;
+    color: white;
+    font-size: 40px;
+    top: 225px;
+    left: 240px;
+
+
+}
+#select{
+
+    position:absolute;
+    color: white;
+    font-size: 25px;
+    top: 352px;
+    left: 230px;
+    border-radius: 35px 35px;
+   width: 200px;
+   background-color: #272e32;
+}
+
+#disponible{
+    color: white;
+    position:absolute;   
+    font-size: 30px;
+    top: 300px;
+    left: 525px;
+    border-radius: 35px 35px;
+
+
+
+}
+
+#inputDisponible{
+
+    color: white;
+    position:absolute;   
+    font-size: 25px;
+    top:  352px;
+    left: 525px;
+    border-radius: 35px 35px;
+    background-color: #272e32;
+    width: 100px;
+
+}
+
+
+
+#producto{
+    
+        color: white;
+        position:absolute;   
+        font-size: 30px;
+        top: 400px;
+        left: 230px;
+        border-radius: 35px 35px;
+    
+        }
+        
+ #productos{ 
+    position:absolute;
+    color: white;
+    font-size: 25px;
+    top: 452px;
+    left: 230px;
+    border-radius: 35px 35px;
+   width: 200px;
+   background-color: #272e32;
+}
+       
+
+#cantidad{
+    color: white;
+        position:absolute;   
+        font-size: 30px;
+        top: 490px;
+        left: 230px;
+        border-radius: 35px 35px;
+    
+}
+   #cantidadImput{
+
+    color: white;
+    position:absolute;   
+    font-size: 25px;
+    top: 552px;
+    left: 230px;
+    border-radius: 35px 35px;
+    background-color: #272e32;
+    width: 150px;
+
+
+   }
+
+#vender{
+    color: white;
+    position:absolute;   
+    font-size: 30px;
+    top: 400px;
+    left: 525px;
+    border-radius: 35px 35px;
+
+
+}
+#inputVender{
+    position:absolute;
+    color: white;
+    font-size: 25px;
+    top: 452px;
+    left: 525px;
+    border-radius: 35px 35px;
+   width: 100px;
+   background-color: #272e32;
+}
+
+#monto{
+    color: white;
+    position:absolute;   
+    font-size: 30px;
+    top: 300px;
+    left: 775px;
+    border-radius: 35px 35px;
+
+
+
+
+}
+
+#inputMonto{
+
+    color: white;
+    position:absolute;   
+    font-size: 25px;
+    top: 352px;
+    left: 775px;
+    border-radius: 35px 35px;
+    background-color: #272e32;
+    width: 150px;
+    
+}
+#boton_vender{
+    position: absolute;
+    top: 600px;  
+    left: 650px;
+     height: 70px;
+     width: 190px;
+     margin: 10px auto;
+     padding: 12px 20px;
+     text-align: center;
+     font-size: 20px;
+     font-weight: bold;
+     color: white;
+     text-decoration: none;
+     border-radius: 20px;
+     border: none;
+     background: linear-gradient(to right, #7b1fa2, #ff9800);
+     cursor: pointer;
+     transition: 0.3s;
+}
+#boton_vender:hover{
+    transform: scale(1.05);
+    background: linear-gradient(to right, #bb1717, #2010b1);
+}
+#detalles{
+
+    position: absolute;
+    top: 800px;  
+    left: 350px;
+     height: 50px;
+     width: 175px;
+     margin: 10px auto;
+     padding: 12px 20px;
+     text-align: center;
+     font-size: 20px;
+     font-weight: bold;
+     color: white;
+     text-decoration: none;
+     border-radius: 20px;
+     border: none;
+     background: linear-gradient(to right, #7b1fa2, #ff9800);
+     cursor: pointer;
+     transition: 0.3s;
+}
+
+#detalles:hover{
+    transform: scale(1.05);
+    background: linear-gradient(to right, #bb1717, #2010b1);
+}
+#menuPrincipal{
+
+    position: absolute;
+    top: 800px;  
+    left: 650px;
+     height: 50px;
+     width: 175px;
+     margin: 10px auto;
+     padding: 12px 20px;
+     text-align: center;
+     font-size: 16px;
+     font-weight: bold;
+     color: white;
+     text-decoration: none;
+     border-radius: 20px;
+     border: none;
+     background: linear-gradient(to right, #7b1fa2, #ff9800);
+     cursor: pointer;
+     transition: 0.3s;
+}
+#menuPrincipal:hover{
+    transform: scale(1.05);
+    background: linear-gradient(to right, #bb1717, #2010b1);
+}
+}
+
+
+
+
+

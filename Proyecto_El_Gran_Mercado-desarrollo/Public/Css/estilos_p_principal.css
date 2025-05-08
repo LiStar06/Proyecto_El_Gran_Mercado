@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+.fondo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('../Imagenes/fondo.png');
+    background-size: cover;
+    background-position: center;
+    
+}
+.barra_de_botones{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 50px;  
+    background-color: blue;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(53, 51, 205, 1) 77%);
+
+}
+#Logo{
+    height: 75%;
+    width: 40px;
+}
+#Nombre_del_juego{
+    color: white;
+    margin-left: 8px;
+}
+#Jugar{
+    margin-left: 63%;
+    margin-right: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    height: 60%;
+    width: 100px;
+    font-size: medium;
+    border-radius: 10px;
+    border-color: #ff914d;
+    background-color: #ff914d;
+    cursor: pointer;
+    
+}
+#Jugar:hover{
+    background-color: #d7552a;
+}
+#Registrarse{
+    height: 60%;
+    width: 100px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: medium;
+    border-radius: 10px;
+    border-color: #1df48c;
+    background-color: #1df48c;
+    cursor: pointer;
+}
+#Registrarse:hover {
+    background-color: #13ca13;
+}
+#Caja_de_contenido{
+    height: 60%;
+    width: 50%;
+    justify-content: center;
+    text-align: center;
+    background-color: blue;
+    border-radius: 20px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(53, 51, 205, 1) 77%);
+}
+#Titulo{
+    margin-top: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: xx-large;
+    color: #ff914d;
+
+}
+#Texto_de_bienvenida{
+    margin: 20px 7% 7%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: white;
+    font-size: larger;
+}
