@@ -1,7 +1,6 @@
 <?php
 header('Content-Type: application/json');
-
-include 'database.php'; // Asegúrate de que la conexión a la base de datos esté incluida
+include 'database.php'; // Conexión a la base de datos
 
 // Recibir los datos del formulario
 $email = trim($_POST['usuario']);
@@ -14,7 +13,7 @@ if (empty($email) || empty($password)) {
 }
 
 // Consultar la base de datos para encontrar al usuario
-$sql = "SELECT * FROM usuarios u JOIN credenciales c ON u.id_usuario = c.id_usuario WHERE u.email = ?";
+$sql = "SELECT * FROM jugadores WHERE correo_electronico = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $email);
 $stmt->execute();
@@ -25,20 +24,21 @@ if ($result->num_rows > 0) {
     $user = $result->fetch_assoc();
 
     // Verificar la contraseña
-    if (password_verify($password, $user['password_hash'])) {
-        // Iniciar sesión (puedes almacenar el ID de usuario en una sesión o cookie)
+    if (password_verify($password, $user['contrasena_hash'])) {
+        // Iniciar sesión
         session_start();
-        $_SESSION['user_id'] = $user['id_usuario'];
-        $_SESSION['username'] = $user['nombre']; // Puedes agregar más datos si los necesitas
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['nombre_usuario'] = $user['nombre_usuario'];
 
         echo json_encode(['success' => true, 'message' => '¡Inicio de sesión exitoso!']);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Contraseña incorrecta.']);
+        echo json_encode(['success' => false, 'message' => 'Usuario o contraseña incorrecta.']);
     }
 } else {
-    echo json_encode(['success' => false, 'message' => 'El correo electrónico no está registrado.']);
+    echo json_encode(['success' => false, 'message' => 'Usuario o contraseña incorrecta.']);
 }
 
+// Cerrar conexiones
 $stmt->close();
 $conn->close();
 ?>

@@ -2,7 +2,7 @@
 $servername = "localhost"; 
 $username = "root"; 
 $password = ""; 
-$database = "el_gran_mercado"; 
+$database = "gran_mercado"; 
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $database);

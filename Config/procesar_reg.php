@@ -19,7 +19,7 @@ if (strlen($password) < 8) {
 }
 
 // Verificar si el correo ya existe
-$sql_verificar = "SELECT * FROM usuarios WHERE email = ?";
+$sql_verificar = "SELECT * FROM jugadores WHERE correo_electronico = ?";
 $stmt_verificar = $conn->prepare($sql_verificar);
 $stmt_verificar->bind_param("s", $email);
 $stmt_verificar->execute();
@@ -30,40 +30,30 @@ if ($result_verificar->num_rows > 0) {
     exit;
 }
 
-// Encriptar la contraseña
+// Hashear la contraseña
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-// Iniciar transacción
-$conn->begin_transaction();
+// Valores por defecto
+$nivel = 1;
+$puntos_experiencia = 0;
+$fecha_creacion = date('Y-m-d H:i:s');
 
-try {
-    // Insertar en 'usuarios'
-    $sql_usuarios = "INSERT INTO usuarios (nombre, email) VALUES (?, ?)";
-    $stmt_usuarios = $conn->prepare($sql_usuarios);
-    $stmt_usuarios->bind_param("ss", $nombre, $email);
-    $stmt_usuarios->execute();
+// Insertar en la tabla 'usuarios'
+$sql_insert = "INSERT INTO jugadores (nombre_usuario, correo_electronico, contrasena_hash, nivel, puntos_experiencia, fecha_creacion)
+               VALUES (?, ?, ?, ?, ?, ?)";
+$stmt_insert = $conn->prepare($sql_insert);
+$stmt_insert->bind_param("sssiss", $nombre, $email, $hashed_password, $nivel, $puntos_experiencia, $fecha_creacion);
 
-    $id_usuario = $stmt_usuarios->insert_id;
-
-    // Insertar en 'credenciales'
-    $sql_credenciales = "INSERT INTO credenciales (id_usuario, username, password_hash) VALUES (?, ?, ?)";
-    $stmt_credenciales = $conn->prepare($sql_credenciales);
-    $stmt_credenciales->bind_param("iss", $id_usuario, $email, $hashed_password); // username será el email por ahora
-    $stmt_credenciales->execute();
-
-    // Confirmar transacción
-    $conn->commit();
-
+// Ejecutar inserción
+if ($stmt_insert->execute()) {
     echo json_encode(['success' => true, 'message' => 'Registro completado con éxito.']);
-
-} catch (Exception $e) {
-    $conn->rollback();
-    echo json_encode(['success' => false, 'message' => 'Error al registrar el usuario: ' . $e->getMessage()]);
+} else {
+    echo json_encode(['success' => false, 'message' => 'Error al registrar el usuario.']);
 }
 
 // Cerrar conexiones
 $stmt_verificar->close();
-$stmt_usuarios->close();
-$stmt_credenciales->close();
+$stmt_insert->close();
 $conn->close();
 ?>
+

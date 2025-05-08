@@ -3,7 +3,7 @@ document.getElementById('registroForm').addEventListener('submit', function(even
 
     const formData = new FormData(this);
 
-    fetch('http://localhost/Proyecto_El_Gran_Mercado/Config/procesar_reg.php', {
+    fetch('/Proyecto_El_Gran_Mercado/Config/procesar_reg.php', {
         method: 'POST',
         body: formData
     })
