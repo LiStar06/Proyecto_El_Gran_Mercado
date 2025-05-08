@@ -18,20 +18,16 @@
                     <input type="text" id="nombre" name="nombre" placeholder="Ej: Mi Tienda" required>
                 </div>
                 <div class="form-group">
-                    <label for="tipo">Tipo de negocio:</label>
-                    <div class="input-group">
-                        <input type="text" id="tipo" name="tipo" placeholder="Ej: Supermercado" required>
-                        <span class="input-group-append">
-                            <i class="fas fa-search"></i>
-                        </span>
-                    </div>
+                    <label for="tipoNegocio">Tipo de negocio:</label>
+                    <select id="tipoNegocio" name="tipoNegocio" required>
+                        <option value="" disabled selected>Selecciona un tipo de negocio</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="capital">Capital inicial:</label>
-                    <div class="input-group">
-                        <span class="input-group-prepend">$</span>
-                        <input type="number" id="capital" name="capital" placeholder="Ej: 1000" required>
-                    </div>
+                    <label for="capitalInicial">Capital inicial:</label>
+                    <select id="capitalInicial" name="capitalInicial" required>
+                        <option value="" disabled selected>Selecciona un capital inicial</option>
+                    </select>
                 </div>
                 <div class="botones">
                     <a href="EGM-002.php" class="menu-button">Menú Principal</a>
@@ -40,6 +36,6 @@
             </form>
         </div>
     </div>
-    <script src="script-crear-negocio.js"></script>
+    <script src="../Javascript/crear_negocio.js"></script>
 </body>
 </html>
