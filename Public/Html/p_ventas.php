@@ -72,5 +72,6 @@
         </footer>
     </div>
     <script src="../Javascript/script.js"></script>
+    <script src="../Javascript/ventas.js"></script>
 </body>
 </html>
