@@ -1,14 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Gran Mercado</title>
-    <link rel="stylesheet" href="../Css/estilo_venta_compra.css"> <!-- Enlace a hoja de estilos -->
+    <link rel="stylesheet" href="../Css/estilo_general.css">
 </head>
 
-<body>
-    <div class="fondo">
+<body class="fondo">
+  <div class="transicion-pagina">
+        <img src="../Imagenes/logo.png" alt="Logo" class="transicion-logo">
+    </div>
+    <div>
+        <div class="fondo">
+        <!-- Botón de sonido-->
+        <div class="sound-control">
+            <button class="sound-icon" id="sound-icon">
+                <img src="../Imagenes/icono-sonido.png" alt="Sonido" class="sound-icon-img">
+            </button>
+            <div class="sound-menu" id="sound-menu">
+                <button class="action-btn" id="btn-musica">
+                    <img src="../Imagenes/musica-icon.png" alt="Música" class="btn-icon">
+                    <span class="btn-texto">Música On</span>
+                </button>
+                <button class="action-btn" id="btn-efectos">
+                    <img src="../Imagenes/efectos-icon.png" alt="Efectos" class="btn-icon">
+                    <span class="btn-texto">Efectos On</span>
+                </button>
+        
+        </div>
+    </div>
         <!-- Barra superior con logo, título y visualización de capital -->
         <header class="header-bar">
             <img src="../Imagenes/logo.png" alt="Logo" class="logo">
@@ -24,24 +46,24 @@
                 <div class="seccion izquierda">
                     <h2>Pedidos</h2>
                     <label>Cliente</label>
-                    <select id="clienteSelect"> <!-- Dropdown para seleccionar cliente -->
+                    <select id="clienteSelect">
                         <option value="">Selecciona un cliente</option>
                     </select>
                     <label>Productos</label>
-                    <select id="productoSelect"> <!-- Dropdown para seleccionar producto -->
+                    <select id="productoSelect">
                         <option value="">Selecciona un producto</option>
                     </select>
                     <label>Cantidad</label>
-                    <input type="number" id="cantidadPedida" placeholder="Cantidad pedida" min="0" readonly> <!-- Cantidad solicitada-->
+                    <input type="number" id="cantidadPedida" placeholder="Cantidad pedida" min="0" readonly>
                 </div>
 
                 <!-- Sección derecha: Opciones de venta -->
                 <div class="seccion derecha ventas">
                     <label>Disponible</label>
-                    <input type="number" id="cantidadDisponible" placeholder="Disponible" min="0" readonly> <!-- Stock disponible (solo lectura) -->
+                    <input type="number" id="cantidadDisponible" placeholder="Disponible" min="0" readonly>
                     <label>Cantidad a vender</label>
                     <div class="contenedor-entrada-numerica">
-                        <input type="number" id="cantidadVender" min="0" placeholder="0"> <!-- Input para cantidad a vender -->
+                        <input type="number" id="cantidadVender" min="0" placeholder="0">
                         <div class="number-input-buttons">
                             <!-- Botones para incrementar/decrementar la cantidad -->
                             <button type="button" class="number-input-button increment" onclick="incrementarValor('cantidadVender')"></button>
@@ -63,14 +85,16 @@
 
         <!-- Pie de página con botones de navegación -->
         <footer class="botones">
-            <button class="nav-btn" onclick="mostrarDetalles()">
-                <img src="../Imagenes/detalle-icon.png" alt="Detalles" class="btn-icon"> Detalles
+            <button class="nav-btn" onclick="transicionPagina('p_resumen.php')">
+                <img src="../Imagenes/resumen-icon.png" alt="Detalles" class="btn-icon"> Detalles
             </button>
-            <button class="nav-btn" onclick="location.href='EGM-002.php'">
+            <button class="nav-btn" onclick="transicionPagina('EGM-002.php')">
                 <img src="../Imagenes/menu-icon.png" alt="Menú" class="btn-icon"> Menú
             </button>
         </footer>
-    </div>
-    <script src="../Javascript/script.js"></script>
-</body>
+        </div>
+        <script src="../Javascript/funcionesComunes.js"></script>
+        <script src="../Javascript/ventas.js"></script>
+    </body>
+
 </html>

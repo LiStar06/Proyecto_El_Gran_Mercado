@@ -1,83 +1,353 @@
-* {
-    margin: 0;
-    padding: 0;
+/* Estilos para la página de inicio de sesión */
 
-}
+/* Importar fuentes y definir variables de estilo */
+@import url("https://fonts.googleapis.com/css2?family=MedievalSharp&family=Roboto:wght@400;700&display=swap");
 
-.fondo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-image: url('../Imagenes/fondo.png');
-    background-size: cover;
-    background-position: center;
-
-}
-#Caja_de_contenido {
-    
-    height: 70%;
-    width: 30%;
-    justify-content: center;
-    text-align: center;
-    background-color: blue;
-    border-radius: 20px;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(53, 51, 205, 1) 77%);
-}
-#Logo{
-    margin-top: 20px;
-    height: 15%;
-    width: 18%;
-}
-#Titulo {
-    margin-top: 20px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 25px;
-    color: #ff914d;
-
-}
-form{
-    
-    margin-top: 5%;
-    /* width: 80%; */
-}
-label{
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color: white;
-    font-size: x-large;
-    text-align: left;
-    display: block;
-    margin-left: 13%;
-    
- 
-}
-input{
-    background-color: white;
-    height: 30px;
-    width: 80%;
-    border-radius: 20px;
-    padding-left: 10px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: large;
-
+:root {
+  --color-primario: #002071; /* Azul oscuro */
+  --color-secundario: #ff914d; /* Naranja */
+  --color-claro: #ffffff; /* Blanco */
+  --color-exito: #4caf50; /* Verde éxito */
+  --color-error: #f44336; /* Rojo error */
+  --sombra-pequeña: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+  --sombra-media: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra media */
+  --radio-borde-md: 12px; /* Radio de borde */
+  --transicion-rapida: 0.2s ease; /* Transición rápida */
+  --transicion-media: 0.3s ease; /* Transición media */
 }
 
-#Iniciar_sesion{
-    width: 30%;
-    height: 40px;
-    margin-top: 20px;
-    background-color: #7ed957;
-    color: white;
-    border-radius: 20px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: medium;
-    border-color: #7ed957;
-    cursor: pointer;
+/* Contenedor principal: Centra la tarjeta en la pantalla */
+.contenedor-iniciar-sesion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
 }
-#Iniciar_sesion:hover{
-    background-color: #34b450;
+
+/* Tarjeta de inicio de sesión: Estilo con gradiente y animación de entrada */
+.tarjeta-iniciar-sesion {
+  width: 520px;
+  max-width: 95%;
+  background: linear-gradient(
+    135deg,
+    rgba(25, 35, 60, 0.98),
+    rgba(15, 25, 45, 0.98)
+  );
+  border-radius: 14px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px rgba(255, 215, 0, 0.4);
+  overflow: hidden;
+  position: relative;
+  animation: aparecer 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  border: 1px solid rgba(255, 204, 0, 0.2);
+  margin: 1rem;
 }
-h4,a{
-    margin-top: 20px;
-    color: white;
+
+/* Barra decorativa superior: Animación de brillo */
+.tarjeta-iniciar-sesion::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ff914d 0%, #ffcc00 50%, #ff914d 100%);
+  background-size: 200% auto;
+  animation: brilloMovil 3s linear infinite;
+}
+
+/* Encabezado: Logo y título con estilo temático */
+.encabezado-tarjeta {
+  padding: 2rem 2rem 1.5rem;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 20, 50, 0.85) 0%,
+    rgba(0, 10, 30, 0.95) 100%
+  );
+  border-bottom: 1px solid rgba(255, 145, 77, 0.25);
+}
+
+/* Logo: Animación de flotación */
+.logo-tarjeta {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
+  animation: flotar 3s ease-in-out infinite;
+}
+
+/* Título: Estilo con fuente MedievalSharp */
+.encabezado-tarjeta h1 {
+  font-family: "MedievalSharp", cursive;
+  color: var(--color-secundario);
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(255, 145, 77, 0.6);
+}
+
+/* Subtítulo: Texto secundario */
+.subtitulo {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+
+/* Formulario: Contiene los campos de inicio de sesión */
+.formulario-iniciar-sesion {
+  padding: 1.5rem 2rem 2rem;
+}
+
+/* Grupo de formulario: Agrupa etiqueta e input */
+.grupo-formulario {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+/* Contenedor de etiqueta: Alinea texto */
+.etiqueta-contenedor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  
+}
+
+/* Texto de etiqueta: Estilo claro */
+.texto-etiqueta {
+  color: rgba(255, 255, 255, 0.9);
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Contenedor de input: Soporta íconos y validación */
+.input-con-icono {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Ícono de campo: Decoración visual */
+.icono-campo {
+  position: absolute;
+  left: 1rem;
+  width: 20px;
+  height: 20px;
+  filter: drop-shadow(0 0 4px rgba(255, 204, 0, 0.7));
+  z-index: 2;
+}
+
+/* Input: Estilo con padding para ícono */
+.input-con-icono input {
+  width: 100%;
+  padding: 0.9rem 1rem 0.9rem 3rem;
+  background: rgba(15, 25, 45, 0.8);
+  border: 1px solid rgba(255, 204, 0, 0.3);
+  border-radius: 8px;
+  color: var(--color-claro);
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+/* Input enfocado: Resalta borde y fondo */
+.input-con-icono input:focus {
+  border-color: var(--color-secundario);
+  box-shadow: 0 0 0 2px rgba(255, 204, 0, 0.15),
+    inset 0 1px 3px rgba(0, 0, 0, 0.3);
+  outline: none;
+  background: rgba(25, 35, 65, 0.8);
+}
+
+/* Efecto subrayado: Animación al enfocar */
+.efecto-subrayado {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ffcc00, #ff914d);
+  transition: width 0.4s ease;
+  z-index: 2;
+}
+
+.input-con-icono input:focus ~ .efecto-subrayado {
+  width: 100%;
+}
+
+/* Ícono de validación: Indicador de éxito/error */
+.icono-validacion {
+  position: absolute;
+  right: 1rem;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.input-con-icono.valid .icono-validacion {
+  background-image: url("../Imagenes/icons/check-icon.png");
+  opacity: 1;
+}
+
+.input-con-icono.invalid .icono-validacion {
+  background-image: url("../Imagenes/icons/error-icon.png");
+  opacity: 1;
+}
+
+/* Mensaje de error: Feedback para validación */
+.mensaje-error {
+  color: #ff6666;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  height: 1rem;
+  font-family: "Roboto", sans-serif;
+  padding-left: 0.5rem;
+  transition: opacity 0.3s ease;
+}
+
+.grupo-formulario.error .mensaje-error {
+  opacity: 1;
+}
+
+/* Botón mostrar/ocultar contraseña: Evita superposición */
+.btn-ver-contrasena {
+  position: absolute;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.btn-ver-contrasena:hover {
+  opacity: 1;
+}
+
+.btn-ver-contrasena img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Contenedor de botones: Espaciado para acciones */
+.contenedor-botones {
+  display: flex;
+  margin: auto;
+  width: fit-content;
+  margin: auto;
+  position: relative;
+  margin-top: 1rem;
+  gap: 30px;
+}
+
+/* Botones: Estilo para principal y secundario */
+.btn-secundario,
+.btn-principal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: none;
+}
+
+/* Pie del formulario: Enlace a registro */
+.pie-formulario {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Enlace a registro: Estilo interactivo */
+.enlace-registro {
+  color: var(--color-secundario);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.enlace-registro:hover {
+  color: #ffcc00;
+  text-decoration: underline;
+}
+
+/* Animaciones */
+
+/* Aparecer: Animación de entrada para la tarjeta */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Flotar: Movimiento suave para el logo */
+@keyframes flotar {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(5deg);
+  }
+}
+
+/* Brillo móvil: Animación para la barra superior */
+@keyframes brilloMovil {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+/* Responsividad: Ajustes para pantallas pequeñas */
+@media (max-width: 600px) {
+  .tarjeta-iniciar-sesion {
+    width: 100%;
+    margin: 0.5rem;
+  }
+
+  .contenedor-botones {
+    flex-direction: column;
+  }
+
+  .input-con-icono input {
+    padding: 0.8rem 0.8rem 0.8rem 2.8rem;
+  }
 }
