@@ -1,4 +1,5 @@
 <?php
+session_start();
 header('Content-Type: application/json');
 include 'database.php';
 
@@ -50,6 +51,8 @@ if ($stmt_insert->execute()) {
 } else {
     echo json_encode(['success' => false, 'message' => 'Error al registrar el usuario.']);
 }
+
+$_SESSION['user_id'] = $conn->insert_id; // Guardar el ID del nuevo jugador en la sesión
 
 // Cerrar conexiones
 $stmt_verificar->close();

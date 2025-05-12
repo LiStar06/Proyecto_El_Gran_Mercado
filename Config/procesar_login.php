@@ -1,4 +1,5 @@
 <?php
+session_start();
 header('Content-Type: application/json');
 include 'database.php'; // Conexión a la base de datos
 
@@ -26,7 +27,7 @@ if ($result->num_rows > 0) {
     // Verificar la contraseña
     if (password_verify($password, $user['contrasena_hash'])) {
         // Iniciar sesión
-        session_start();
+        
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['nombre_usuario'] = $user['nombre_usuario'];
 

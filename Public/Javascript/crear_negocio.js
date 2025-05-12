@@ -2,12 +2,13 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     const tipoNegocioSelect = document.getElementById('tipoNegocio');
-    const capitalInicialSelect = document.getElementById('capitalInicial');
+    const capitalInicialDiv = document.getElementById('capitalInicial');
     const formulario = document.getElementById('crear-negocio-form');
+
+    let tiposNegocioData = []; // Aquí guardaremos los tipos con su saldo
 
     // Función para cargar tipos de negocio
     function cargarTiposNegocio() {
-        // Limpiar opciones previas y añadir opción de carga
         tipoNegocioSelect.innerHTML = '<option value="" disabled selected>Cargando tipos...</option>';
         tipoNegocioSelect.disabled = true;
 
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(data => {
+                tiposNegocioData = data; // Guardamos los tipos para usarlos luego
                 tipoNegocioSelect.innerHTML = '<option value="" disabled selected>Selecciona un tipo de negocio</option>';
                 tipoNegocioSelect.disabled = false;
 
@@ -42,42 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // Función para cargar capitales iniciales
-    function cargarCapitales() {
-        // Limpiar opciones previas y añadir opción de carga
-        capitalInicialSelect.innerHTML = '<option value="" disabled selected>Cargando capitales...</option>';
-        capitalInicialSelect.disabled = true;
-
-        fetch('../../Config/obtenerCapitales.php')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error al cargar capitales');
-                }
-                return response.json();
-            })
-            .then(data => {
-                capitalInicialSelect.innerHTML = '<option value="" disabled selected>Selecciona un capital inicial</option>';
-                capitalInicialSelect.disabled = false;
-
-                if (data.length === 0) {
-                    const option = document.createElement('option');
-                    option.textContent = 'No hay capitales iniciales disponibles';
-                    capitalInicialSelect.appendChild(option);
-                    capitalInicialSelect.disabled = true;
-                } else {
-                    data.forEach(capital => {
-                        const option = document.createElement('option');
-                        option.value = capital.id;
-                        option.textContent = '$' + capital.monto;
-                        capitalInicialSelect.appendChild(option);
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error en capitales:', error);
-                capitalInicialSelect.innerHTML = '<option value="" disabled selected>Error al cargar capitales</option>';
-            });
-    }
+    // Mostrar capital inicial cuando se seleccione un tipo
+    tipoNegocioSelect.addEventListener('change', () => {
+        const tipoSeleccionadoId = tipoNegocioSelect.value;
+        const tipo = tiposNegocioData.find(t => t.id === tipoSeleccionadoId);
+        if (tipo) {
+            capitalInicialDiv.textContent = `${Number(tipo.saldo_inicial).toLocaleString()}`;
+        } else {
+            capitalInicialDiv.textContent = '';
+        }
+    });
 
     // Evento de envío del formulario
     formulario.addEventListener('submit', function(e) {
@@ -85,9 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const nombre = document.getElementById('nombre').value;
         const tipoNegocio = document.getElementById('tipoNegocio').value;
-        const capitalInicial = document.getElementById('capitalInicial').value;
+        const capitalInicial = tiposNegocioData.find(t => t.id === tipoNegocio)?.saldo_inicial || 0;
 
-        fetch('../Config/crearNegocio.php', {
+        fetch('../../Config/crearNegocio.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -98,23 +74,21 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             if (data.mensaje) {
                 console.log('Negocio creado:', data.mensaje);
-                alert('Negocio creado exitosamente!'); // Muestra una alerta de éxito
-                formulario.reset(); // Limpia el formulario
-                // Aquí podrías redirigir a otra página si es necesario
+                alert('Negocio creado exitosamente!');
+                formulario.reset();
+                capitalInicialDiv.textContent = ''; // Limpia el div
             } else if (data.error) {
                 console.error('Error al crear negocio:', data.error);
-                alert('Error al crear el negocio: ' + data.error); // Muestra una alerta de error
+                alert('Error al crear el negocio: ' + data.error);
             }
-            // Puedes añadir lógica adicional aquí según la respuesta del servidor
         })
         .catch(error => {
             console.error('Error al crear negocio:', error);
-            alert('Ocurrió un error al crear el negocio. Por favor, intenta de nuevo.'); // Muestra una alerta de error genérico
+            alert('Ocurrió un error al crear el negocio. Por favor, intenta de nuevo.');
         });
     });
 
-    // Llamar las funciones para llenar los select
+    // Llamar funciones
     cargarTiposNegocio();
-    cargarCapitales();
-
+    // Nota: debes eliminar o definir cargarCapitales si no la usas
 });

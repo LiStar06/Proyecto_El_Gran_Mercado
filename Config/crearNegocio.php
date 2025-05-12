@@ -1,4 +1,5 @@
 <?php
+session_start();
 header('Content-Type: application/json; charset=utf-8');
 include 'database.php';
 
@@ -7,38 +8,48 @@ if (!$conn || $conn->connect_error) {
     exit;
 }
 
+//Verificar si el jugador ha iniciado sesión
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(['error' => 'No has iniciado sesión.']);
+    exit;
+}
+
+$jugador_id = $_SESSION['user_id'];
+
 // Obtener los datos enviados por JavaScript (JSON)
 $data = json_decode(file_get_contents("php://input"), true);
 
-$nombre = trim($data['nombre'] ?? ''); // Sanitización básica (eliminar espacios)
+$nombre = trim($data['nombre'] ?? '');
 $tipoNegocio = $data['tipoNegocio'] ?? '';
-$capitalInicial = $data['capitalInicial'] ?? '';
+$saldo = $data['capitalInicial'] ?? '';
 
-// Validar que no vengan vacíos
-if (empty($nombre) || empty($tipoNegocio) || empty($capitalInicial)) {
+// Validar campos obligatorios
+if (empty($nombre) || empty($tipoNegocio) || empty($saldo)) {
     echo json_encode(['error' => 'Faltan datos obligatorios']);
     exit;
 }
 
-// Validar tipos de datos (opcional)
-if (!is_numeric($tipoNegocio) || !is_numeric($capitalInicial)) {
-    echo json_encode(['error' => 'Los campos Tipo de Negocio y Capital Inicial deben ser números']);
+// Validar tipo de datos
+if (!is_numeric($tipoNegocio) || !is_numeric($saldo)) {
+    echo json_encode(['error' => 'Los campos Tipo de Negocio y Saldo deben ser números']);
     exit;
 }
 
-// Preparar la consulta para insertar el nuevo negocio
-$sql = "INSERT INTO negocios (nombre, tipo_negocio_id, capital_id) VALUES (?, ?, ?)";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("sii", $nombre, $tipoNegocio, $capitalInicial);
+// Fecha actual
+$fecha_creacion = date('Y-m-d H:i:s');
 
-// Ejecutar la consulta y manejar respuesta
+// Preparar consulta SQL con el campo nombre incluido
+$sql = "INSERT INTO negocios (jugador_id, nombre, tipo_negocio_id, saldo, fecha_creacion)
+        VALUES (?, ?, ?, ?, ?)";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("isids", $jugador_id, $nombre, $tipoNegocio, $saldo, $fecha_creacion);
+
 if ($stmt->execute()) {
     echo json_encode(['mensaje' => 'Negocio creado exitosamente']);
 } else {
-    echo json_encode(['error' => 'Error al crear el negocio', 'detalles' => $stmt->error]); // Añadiendo detalles del error para depuración
+    echo json_encode(['error' => 'Error al crear el negocio', 'detalles' => $stmt->error]);
 }
 
-// Cerrar la conexión
 $stmt->close();
 $conn->close();
 ?>

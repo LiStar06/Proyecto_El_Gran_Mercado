@@ -25,9 +25,7 @@
                 </div>
                 <div class="form-group">
                     <label for="capitalInicial">Capital inicial:</label>
-                    <select id="capitalInicial" name="capitalInicial" required>
-                        <option value="" disabled selected>Selecciona un capital inicial</option>
-                    </select>
+                    <div id="capitalInicial" name="capitalInicial"></div>
                 </div>
                 <div class="botones">
                     <a href="EGM-002.php" class="menu-button">Menú Principal</a>

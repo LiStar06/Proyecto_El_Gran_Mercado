@@ -2,12 +2,12 @@
 header('Content-Type: application/json; charset=utf-8');
 include 'database.php';
 
-if (!$conn || $conn->connect_error) {
-    echo json_encode(['error' => 'Error de conexión con la base de datos']);
-    exit;
-}
+// if (!$conn || $conn->connect_error) {
+//     echo json_encode(['error' => 'Error de conexión con la base de datos']);
+//     exit;
+// }
 
-$sql = "SELECT id_negocio_juego AS id, categoria AS nombre FROM negocios_juego GROUP BY categoria";
+$sql = "SELECT id, nombre, saldo_inicial FROM tipos_negocio";
 $result = $conn->query($sql);
 
 if (!$result) {

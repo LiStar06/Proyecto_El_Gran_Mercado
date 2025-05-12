@@ -12,14 +12,14 @@
     <div>
         <div class="menu">
             <div class="user-info">
-                <p>¡Hola usuario!, Bienvenido al juego</p>
+                <p>¡Hola! Bienvenido al juego</p>
              <img src="../Imagenes/logo.png" alt="Icono de usuario" class="logo">
             </div>
             <h1>Menú Principal</h1>
             <a href="crearnegocio.php" class="menu-button"><i class="fas fa-play"></i> Nuevo Negocio</a>
             <a href="partida.php" class="menu-button"><i class="fas fa-arrow-right"></i> Continuar</a>
-            <a href="p_eventos.php" class="menu-button"><i class="fas fa-calendar-check"></i> Eventos</a>
-            <a href="index.php" class="menu-button" aria-label="Salir"><i class="fas fa-sign-out-alt"></i> Salir</a>
+            <a href="p_eventos.php" class="menu-button"><i class="fas fa-calendar-check"></i> Ofertas</a>
+            <a href="/Proyecto_El_Gran_Mercado/Config/salir.php" class="menu-button" aria-label="Salir"><i class="fas fa-sign-out-alt"></i> Salir</a>
         </div>
     </div>
     <script src="script.js"></script>
