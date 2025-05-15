@@ -13,9 +13,9 @@
             <h2>¿Dónde deseas continuar?</h2>
             <img src="../Imagenes/logo.png" alt="Logo del juego" class="logo">
             <div class="opciones">
-                <a href="#" class="opcion">Reanudar partida</a>
-                <a href="#" class="opcion">Juego 2</a>
-                <a href="#" class="opcion">Juego 3</a>
+                <a href="p_administracion.php" class="opcion">Reanudar partida</a>
+                <!-- <a href="#" class="opcion">Juego 2</a>
+                <a href="#" class="opcion">Juego 3</a> -->
             </div>
             <a href="EGM-002.php" class="menu-button">Menú Principal</a>
         </div>

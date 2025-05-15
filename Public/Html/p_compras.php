@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Gran Mercado</title>
     <link rel="stylesheet" href="../Css/estilo_venta_compra.css">
+    
 </head>
 
 <body>
@@ -29,10 +30,10 @@
                     </select>
                     <label>Precio Unitario</label>
                     <input type="number" id="precioUnitario" placeholder="Precio unitario" readonly> 
-                    <label>Disponible</label>
+                    <!-- <label>Disponible</label>
                     <input type="number" id="disponible" placeholder="Disponible" readonly> 
                     <label>Demanda</label>
-                    <input type="number" id="demanda" placeholder="Demanda" readonly>
+                    <input type="number" id="demanda" placeholder="Demanda" readonly> -->
                 </div>
 
                 <!-- Sección derecha: Opciones de compra -->
@@ -69,5 +70,6 @@
         </footer>
     </div>
     <script src="../Javascript/compras.js"></script>
+    <script src="../Javascript/mostrar_prod.js"></script>
 </body>
 </html>

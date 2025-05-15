@@ -31,7 +31,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
                 showConfirmButton: false
             }).then(() => {
             // Redirigir al dashboard u otra página después del login
-            window.location.href = '../Html/partida.php'; // Aquí puedes poner la página a la que debe ir el usuario
+            window.location.href = '../Html/EGM-002.php'; // Aquí puedes poner la página a la que debe ir el usuario
             });
         } else {
             Swal.fire({

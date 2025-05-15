@@ -29,10 +29,10 @@
     </div>
     
     <div class="buttons">
-        <button>Comprar Producto</button>
-        <button>Vender</button>
-        <button>Ajustar Precios</button>
-        <button>Resumen de Negocios</button>
+        <a href="p_compras.php"><button>Comprar</button></a>
+        <a href="p_ventas.php"><button>Vender</button></a>
+        <a href="#"><button>Ajustar Precios</button></a>
+        <a href="EGM-002.php"><button>Menu Principal</button></a>
     </div>
 </body>
 </html>

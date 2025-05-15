@@ -1,4 +1,5 @@
 // Datos iniciales del juego
+/*
 let capital = 1000; // Capital inicial del jugador
 let inventario = [
     { id: 1, nombre: "Manzanas", cantidad: 20, precio: 15, codigo: "P001", demanda: 5 },
@@ -7,8 +8,49 @@ let inventario = [
 ];
 let ventas = []; // Registro de ventas
 let clientes = ["Edwin", "Manuela", "Liyan","Luis","Yamira"];
+*/
 let contenedorMensaje = null; // Contenedor para mensajes emergentes
 let sonidoActivado = true; // Estado del sonido
+
+async function comprarProducto() {
+    const productoSelect = document.getElementById("productoSelect");
+    const productoId = productoSelect.value;
+    const cantidad = parseInt(document.getElementById("cantidadCompra").value) || 0;
+    const precioUnitario = parseFloat(document.getElementById("precioUnitario").value) || 0;
+    const precioTotal = (cantidad * precioUnitario).toFixed(2);
+
+    if (!productoId || cantidad <= 0) {
+        alert("Selecciona un producto y una cantidad válida.");
+        return;
+    }
+
+    try {
+        const res = await fetch('../../Config/comprar.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                producto_id: productoId,
+                cantidad: cantidad,
+                precio_unitario: precioUnitario,
+                precio_total: precioTotal
+            })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            alert("¡Compra realizada con éxito!");
+            obtenerNegocioYProductos(); // refrescar
+            actualizarCapital();
+        } else {
+            alert("Error: " + data.message);
+        }
+    } catch (error) {
+        console.error("Error al realizar la compra:", error);
+        alert("Error en la comunicación con el servidor.");
+    }
+}
+
 
 // Crea el control de sonido en la interfaz
 function crearControlSonido() {
@@ -197,36 +239,57 @@ function mostrarMensaje(texto, tipo = 'exito', duracion = 3000) {
 }
 
 // Actualiza el capital en la interfaz
-function actualizarCapital() {
-    const elementosCapital = document.querySelectorAll('#capital');
-    const nuevoCapital = parseFloat(capital.toFixed(2));
-    
-    elementosCapital.forEach((elemento) => {
-        const capitalAnterior = parseFloat(elemento.getAttribute('data-previous-capital')) || 0;
+async function actualizarCapital() {
+    try {
+        const res = await fetch('../../Config/comprar.php'); // mismo archivo, pero GET
+        const data = await res.json();
 
-        elemento.textContent = nuevoCapital.toFixed(2);
-        
-        elemento.classList.remove('zoom-capital', 'capital-bajo', 'resaltar');
-        void elemento.offsetWidth;
-
-        if (nuevoCapital < 100) {
-            elemento.classList.add('capital-bajo', 'resaltar');
-            reproducirSonido('notificacion');
-            retroalimentacionVibracion([100, 50, 100]);
-        } else if (nuevoCapital > capitalAnterior) {
-            elemento.classList.add('zoom-capital');
-            crearParticulas(elemento, 'ganancia');
-            reproducirSonido('monedas');
-            retroalimentacionVibracion(30);
-        } else if (nuevoCapital < capitalAnterior) {
-            elemento.classList.add('zoom-capital');
-            crearParticulas(elemento, 'perdida');
-            retroalimentacionVibracion(100);
+        if (!data.success || typeof data.capital === 'undefined') {
+            console.error("No se pudo obtener el capital:", data.message);
+            return;
         }
-        
-        elemento.setAttribute('data-previous-capital', nuevoCapital);
-    });
+
+        const elementosCapital = document.querySelectorAll('#capital');
+        const nuevoCapital = parseFloat(data.capital);
+
+        if (isNaN(nuevoCapital)) {
+            console.error("Capital recibido no es un número:", data.capital);
+            return;
+        }
+
+
+        elementosCapital.forEach((elemento) => {
+            const capitalAnterior = parseFloat(elemento.getAttribute('data-previous-capital')) || 0;
+
+            elemento.textContent = nuevoCapital.toFixed(2);
+            
+            elemento.classList.remove('zoom-capital', 'capital-bajo', 'resaltar');
+            void elemento.offsetWidth;
+
+            if (nuevoCapital < 100) {
+                elemento.classList.add('capital-bajo', 'resaltar');
+                reproducirSonido('notificacion');
+                retroalimentacionVibracion([100, 50, 100]);
+            } else if (nuevoCapital > capitalAnterior) {
+                elemento.classList.add('zoom-capital');
+                crearParticulas(elemento, 'ganancia');
+                reproducirSonido('monedas');
+                retroalimentacionVibracion(30);
+            } else if (nuevoCapital < capitalAnterior) {
+                elemento.classList.add('zoom-capital');
+                crearParticulas(elemento, 'perdida');
+                retroalimentacionVibracion(100);
+            }
+
+            elemento.setAttribute('data-previous-capital', nuevoCapital);
+        });
+
+    } catch (error) {
+        console.error("Error al obtener capital:", error);
+    }
 }
+
+
 
 // Calcula el monto de una compra
 function calcularMontoCompra() {
@@ -247,17 +310,20 @@ function calcularMontoCompra() {
 }
 
 // Realiza la compra de un producto
-function comprarProducto() {
+async function comprarProducto() {
     retroalimentacionVibracion();
-    
+
     const selectorProducto = document.getElementById('productoSelect');
     const entradaCantidadCompra = document.getElementById('cantidadCompra');
     const entradaPrecioUnitario = document.getElementById('precioUnitario');
-    const cantidad = parseInt(entradaCantidadCompra.value) || 0;
-    const precio = parseFloat(entradaPrecioUnitario.value) || 0;
-    const monto = cantidad * precio;
 
-    if (!selectorProducto.value) {
+    const productoId = selectorProducto.value;
+    const cantidad = parseInt(entradaCantidadCompra.value) || 0;
+    const precioUnitario = parseFloat(entradaPrecioUnitario.value) || 0;
+    const precioTotal = parseFloat((cantidad * precioUnitario).toFixed(2));
+
+    // Validaciones visuales
+    if (!productoId) {
         selectorProducto.classList.add('sacudir');
         setTimeout(() => selectorProducto.classList.remove('sacudir'), 500);
         mostrarMensaje("¡Selecciona un producto!", "error");
@@ -269,61 +335,54 @@ function comprarProducto() {
         mostrarMensaje("¡Cantidad inválida!", "error");
         return;
     }
-    if (monto > capital) {
-        document.querySelector('.visualizador-capital').classList.add('sacudir');
-        setTimeout(() => document.querySelector('.visualizador-capital').classList.remove('sacudir'), 500);
-        mostrarMensaje("¡Capital insuficiente!", "error");
-        return;
+
+    try {
+        const res = await fetch('../../Config/comprar.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                producto_id: productoId,
+                cantidad: cantidad,
+                precio_unitario: precioUnitario,
+                precio_total: precioTotal
+            })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            mostrarMensaje(`¡Compra exitosa! +${cantidad} unidades`, "exito");
+            reiniciarFormularioCompras();
+            document.querySelector('.contenedor-admin').classList.add('pulso');
+            setTimeout(() => document.querySelector('.contenedor-admin').classList.remove('pulso'), 500);
+
+            await actualizarCapital(); // Sincroniza el capital visual con backend
+            obtenerNegocioYProductos(); // Refresca productos
+        } else {
+            mostrarMensaje("Error: " + data.message, "error");
+        }
+    } catch (error) {
+        console.error("Error al realizar la compra:", error);
+        mostrarMensaje("Error en la comunicación con el servidor.", "error");
     }
-
-    let producto = inventario.find(p => p.nombre === selectorProducto.value);
-    
-    if (producto) {
-        producto.cantidad += cantidad;
-    } else {
-        producto = {
-            id: inventario.length + 1,
-            nombre: selectorProducto.value,
-            cantidad: cantidad,
-            precio: precio,
-            codigo: `P${inventario.length + 1}`,
-            demanda: Math.floor(Math.random() * 10) + 1
-        };
-        inventario.push(producto);
-        
-        const opcion = document.createElement('option');
-        opcion.value = producto.nombre;
-        opcion.textContent = producto.nombre;
-        opcion.dataset.id = producto.id;
-        selectorProducto.appendChild(opcion);
-        selectorProducto.classList.add('resaltar');
-        setTimeout(() => selectorProducto.classList.remove('resaltar'), 1000);
-    }
-
-    capital -= monto;
-    actualizarInterfaz();
-    mostrarMensaje(`¡Compra exitosa! +${cantidad} unidades`, "exito");
-
-    reiniciarFormularioCompras();
-    document.querySelector('.contenedor-admin').classList.add('pulso');
-    setTimeout(() => document.querySelector('.contenedor-admin').classList.remove('pulso'), 500);
 }
+
 
 // Genera una cantidad pedida aleatoria
-function generarCantidadPedida() {
-    const selectorCliente = document.getElementById('clienteSelect');
-    const selectorProducto = document.getElementById('productoSelect');
-    if (selectorCliente && selectorProducto && selectorCliente.value && selectorProducto.value) {
-        const cantidadPedida = Math.floor(Math.random() * 10) + 1;
-        const entradaCantidadPedida = document.getElementById('cantidadPedida');
-        if (entradaCantidadPedida) {
-            entradaCantidadPedida.value = cantidadPedida;
-            entradaCantidadPedida.classList.add('resaltar');
-            setTimeout(() => entradaCantidadPedida.classList.remove('resaltar'), 1000);
-            calcularMonto();
-        }
-    }
-}
+// function generarCantidadPedida() {
+//     const selectorCliente = document.getElementById('clienteSelect');
+//     const selectorProducto = document.getElementById('productoSelect');
+//     if (selectorCliente && selectorProducto && selectorCliente.value && selectorProducto.value) {
+//         const cantidadPedida = Math.floor(Math.random() * 10) + 1;
+//         const entradaCantidadPedida = document.getElementById('cantidadPedida');
+//         if (entradaCantidadPedida) {
+//             entradaCantidadPedida.value = cantidadPedida;
+//             entradaCantidadPedida.classList.add('resaltar');
+//             setTimeout(() => entradaCantidadPedida.classList.remove('resaltar'), 1000);
+//             calcularMonto();
+//         }
+//     }
+// }
 
 // Calcula el monto de una venta
 function calcularMonto() {
@@ -397,7 +456,7 @@ async function venderProducto() {
             fecha: new Date().toISOString()
         });
 
-        actualizarInterfaz();
+        // actualizarInterfaz();
         mostrarMensaje(`Venta realizada: ${cantidadVender} unidades por $${monto}`, "exito");
 
         reiniciarFormularioVentas();
@@ -475,67 +534,69 @@ function reiniciarFormularioCompras() {
 }
 
 // Carga los selectores con datos iniciales
-function cargarSelectores() {
-    const selectorProducto = document.getElementById('productoSelect');
-    if (selectorProducto) {
-        selectorProducto.innerHTML = '<option value="">Selecciona un producto</option>';
-        inventario.forEach(producto => {
-            const opcion = document.createElement('option');
-            opcion.value = producto.nombre;
-            opcion.textContent = producto.nombre;
-            opcion.dataset.id = producto.id;
-            selectorProducto.appendChild(opcion);
-        });
-        selectorProducto.value = '';
-    }
+// function cargarSelectores() {
+//     const selectorProducto = document.getElementById('productoSelect');
+//     if (selectorProducto) {
+//         selectorProducto.innerHTML = '<option value="">Selecciona un producto</option>';
+//         inventario.forEach(producto => {
+//             const opcion = document.createElement('option');
+//             opcion.value = producto.nombre;
+//             opcion.textContent = producto.nombre;
+//             opcion.dataset.id = producto.id;
+//             selectorProducto.appendChild(opcion);
+//         });
+//         selectorProducto.value = '';
+//     }
 
-    const selectorCliente = document.getElementById('clienteSelect');
-    if (selectorCliente) {
-        selectorCliente.innerHTML = '<option value="">Selecciona un cliente</option>';
-        clientes.forEach(cliente => {
-            const opcion = document.createElement('option');
-            opcion.value = cliente;
-            opcion.textContent = cliente;
-            selectorCliente.appendChild(opcion);
-        });
-        selectorCliente.value = '';
-    }
-}
+//     const selectorCliente = document.getElementById('clienteSelect');
+//     if (selectorCliente) {
+//         selectorCliente.innerHTML = '<option value="">Selecciona un cliente</option>';
+//         clientes.forEach(cliente => {
+//             const opcion = document.createElement('option');
+//             opcion.value = cliente;
+//             opcion.textContent = cliente;
+//             selectorCliente.appendChild(opcion);
+//         });
+//         selectorCliente.value = '';
+//     }
+// }
 
-// Actualiza toda la interfaz
-function actualizarInterfaz() {
-    actualizarCapital();
+// // Actualiza toda la interfaz
+// function actualizarInterfaz() {
+//     actualizarCapital();
 
-    const selectorProducto = document.getElementById('productoSelect');
-    if (selectorProducto && selectorProducto.value) {
-        const producto = inventario.find(p => p.nombre === selectorProducto.value);
-        if (producto) {
-            const entradaPrecioUnitario = document.getElementById('precioUnitario');
-            if (entradaPrecioUnitario) entradaPrecioUnitario.value = producto.precio;
-            const entradaCodigoProducto = document.getElementById('codigoProducto');
-            if (entradaCodigoProducto) entradaCodigoProducto.value = producto.codigo;
-            const entradaDisponible = document.getElementById('disponible');
-            if (entradaDisponible) entradaDisponible.value = producto.cantidad;
-            const entradaCantidadDisponible = document.getElementById('cantidadDisponible');
-            if (entradaCantidadDisponible) entradaCantidadDisponible.value = producto.cantidad;
-            const entradaDemanda = document.getElementById('demanda');
-            if (entradaDemanda) entradaDemanda.value = producto.demanda || 0;
+//     const selectorProducto = document.getElementById('productoSelect');
+//     if (selectorProducto && selectorProducto.value) {
+//         const producto = inventario.find(p => p.nombre === selectorProducto.value);
+//         if (producto) {
+//             const entradaPrecioUnitario = document.getElementById('precioUnitario');
+//             if (entradaPrecioUnitario) entradaPrecioUnitario.value = producto.precio;
+//             const entradaCodigoProducto = document.getElementById('codigoProducto');
+//             if (entradaCodigoProducto) entradaCodigoProducto.value = producto.codigo;
+//             const entradaDisponible = document.getElementById('disponible');
+//             if (entradaDisponible) entradaDisponible.value = producto.cantidad;
+//             const entradaCantidadDisponible = document.getElementById('cantidadDisponible');
+//             if (entradaCantidadDisponible) entradaCantidadDisponible.value = producto.cantidad;
+//             const entradaDemanda = document.getElementById('demanda');
+//             if (entradaDemanda) entradaDemanda.value = producto.demanda || 0;
 
-            calcularMonto();
-            calcularMontoCompra();
-        }
-    }
-}
+//             calcularMonto();
+//             calcularMontoCompra();
+//         }
+//     }
+// }
 
 // Inicialización al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
-    cargarSelectores();
-    actualizarInterfaz();
+    
+    // cargarSelectores();
+    // actualizarInterfaz();
     reiniciarFormularioVentas();
     reiniciarFormularioCompras();
     configurarEfectosEntradas();
     configurarEfectosBotones();
     crearControlSonido();
+    actualizarCapital();
 
     document.querySelectorAll('.contenedor-entrada-numerica input[type="number"]').forEach(entrada => {
         entrada.addEventListener('keydown', function(e) {
@@ -549,20 +610,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const selectorProducto = document.getElementById('productoSelect');
-    if (selectorProducto) {
-        selectorProducto.addEventListener('change', () => {
-            actualizarInterfaz();
-            generarCantidadPedida();
-        });
-    }
+    // const selectorProducto = document.getElementById('productoSelect');
+    // if (selectorProducto) {
+    //     selectorProducto.addEventListener('change', () => {
+    //         // actualizarInterfaz();
+    //         generarCantidadPedida();
+    //     });
+    // }
 
-    const selectorCliente = document.getElementById('clienteSelect');
-    if (selectorCliente) {
-        selectorCliente.addEventListener('change', () => {
-            generarCantidadPedida();
-        });
-    }
+    // const selectorCliente = document.getElementById('clienteSelect');
+    // if (selectorCliente) {
+    //     selectorCliente.addEventListener('change', () => {
+    //         generarCantidadPedida();
+    //     });
+    // }
 
     const entradaCantidadCompra = document.getElementById('cantidadCompra');
     if (entradaCantidadCompra) {
