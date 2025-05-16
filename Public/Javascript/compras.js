@@ -293,22 +293,10 @@ async function actualizarCapital() {
 
 // Calcula el monto de una compra
 function calcularMontoCompra() {
-    const entradaCantidadCompra = document.getElementById('cantidadCompra');
-    const entradaPrecioUnitario = document.getElementById('precioUnitario');
-    const entradaMontoCompra = document.getElementById('montoCompra');
-    
-    if (entradaCantidadCompra && entradaPrecioUnitario && entradaMontoCompra) {
-        const cantidad = parseInt(entradaCantidadCompra.value) || 0;
-        const precio = parseFloat(entradaPrecioUnitario.value) || 0;
-        entradaMontoCompra.value = (cantidad * precio).toFixed(2);
-        
-        if (cantidad > 0 && precio > 0) {
-            entradaMontoCompra.classList.add('pulso');
-            setTimeout(() => entradaMontoCompra.classList.remove('pulso'), 500);
-        }
-    }
+  const entradaCantidadCompra = document.getElementById("cantidadCompra");
+  const entradaPrecioUnitario = document.getElementById("precioUnitario");
+  const entradaMontoCompra = document.getElementById("montoCompra");
 }
-
 // Realiza la compra de un producto
 async function comprarProducto() {
     retroalimentacionVibracion();
@@ -518,19 +506,20 @@ function reiniciarFormularioVentas() {
 
 // Reinicia el formulario de compras
 function reiniciarFormularioCompras() {
-    const selectorProducto = document.getElementById('productoSelect');
-    const entradaCantidadCompra = document.getElementById('cantidadCompra');
-    const entradaPrecioUnitario = document.getElementById('precioUnitario');
-    const entradaMontoCompra = document.getElementById('montoCompra');
-    const entradaDisponible = document.getElementById('disponible');
-    const entradaDemanda = document.getElementById('demanda');
+  const selectorProducto = document.getElementById("productoSelect");
+  const entradaCantidadCompra = document.getElementById("cantidadCompra");
+  const entradaPrecioUnitario = document.getElementById("precioUnitario");
+  const entradaMontoCompra = document.getElementById("montoCompra");
+  const entradaDisponible = document.getElementById("disponible");
+  const entradaDemanda = document.getElementById("demanda");
 
-    if (selectorProducto) selectorProducto.value = '';
-    if (entradaCantidadCompra) entradaCantidadCompra.value = '';
-    if (entradaPrecioUnitario) entradaPrecioUnitario.value = '';
-    if (entradaMontoCompra) entradaMontoCompra.value = '';
-    if (entradaDisponible) entradaDisponible.value = '';
-    if (entradaDemanda) entradaDemanda.value = '';
+  // Limpia valores de los elementos si existen
+  if (selectorProducto) selectorProducto.value = "";
+  if (entradaCantidadCompra) entradaCantidadCompra.value = "";
+  if (entradaPrecioUnitario) entradaPrecioUnitario.value = "";
+  if (entradaMontoCompra) entradaMontoCompra.value = "";
+  if (entradaDisponible) entradaDisponible.value = "";
+  if (entradaDemanda) entradaDemanda.value = "";
 }
 
 // Carga los selectores con datos iniciales

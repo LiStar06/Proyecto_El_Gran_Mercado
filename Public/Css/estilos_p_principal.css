@@ -1,87 +1,256 @@
-*{
+
+/* Estilos para la página principal del juego */
+
+/* Variables de estilo: Colores, sombras, bordes y transiciones */
+:root {
+    --color-primario: #002071; /* Azul oscuro */
+    --color-secundario: #ff914d; /* Naranja */
+    --color-oscuro: #1e2e2b; /* Verde oscuro */
+    --color-claro: #ffffff; /* Blanco */
+    --color-exito: #4CAF50; /* Verde éxito */
+    --color-error: #F44336; /* Rojo error */
+    --sombra-pequeña: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+    --sombra-media: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra media */
+    --sombra-grande: 0 8px 20px rgba(0, 0, 0, 0.4); /* Sombra grande */
+    --radio-borde-sm: 8px; /* Borde pequeño */
+    --radio-borde-md: 12px; /* Borde mediano */
+    --radio-borde-lg: 20px; /* Borde grande */
+    --transicion-rapida: 0.2s ease; /* Transición rápida */
+    --transicion-media: 0.3s ease; /* Transición media */
+}
+
+/* Reinicio de estilos base */
+* {
     margin: 0;
     padding: 0;
-    
+    box-sizing: border-box;
 }
-.fondo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-image: url('../Imagenes/fondo.png');
-    background-size: cover;
-    background-position: center;
-    
+
+/* Cuerpo: Configuración base de fuente y color */
+body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--color-claro);
+    overflow-x: hidden;
 }
-.barra_de_botones{
+
+/* Transición inicial: Pantalla de carga con logo */
+.transicion-inicial {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 50px;  
-    background-color: blue;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--color-primario), var(--color-oscuro));
     display: flex;
+    justify-content: center;
     align-items: center;
-    padding: 0 20px;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(53, 51, 205, 1) 77%);
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+}
 
+/* Logo de transición: Animación de brillo */
+.logo-transicion {
+    width: 150px;
+    height: 150px;
+    animation: brillo 2s infinite alternate;
 }
-#Logo{
-    height: 75%;
-    width: 40px;
+
+/* Animación de brillo: Efecto para el logo */
+@keyframes brillo {
+    0% { filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5)); }
+    100% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); }
 }
-#Nombre_del_juego{
-    color: white;
-    margin-left: 8px;
-}
-#Jugar{
-    margin-left: 63%;
-    margin-right: 10px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    height: 60%;
-    width: 100px;
-    font-size: medium;
-    border-radius: 10px;
-    border-color: #ff914d;
-    background-color: #ff914d;
-    cursor: pointer;
+
+/* Barra de navegación: Encabezado con logo y título */
+.barra-navegacion {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(0, 32, 113, 0.9) 0%, rgba(0, 20, 80, 0.95) 100%);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    border-bottom: 4px solid var(--color-secundario);
+    z-index: 1000; /* Asegura que quede por encima de otros elementos */
     
 }
-#Jugar:hover{
-    background-color: #d7552a;
+
+/* Contenedor de logo: Alinea logo y título */
+.contenedor-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
-#Registrarse{
-    height: 60%;
-    width: 100px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: medium;
-    border-radius: 10px;
-    border-color: #1df48c;
-    background-color: #1df48c;
-    cursor: pointer;
+
+/* Logo del juego: Sombra para destacar */
+.logo-juego {
+    width: 60px;
+    height: 60px;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.7));
 }
-#Registrarse:hover {
-    background-color: #13ca13;
+
+/* Título del juego: Estilo temático con MedievalSharp */
+.titulo-juego {
+    font-family: 'MedievalSharp', cursive;
+    color: var(--color-secundario);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    letter-spacing: 2px;
+    font-size: 1.8em;
 }
-#Caja_de_contenido{
-    height: 60%;
-    width: 50%;
+
+/* Contenido principal: Centra la tarjeta de bienvenida */
+.contenedor-principal {
+    flex: 1;
+    display: flex;
     justify-content: center;
-    text-align: center;
-    background-color: blue;
-    border-radius: 20px;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(53, 51, 205, 1) 77%);
+    align-items: center;
+    padding: 30px;
 }
-#Titulo{
-    margin-top: 20px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: xx-large;
-    color: #ff914d;
+
+/* Tarjeta de bienvenida: Estilo con gradiente y animación de entrada */
+.tarjeta-bienvenida {
+    background: linear-gradient(135deg, #344b48 0%, var(--color-oscuro) 100%);
+    border: 4px solid var(--color-secundario);
+    border-radius: var(--radio-borde-lg);
+    box-shadow: var(--sombra-grande), inset 0 0 20px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    max-width: 800px;
+    width: 1200px;
+    margin-top: 20%;
+    animation: entradaEscala 0.8s ease-out forwards;
 
 }
-#Texto_de_bienvenida{
-    margin: 20px 7% 7%;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+
+/* Animación de entrada: Escalado y opacidad */
+@keyframes entradaEscala {
+    0% { transform: scale(0.95); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Título de bienvenida: Estilo temático */
+.titulo-bienvenida {
+    font-family: 'MedievalSharp', cursive;
+    color: var(--color-secundario);
+    font-size: 2.2em;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+/* Resaltar nombre de usuario */
+.titulo-bienvenida span {
+    color: #ffd700; /* Amarillo dorado */
+}
+
+/* Contenido de bienvenida: Texto descriptivo */
+.contenido-bienvenida {
+    color: var(--color-claro);
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+/* Texto destacado: Resalta mensaje clave */
+.texto-destacado {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #ffd700;
+    text-align: center;
+}
+
+/* Lista de características: Estilo personalizado */
+.lista-caracteristicas {
+    margin: 25px 0;
+    padding-left: 20px;
+}
+
+.lista-caracteristicas li {
+    margin-bottom: 12px;
+    position: relative;
+    list-style-type: none;
+    padding-left: 30px;
+}
+
+/* Marcador de lista: Flecha decorativa */
+.lista-caracteristicas li:before {
+    content: "→";
+    color: var(--color-secundario);
+    position: absolute;
+    left: 0;
+}
+
+/* Llamado a acción: Sección para botón principal */
+.llamado-accion {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Botón de empezar: Estilo interactivo */
+.btn-empezar {
+    background: linear-gradient(to bottom, var(--color-secundario) 0%, #d17a3d 100%);
+    border: none;
+    border-radius: var(--radio-borde-md);
     color: white;
-    font-size: larger;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-family: 'MedievalSharp', cursive;
+    cursor: pointer;
+    margin-top: 15px;
+    box-shadow: 0 4px 0 #b36633, var(--sombra-pequeña);
+    transition: var(--transicion-rapida);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Efecto hover: Elevación y sombra */
+.btn-empezar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 0 #b36633, var(--sombra-media);
+}
+
+/* Efecto active: Compresión */
+.btn-empezar:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #b36633;
+}
+
+/* Ícono de característica: Decoración para lista */
+.caracteristica-icono {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Responsividad: Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .barra-navegacion {
+        flex-direction: column;
+        padding: 15px;
+    }
+    
+    .contenedor-botones {
+        margin-top: 15px;
+        width: 100%;
+        justify-content: space-around;
+    }
+    
+    .titulo-bienvenida {
+        font-size: 1.8em;
+    }
+    
+    .contenido-bienvenida {
+        font-size: 1em;
+    }
+    
+    .btn-empezar {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
 }

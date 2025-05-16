@@ -1,0 +1,1314 @@
+/* === IMPORTS Y VARIABLES GLOBALES === */
+/* Fuentes importadas de Google para el estilo del texto */
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Roboto:wght@400;700&display=swap');
+
+/* Variables de colores y medidas para mantener consistencia */
+:root {
+    --color-primario: #002071;    /* Azul oscuro para fondos y botones */
+    --color-secundario: #ff914d;  /* Naranja para bordes y detalles */
+    --color-oscuro: #1e2e2b;      /* Verde oscuro para el contenedor principal */
+    --color-claro: #ffffff;       /* Blanco para texto */
+    --color-exito: #4CAF50;       /* Verde para mensajes de éxito */
+    --color-error: #F44336;       /* Rojo para mensajes de error */
+    --sombra-pequeña: 0 2px 5px rgba(0, 0, 0, 0.2);  /* Sombra ligera */
+    --sombra-media: 0 4px 10px rgba(0, 0, 0, 0.3);  /* Sombra media */
+    --sombra-grande: 0 8px 20px rgba(0, 0, 0, 0.4); /* Sombra grande */
+    --radio-borde-sm: 8px;        /* Radio de borde pequeño */
+    --radio-borde-md: 12px;       /* Radio de borde mediano */
+    --radio-borde-lg: 20px;       /* Radio de borde grande */
+    --transicion-rapida: 0.2s ease; /* Transición rápida */
+    --transicion-media: 0.3s ease;  /* Transición media */
+}
+
+/* === ESTILOS BASE === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    background: url('../Imagenes/fondo.png') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    color: var(--color-oscuro);
+    align-items: center;
+}
+
+/* Contenedor principal que centra el contenido */
+.fondo {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 15px;
+    font-family: "MedievalSharp", cursive;
+}
+
+/* === ENCABEZADO === */
+header.header-bar {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, var(--color-primario) 0%, #0038a8 100%); /* Gradiente azul */
+    padding: 10px 20px;
+    border-radius: 40px;
+    margin-bottom: 20px;
+    width: 700px;
+    max-width: 90%;
+    border: 3px solid var(--color-secundario);
+    box-shadow: var(--sombra-media), inset 0 0 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    animation: deslizarEntrada 0.8s ease-out forwards;
+}
+
+/* Efecto de brillo en el encabezado */
+header.header-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+}
+
+/* Estilo del logo en el encabezado */
+.logo {
+    width: 50px;
+    height: 50px;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.7));
+    animation: brilloGema 2s infinite alternate, bounceIn 0.8s ease-out forwards;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+/* Título del encabezado */
+.header-bar h1 {
+    font-size: 1.8em;
+    color: var(--color-claro);
+    flex-grow: 1;
+    text-align: left;
+    margin: 0;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Visualizador de capital en el encabezado */
+.visualizador-capital {
+    font-size: 2em;
+    color: #ffd700; /* Dorado */
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+    position: relative;
+    min-width: 130px;
+}
+
+/* Valor del capital */
+.capital-value {
+    display: inline-block;
+    position: relative;
+    padding-right: 20px;
+}
+
+/* Icono del capital (moneda) */
+.capital-icon {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-image: url('../Imagenes/capital-icono.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: brilloGema 2s infinite alternate;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7));
+}
+
+/* Estilo para capital bajo */
+.capital-bajo {
+    color: #ff0000 !important;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.8) !important;
+    animation: advertenciaCapital 1s infinite ease-in-out;
+}
+
+/* === CONTENEDOR PRINCIPAL === */
+main.contenedor-admin {
+    align-items: center;
+    background: linear-gradient(135deg, #344b48 0%, var(--color-oscuro) 100%); /* Gradiente verde oscuro */
+    padding: 20px;
+    border-radius: var(--radio-borde-lg);
+    width: 700px;
+    max-width: 90%;
+    box-shadow: var(--sombra-grande), inset 0 0 15px rgba(0, 0, 0, 0.3);
+    border: 3px solid var(--color-secundario);
+    position: relative;
+    margin-bottom: 15px;
+    animation: fundidoEntrada 1s ease-out forwards;
+}
+
+/* Detalles decorativos en las esquinas del contenedor */
+main.contenedor-admin::before, 
+main.contenedor-admin::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border: 3px solid var(--color-secundario);
+    z-index: 2;
+}
+
+main.contenedor-admin::before {
+    top: -12px;
+    left: -12px;
+    border-right: none;
+    border-bottom: none;
+}
+
+main.contenedor-admin::after {
+    bottom: -12px;
+    right: -12px;
+    border-left: none;
+    border-top: none;
+}
+
+/* === SECCIONES INTERNAS === */
+.secciones {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: -5px;
+    padding: 0 5px;
+}
+
+/* Estilo general de las secciones */
+.seccion {
+    padding: 10px;
+    box-sizing: border-box;
+    animation: fundidoEntrada 0.8s ease-out forwards;
+}
+
+/* Sección izquierda */
+.seccion.izquierda {
+    width: 55%;
+    animation: deslizarIzquierda 0.8s ease-out forwards;
+}
+
+/* Sección derecha */
+.seccion.derecha {
+    width: 40%;
+    animation: deslizarDerecha 0.8s ease-out forwards;
+}
+
+/* Sección derecha específica para ventas */
+.seccion.derecha.ventas {
+    margin-top: 35px;
+}
+
+/* Títulos de las secciones */
+.seccion h2 {
+    color: var(--color-claro);
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid var(--color-secundario);
+    padding-bottom: 6px;
+}
+
+/* Etiquetas de los campos */
+.seccion label {
+    display: block;
+    margin: 10px 0 5px;
+    color: var(--color-claro);
+    font-size: 0.9em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* === FORMULARIOS Y ENTRADAS === */
+/* Estilo de los selectores */
+.seccion select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('../Imagenes/flecha-select.png');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    padding-right: 35px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid #3a4e6b;
+    background-color: rgba(30, 40, 60, 0.8);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: var(--radio-borde-md);
+    color: var(--color-claro);
+    font-size: 0.9em;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Efecto al enfocar un selector */
+.seccion select:focus {
+    border-color: var(--color-secundario);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(255, 145, 77, 0.5);
+    background-color: rgba(40, 50, 70, 0.9);
+    animation: pulsoEntrada 1.5s infinite;
+    outline: none;
+}
+
+/* Estilo de las entradas de texto */
+.seccion input {
+    background: rgba(30, 40, 60, 0.8) !important;
+    border: 2px solid #3a4e6b !important;
+    transition: all 0.3s ease !important;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3) !important;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: var(--radio-borde-md);
+    color: var(--color-claro);
+    font-size: 0.9em;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Efecto al enfocar una entrada */
+.seccion input:focus {
+    border-color: var(--color-secundario) !important;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(255, 145, 77, 0.5) !important;
+    background-color: rgba(40, 50, 70, 0.9) !important;
+    animation: pulsoEntrada 1.5s infinite;
+    outline: none;
+}
+
+/* Estilo para entradas de solo lectura */
+.seccion input[readonly] {
+    background-color: rgba(39, 46, 50, 0.6) !important;
+    color: #cccccc;
+}
+
+/* Contenedor para entradas numéricas */
+.contenedor-entrada-numerica {
+    position: relative;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+/* Estilo de las entradas numéricas */
+.contenedor-entrada-numerica input[type="number"] {
+    width: 100%;
+    padding: 10px 35px 10px 12px;
+    background: rgba(30, 40, 60, 0.8);
+    border: 2px solid #3a4e6b;
+    border-radius: var(--radio-borde-md);
+    color: var(--color-claro);
+    font-size: 0.9em;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    -moz-appearance: textfield; /* Para Firefox */
+    appearance: textfield;
+}
+
+/* Ocultar los controles predeterminados de las entradas numéricas */
+.contenedor-entrada-numerica input[type="number"]::-webkit-inner-spin-button,
+.contenedor-entrada-numerica input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Botones personalizados para incrementar/decrementar */
+.number-input-buttons {
+    position: absolute;
+    right: 5px;
+    top: 40%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* Estilo de los botones de incremento/decremento */
+.number-input-button {
+    width: 18px;
+    height: 18px;
+    background: rgba(255, 145, 77, 0.3);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.2s ease;
+}
+
+/* Icono de incremento */
+.number-input-button.increment {
+    background-image: url('../Imagenes/flecha-arriba.png');
+}
+
+/* Icono de decremento */
+.number-input-button.decrement {
+    background-image: url('../Imagenes/flecha-abajo.png'); 
+}
+
+/* Efecto al pasar el mouse sobre los botones */
+.number-input-button:hover {
+    background-color: rgba(255, 145, 77, 0.6);
+}
+
+/* Efecto al hacer clic en los botones */
+.number-input-button:active {
+    background-color: rgba(255, 145, 77, 0.8);
+}
+
+/* === BOTONES === */
+.button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.botones {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    gap: 50px; 
+    padding: 10px 0; 
+    width: 100%; 
+}
+
+/* Estilo de los botones de acción y navegación */
+.action-btn,
+.nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, var(--color-primario) 0%, #001a5a 100%);
+    border: 2px solid var(--color-secundario);
+    border-radius: var(--radio-borde-md);
+    box-shadow: 0 4px 0 #d17a3d, var(--sombra-pequeña), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 1em;
+    letter-spacing: 1px;
+    transition: var(--transicion-rapida);
+    position: relative;
+    overflow: hidden;
+    min-width: 150px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'MedievalSharp', cursive;
+}
+
+/* Contenedor para botones */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.button-container .action-btn,
+.button-container .nav-btn {
+    flex: 0 0 auto;
+    margin: 0;
+}
+
+/* Efecto de destello en los botones */
+.action-btn::before,
+.nav-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    transform: skewX(-25deg);
+    transition: none;
+    pointer-events: none;
+}
+
+/* Activar el destello al pasar el mouse o al hacer clic */
+.action-btn:hover::before,
+.nav-btn:hover::before,
+.action-btn:active::before,
+.nav-btn:active::before {
+    animation: destello 1s linear forwards;
+}
+
+/* Efecto al pasar el mouse sobre los botones */
+.action-btn:hover,
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #d17a3d, var(--sombra-media);
+}
+
+/* Efecto al hacer clic en los botones */
+.action-btn:active,
+.nav-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #d17a3d;
+}
+
+/* Iconos dentro de los botones */
+.btn-icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* Ensure text is centered within buttons */
+.action-btn .btn-texto,
+.nav-btn .btn-texto {
+    flex: 1;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* === CONTROL DE SONIDO === */
+.sound-control {
+    position: fixed;
+    bottom: 20px;
+    right: 150px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.sound-icon {
+    background: linear-gradient(to bottom, var(--color-primario) 0%, #001a5a 100%);
+    border: 2px solid var(--color-secundario);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--sombra-media);
+    animation: pulseGlow 2s infinite alternate;
+}
+
+.sound-icon:hover {
+    transform: scale(1.1);
+    animation: none;
+}
+
+.sound-icon-img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+.sound-icon.active .sound-icon-img {
+    transform: rotate(360deg);
+}
+
+.sound-menu {
+    background: linear-gradient(135deg, rgba(0, 32, 113, 0.9), rgba(0, 22, 80, 0.9));
+    border: 2px solid var(--color-secundario);
+    border-radius: var(--radio-borde-md);
+    box-shadow: var(--sombra-grande);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 15px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    min-width: 180px;
+}
+
+.sound-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* === MENSAJES EMERGENTES === */
+/* Estilo para mensajes emergentes con tema medieval más visible */
+.mensaje-juego {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    padding: 25px 50px;
+    border: 6px double var(--color-secundario); /* Borde doble para visibilidad */
+    border-radius: var(--radio-borde-lg);
+    background: url('../Imagenes/pergamino-textura.png'), linear-gradient(to bottom, #f5e8c7, #d9b38c); /* Textura de pergamino */
+    background-size: cover;
+    background-blend-mode: overlay;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 215, 0, 0.3); /* Sombra y brillo interior */
+    color: #fff7e6; /* Blanco cálido para mejor contraste */
+    font-family: 'MedievalSharp', cursive;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    opacity: 0;
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    max-width: 85%;
+    letter-spacing: 2px;
+    animation: entradaMensaje 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    transform-origin: center;
+    overflow: hidden;
+}
+
+/* Efecto de destello en los mensajes */
+.mensaje-juego::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.5), transparent);
+    transform: skewX(-25deg);
+    animation: destello 1.5s linear forwards 0.3s;
+    pointer-events: none;
+}
+
+/* Esquinas decorativas del mensaje con sellos */
+.mensaje-juego::after,
+.mensaje-juego::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url('../Imagenes/sello-medieval.png'); /* Imagen de sello medieval */
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.mensaje-juego::after {
+    top: -20px;
+    left: -20px;
+}
+
+.mensaje-juego::before {
+    bottom: -20px;
+    right: -20px;
+}
+
+/* Estilo para mensajes de éxito personalizados */
+.mensaje-exito {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    padding: 25px 50px;
+    border: 6px double var(--color-exito);
+    border-radius: var(--radio-borde-lg);
+    background: url('../Imagenes/pergamino-textura.png'), linear-gradient(to bottom, #e0d7c1, #b8a488);
+    background-size: cover;
+    background-blend-mode: overlay;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(76, 175, 80, 0.3);
+    color: #fff7e6;
+    font-family: 'MedievalSharp', cursive;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    animation: entradaMensaje 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.mensaje-exito::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.5), transparent);
+    transform: skewX(-25deg);
+    animation: destello 1.5s linear forwards 0.3s;
+    pointer-events: none;
+}
+
+.mensaje-exito::after,
+.mensaje-exito::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url('../Imagenes/sello-medieval.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.mensaje-exito::after {
+    top: -20px;
+    left: -20px;
+}
+
+.mensaje-exito::before {
+    bottom: -20px;
+    right: -20px;
+}
+
+.mensaje-exito.desaparecer {
+    animation: salidaMensaje 0.5s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+}
+
+/* Estilo para mensajes de error */
+.mensaje-juego.mensaje-error {
+    border: 6px double var(--color-error);
+    background: url('../Imagenes/pergamino-textura.png'), linear-gradient(to bottom, #d9a594, #8c5e4e);
+    background-size: cover;
+    background-blend-mode: overlay;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(244, 67, 54, 0.3);
+}
+
+.mensaje-juego.mensaje-error::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(244, 67, 54, 0.5), transparent);
+    transform: skewX(-25deg);
+    animation: destello 1.5s linear forwards 0.3s;
+    pointer-events: none;
+}
+
+/* Icono dentro de los mensajes */
+.icono-mensaje {
+    width: 60px;
+    height: 60px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6));
+    animation: flotarIcono 2s infinite ease-in-out;
+}
+
+/* Superposición para los mensajes */
+.superposicion-mensaje {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Mayor opacidad para destacar el mensaje */
+    z-index: 999;
+    opacity: 0;
+    animation: fundidoEntradaRapida 0.3s forwards;
+}
+
+/* Animación de salida para los mensajes */
+.mensaje-juego.desaparecer {
+    animation: salidaMensaje 0.5s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+}
+
+.superposicion-mensaje.desaparecer {
+    animation: fundidoSalida 0.5s forwards;
+}
+
+/* === PARTÍCULAS Y EFECTOS === */
+/* Partículas para ganancia */
+.particula-ganancia {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-image: url('../Imagenes/moneda-icono.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: particulaGanancia 1s ease-out forwards;
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Partículas para pérdida */
+.particula-perdida {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-image: url('../Imagenes/perdida-icono.png');
+    background-repeat: no-repeat;
+    animation: particulaPerdida 2s ease-out forwards;
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Partículas para éxito */
+.particula-exito {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #ffd700;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particulaGanancia 1s ease-out forwards;
+}
+
+/* Partículas dentro de los mensajes */
+.particula-mensaje {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: rgba(255, 255, 0, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    animation: volarParticula 1.5s ease-out forwards;
+    filter: blur(1px);
+}
+
+/* === INVENTARIO Y BARRAS === */
+/* Efecto para inventario */
+.item-inventario {
+    transition: all 0.3s ease;
+}
+
+.item-inventario:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 32, 113, 0.3);
+}
+
+/* Barra de progreso para demanda */
+.barra-demanda {
+    height: 20px;
+    background: rgba(30, 40, 60, 0.8);
+    border-radius: 10px;
+    margin: 8px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.barra-demanda-llena {
+    height: 100%;
+    background: linear-gradient(90deg, #ff914d, #ff5722);
+    border-radius: 10px;
+    transition: width 0.5s ease, background-color 0.3s;
+}
+
+.barra-demanda span {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8em;
+    color: white;
+    text-shadow: 0 0 3px rgba(0,0,0,0.8);
+}
+
+/* Estilos específicos para ajuste de precios */
+.info-producto {
+    background: rgba(30, 40, 60, 0.6);
+    padding: 15px;
+    border-radius: var(--radio-borde-md);
+    margin-top: 15px;
+    border: 1px solid var(--color-secundario);
+}
+
+.diferencia-precio {
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: var(--radio-borde-md);
+    margin-top: 10px;
+    background: rgba(255, 255, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* === TRANSICIONES DE PÁGINA === */
+.transicion-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #002071, #ff914d);
+    z-index: 9999;
+    opacity: 0;
+    animation: fadeInOut 0.8s forwards;
+}
+
+.transicion-pagina {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.8s ease; 
+}
+
+.transicion-logo {
+    width: 200px; /* Más grande */
+    height: 200px;
+    animation: logoTransition 1s ease-in-out forwards;
+    z-index: 1001;
+}
+
+/* === EFECTOS ADICIONALES === */
+.zoom-al-acercar {
+    transition: all 0.3s ease;
+}
+
+.zoom-al-acercar:hover {
+    transform: scale(1.03);
+}
+
+/* Efecto de resaltado */
+.resaltar {
+    animation: parpadear 1s infinite;
+    background-color: rgba(255, 215, 0, 0.2) !important;
+}
+
+.destacar-actualizacion {
+    animation: pulseGlow 1s ease-in-out;
+}
+
+/* Animación de entrada */
+.entrada-suave {
+    animation: entradaSuave 0.8s ease-out forwards;
+}
+
+/* === ANIMACIONES === */
+@keyframes deslizarEntrada {
+    0% { transform: translateY(-50px) scale(0.95); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes fundidoEntrada {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes deslizarIzquierda {
+    0% { transform: translateX(-30px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes deslizarDerecha {
+    0% { transform: translateX(30px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes entradaMensaje {
+    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+    70% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+@keyframes salidaMensaje {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+}
+
+@keyframes fundidoEntradaRapida {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fundidoSalida {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes flotarIcono {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+@keyframes volarParticula {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(calc(var(--tx) * 100px), calc(var(--ty) * 100px)) scale(0); opacity: 0; }
+}
+
+@keyframes pulsoEntrada {
+    0% { box-shadow: 0 0 0 0 rgba(255, 145, 77, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 145, 77, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 145, 77, 0); }
+}
+
+@keyframes sacudir {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+@keyframes efectoFlotar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes pulso {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes brillo {
+    0% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+    100% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+}
+
+/* Animación para el efecto de destello */
+@keyframes destello {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+@keyframes parpadear {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes entradaSuave {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+@keyframes pulseGlow {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 145, 77, 0); }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 145, 77, 0.8); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 145, 77, 0); }
+}
+
+/* Nueva animación de transición simplificada */
+@keyframes logoTransition {
+    0% { 
+        transform: scale(0.5) rotate(0deg); 
+        opacity: 0; 
+        filter: drop-shadow(0 0 0 rgba(255, 215, 0, 0));
+    }
+    50% { 
+        transform: scale(1.1) rotate(180deg); 
+        opacity: 1; 
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+    }
+    100% { 
+        transform: scale(1) rotate(360deg); 
+        opacity: 1; 
+        filter: drop-shadow(0 0 30px rgba(255, 215, 0, 1));
+    }
+}
+
+@keyframes fadeBackground {
+    0% { opacity: 0; }
+    30% { opacity: 1; }
+    70% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+/* Animaciones para partículas */
+@keyframes particulaGanancia {
+    0% { opacity: 0; transform: translate(-50%, -20px) rotate(0deg) scale(0.5); }
+    20% { opacity: 1; transform: translate(-50%, -10px) rotate(90deg) scale(1); }
+    100% { opacity: 0; transform: translate(calc(-50% + (var(--tx, 0) * 50px)), calc(-20px + (var(--ty, 0) * -50px))) rotate(360deg) scale(0.3); }
+}
+
+@keyframes particulaPerdida {
+    0% { opacity: 0; transform: translate(-50%, -10px) scale(1); }
+    20% { opacity: 1; transform: translate(-50%, 0) scale(1.2); }
+    100% { opacity: 0; transform: translate(calc(-50% + (var(--tx, 0) * 20px)), 50px) scale(0.5); }
+}
+
+/* Animación para el brillo del capital */
+@keyframes brilloGema {
+    0% { filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7)); }
+    100% { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 1)); }
+}
+
+/* Animación para el efecto de tesoro */
+@keyframes tesoroRPG {
+    0% { transform: scale(1) rotate(0deg); color: #ffd700; text-shadow: 0 0 5px rgba(255, 215, 0, 0.7); }
+    20% { transform: scale(1.3) rotate(-5deg); color: #ffdf00; text-shadow: 0 0 15px rgba(255, 223, 0, 0.9); }
+    40% { transform: scale(1.2) rotate(5deg); color: #ffcc00; }
+    60% { transform: scale(1.4) rotate(-3deg); color: #ffdf00; }
+    80% { transform: scale(1.3) rotate(2deg); color: #ffcc00; }
+    100% { transform: scale(1) rotate(0deg); color: #ffd700; text-shadow: 0 0 5px rgba(255, 215, 0, 0.7); }
+}
+
+/* Animación para advertencia de capital bajo */
+@keyframes advertenciaCapital {
+    0% { transform: scale(1); text-shadow: 0 0 10px rgba(255, 0, 0, 0.8); }
+    50% { transform: scale(1.2); text-shadow: 0 0 20px rgba(255, 0, 0, 1); }
+    100% { transform: scale(1); text-shadow: 0 0 10px rgba(255, 0, 0, 0.8); }
+}
+
+/* === RESPONSIVIDAD === */
+/* Tablets y pantallas medianas (hasta 768px) */
+@media (max-width: 768px) {
+    header.header-bar {
+        flex-direction: column;
+        padding: 12px;
+        width: 90%;
+        border-radius: 30px;
+    }
+
+    .header-bar h1 {
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    .visualizador-capital {
+        font-size: 1.6em;
+        margin-top: 8px;
+        min-width: 100px;
+    }
+
+    .capital-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    main.contenedor-admin {
+        width: 90%;
+        padding: 12px;
+        border-radius: 15px;
+    }
+
+    .secciones {
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+    }
+
+    .seccion.izquierda,
+    .seccion.derecha {
+        width: 100%;
+    }
+
+    .seccion.derecha.ventas {
+        margin-top: 15px;
+    }
+
+    .seccion h2 {
+        font-size: 1.2em;
+    }
+
+    .seccion select,
+    .seccion input {
+        padding: 8px;
+        font-size: 0.85em;
+    }
+
+    .botones {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .action-btn,
+    .nav-btn {
+        min-width: 120px;
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+
+    .sound-control {
+        top: 10px;
+        right: 10px;
+        bottom: auto;
+    }
+
+    .sound-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .sound-icon-img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .sound-menu {
+        top: 40px;
+        min-width: 150px;
+        padding: 10px;
+    }
+}
+
+/* Móviles pequeños (hasta 480px) */
+@media (max-width: 480px) {
+    .header-bar h1 {
+        font-size: 1.3em;
+    }
+
+    .visualizador-capital {
+        font-size: 1.3em;
+        min-width: 90px;
+    }
+
+    .capital-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .seccion h2 {
+        font-size: 1em;
+    }
+
+    .seccion label {
+        font-size: 0.8em;
+    }
+
+    .seccion select,
+    .seccion input {
+        padding: 6px;
+        font-size: 0.8em;
+    }
+
+    .action-btn,
+    .nav-btn {
+        min-width: 100px;
+        padding: 6px 12px;
+        font-size: 0.85em;
+    }
+
+    .mensaje-juego {
+        padding: 12px 25px;
+        font-size: 1em;
+        max-width: 90%;
+    }
+
+    .mensaje-exito {
+        padding: 12px 25px;
+        font-size: 1em;
+        max-width: 90%;
+    }
+
+    .icono-mensaje {
+        width: 40px;
+        height: 40px;
+    }
+
+    .sound-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .sound-icon-img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .sound-menu {
+        top: 38px;
+        min-width: 130px;
+        padding: 8px;
+    }
+
+    .sound-menu .action-btn {
+        min-width: 100px;
+        padding: 6px 12px;
+        font-size: 0.8em;
+    }
+
+    .transicion-logo {
+        width: 150px;
+        height: 150px;
+    }
+
+    .barra-demanda {
+        height: 15px;
+    }
+
+    .barra-demanda span {
+        font-size: 0.7em;
+    }
+}
+
+/* Pantallas muy pequeñas (hasta 360px) */
+@media (max-width: 360px) {
+    .header-bar h1 {
+        font-size: 1.1em;
+    }
+
+    .visualizador-capital {
+        font-size: 1.1em;
+        min-width: 80px;
+    }
+
+    .logo {
+        width: 35px;
+        height: 35px;
+    }
+
+    .seccion h2 {
+        font-size: 0.9em;
+    }
+
+    .seccion select,
+    .seccion input {
+        padding: 5px;
+        font-size: 0.75em;
+    }
+
+    .action-btn,
+    .nav-btn {
+        min-width: 90px;
+        padding: 5px 10px;
+        font-size: 0.8em;
+    }
+
+    .mensaje-juego {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+
+    .icono-mensaje {
+        width: 35px;
+        height: 35px;
+    }
+}

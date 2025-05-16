@@ -1,433 +1,1011 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Estilos para la página de eventos de ofertas */
+
+/* Estilo del encabezado con un diseño tipo arcade, incluye el logo y contadores */
+.header-admin {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #002071; 
+  padding: 15px 180px;
+  border-radius: 50px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); 
+  border-bottom: 4px solid var(--color-secundario); 
+  position: relative;
+  z-index: 10;
+  animation: deslizarEntradaHeader 1s ease-out forwards; /* Animación de entrada */
 }
 
-.fondo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-image: url("../Imagenes/fondo.png");
-    background-size: cover;
-    background-position: center;
+.logo-titulo {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Espacio entre logo y título */
 }
 
-/* Estilos comunes para los menús */
-.menu {
-    text-align: center;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 139, 0.8));
-    padding: 30px;
-    box-shadow: 0 5px rgba(0, 0, 0, 0.3);
-    color: white;
-    border-radius: 10px; /* Añadido aquí para ser común */
-}
-.logo {
-    width: 45px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
+.logo-juego {
+  width: 50px;
+  height: 50px;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7)); /* Sombra con brillo dorado */
+  animation: girarLogo 5s linear infinite; /* Animación de rotación del logo */
 }
 
-.menu h1, .continuar h2 {
-    font-size: 28px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
+.header-admin h1 {
+  font-family: "MedievalSharp", cursive; /* Fuente medieval para el título */
+  color: #ffd700; /* Dorado para destacar */
+  text-shadow: 0 2px 5px #000, 0 0 10px #f00; 
+  margin: 0;
+  font-size: 1.8em;
+  letter-spacing: 2px;
 }
 
-.menu h1 {
-    font-size: 26px; /* Específico para el h1 del menú principal */
+.info-juego {
+  display: flex;
+  gap: 20px; 
 }
 
-/* Texto del usuario */
-.user-info p {
-    font-size: 28px;
-    color: #f39c12;
-    text-align: center;
-    margin-bottom: 10px;
+.contador-intentos {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 2px solid #ffd700; /* Borde dorado */
+  color: white;
+  font-weight: bold;
+  text-shadow: 0 1px 3px #000; /* Sombra para mejor legibilidad */
+  margin-left: 100%;
 }
 
-/* Estilos comunes para los botones */
-.menu-button, .opcion {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 180px;
-    margin: 10px auto;
-    padding: 12px 20px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s;
+.contador-intentos img {
+  width: 24px;
+  height: 24px;
 }
 
-.menu-button {
-    background: linear-gradient(to right, #7b1fa2, #ff9800);
+#intentos {
+  color: #55ff55; /* Verde brillante para los intentos */
 }
 
-.menu-button:hover, .opcion:hover {
-    transform: scale(1.05);
-    background: linear-gradient(to right, #bb1717, #2010b1);
+/* === CONTENEDOR PRINCIPAL === */
+/* Contenedor principal que aloja la máquina de ofertas */
+.juego-contenedor {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: 20px;
+  position: relative;
 }
 
-/* Estilos específicos para las opciones de "Continuar" */
-.opcion {
-    width: 80%;
-    padding: 15px;
-    border-radius: 5px; /* Sobreescribe el radio del botón común */
-    background: linear-gradient(to right, #7b1fa2, #ff9800); /* Mismo degradado que menu-button */
+.maquina-ofertas {
+  background: linear-gradient(135deg, #344b48 0%, var(--color-oscuro) 100%); /* Fondo con gradiente oscuro */
+  border: 4px solid #ff914d; /* Borde naranja */
+  border-radius: var(--radio-borde-lg);
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(0, 0, 0, 0.5); /* Sombras para profundidad */
+  position: relative;
+  margin-bottom: 30px;
 }
 
-/*-------------pantalla crearNegocio---------------------------*/
-.crear-negocio {
-    width: 500px;
-    padding: 40px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+/* Efecto de borde arcoíris alrededor de la máquina de ofertas */
+.maquina-ofertas::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 20px;
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7700,
+    #ffdd00,
+    #00ff00,
+    #0000ff,
+    #ff00ff,
+    #ff0000
+  ); /* Gradiente arcoíris */
+  background-size: 400% 400%;
+  z-index: -1;
+  animation: bordeArcoiris 10s linear infinite; /* Animación de cambio de color */
+  opacity: 0.7;
 }
 
-.crear-negocio h1 {
-    font-size: 32px;
-    margin-bottom: 30px;
+/* === PANTALLA DE OFERTAS === */
+/* Contenedor de las ofertas, diseñado para parecer un puesto de mercado medieval */
+.pantalla-ofertas {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  background: #2b1a0f; /* Fondo de madera oscura para un aspecto rústico */
+  border: 6px solid #8b5a2b; /* Borde de madera para reforzar el estilo medieval */
+  border-radius: 10px;
+  height: 300px;
+  margin-bottom: 20px;
+  padding: 15px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8); /* Sombra interior para profundidad */
+  background-image: url('../Imagenes/textura-madera.jpg'); /* Textura de madera para realismo */
+  background-size: cover;
+  background-position: center;
 }
 
-.form-group {
-    margin-bottom: 20px;
+/* Patrón de líneas para simular vetas de madera en el fondo */
+.pantalla-ofertas::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.2) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
-.form-group label {
-    display: block;
-    font-size: 18px;
-    margin-bottom: 8px;
-    color: #fff;
+.columna-ofertas {
+  flex: 1;
+  min-width: 0;
 }
 
-.form-group input, .input-group {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+/* Estilo de cada oferta, diseñado para parecer un pergamino medieval */
+.oferta-item {
+  height: 100%;
+  transition: all 0.3s ease; 
+  background: linear-gradient(to bottom, #f4e4bc, #d4c092); 
+  border-radius: 8px;
+  padding: 15px;
+  border: 4px solid #8b4513; 
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.2); 
+  position: relative;
+  overflow: hidden;
+  transform: scale(0.9);
+  opacity: 0; 
+  font-family: "MedievalSharp", cursive; 
+  background-image: url('../Imagenes/textura-pergamino.png'); 
+  background-size: cover;
+  background-position: center;
 }
 
-.input-group {
-    display: flex;
+/* Detalles decorativos para simular un pergamino enrollado */
+.oferta-item::before,
+.oferta-item::after {
+  content: '';
+  position: absolute;
+  background: #8b4513; 
+  z-index: 2;
 }
 
-.input-group input {
-    flex: 1;
-    border: none;
+/* Borde superior del pergamino */
+.oferta-item::before {
+  top: -4px;
+  left: 10%;
+  right: 10%;
+  height: 8px;
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
 }
 
-.input-group-prepend, .input-group-append {
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+/* Borde inferior del pergamino */
+.oferta-item::after {
+  bottom: -4px;
+  left: 10%;
+  right: 10%;
+  height: 8px;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3); 
 }
 
-.input-group-prepend, .input-group-append, .input-group-prepend i, .input-group-append i {
-    color: #007bff;
-    font-size: 20px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+/* Estado activo del item, con animación de desenrollado */
+.oferta-item.activa {
+  transform: scale(1);
+  opacity: 1;
+  animation: desenrollarPergamino 0.5s ease-out forwards; 
 }
 
-.input-group-prepend {
-    border-right: none;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+/* Estado seleccionado, con efecto de resaltado */
+.oferta-item.seleccionada {
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); 
+  transform: scale(1.05); 
+  border-color: #ffd700; 
 }
 
-.input-group-append {
-    border-left: none;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+/* Animación al aceptar una oferta */
+.oferta-item.aceptada {
+  animation: ofertaAceptada 0.5s forwards;
 }
 
-.botones {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
+/* Animación al perder una oferta */
+.oferta-item.perdida {
+  animation: ofertaPerdida 0.5s forwards;
 }
 
-/* Estilos para los botones de crearNegocio */
-.menu-button {
-    padding: 12px 25px; /* Sobreescribe el padding común */
+/* Título de la oferta, con alto contraste para visibilidad */
+.oferta-titulo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  color: #8b4513; 
+  font-weight: bold;
+  font-size: 1.2em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
 }
 
-/*----------------------------------------*/
-/* Estilos para la pantalla Continuar */
-.continuar {
-    padding: 30px; /* Ya definido en .menu, pero se mantiene por claridad */
+.oferta-nombre {
+  text-shadow: 0 1px 3px #000; 
 }
 
-.opciones {
-    display: flex;
+/* Etiqueta de descuento, con estilo destacado */
+.oferta-descuento {
+  background: #DAA520; 
+  color: #4a2c0b; 
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra para profundidad */
+}
+
+/* Detalles de la oferta (precios) */
+.oferta-detalle {
+  display: flex;
+  justify-content: space-between;
+  color: #8b4513; 
+  margin-top: 15px;
+}
+
+/* Precio original tachado */
+.oferta-precio-original {
+  text-decoration: line-through;
+  color: #cccccc; 
+}
+
+/* Precio final, destacado en dorado */
+.oferta-precio-final {
+  color: #FFA500; 
+  font-weight: bold;
+  font-size: 1.3em;
+  text-shadow: 0 0 5px rgba(255, 215, 0, 0.7); 
+}
+
+/* Temporizador de la oferta */
+.oferta-tiempo {
+  margin-top: 15px;
+  color: #ff5555; 
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  right: 15px;
+}
+
+
+/* Contenedor de los botones de interacción */
+.controles-maquina {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+/* Estilo base para botones */
+.btn-juego {
+  position: relative;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 25px;
+  font-family: "MedievalSharp", cursive; 
+  font-weight: bold;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  overflow: hidden;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Botón para cambiar oferta */
+.btn-cambiar {
+  background: linear-gradient(to bottom, #1a2a6c, #0d1542); 
+  color: white;
+  box-shadow: 0 5px 0 #0a0f2d, 0 10px 15px rgba(0, 0, 0, 0.4); 
+}
+
+/* Efecto al pasar el ratón */
+.btn-cambiar:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #0a0f2d, 0 15px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Efecto al hacer clic */
+.btn-cambiar:active:not(:disabled) {
+  transform: translateY(5px);
+  box-shadow: 0 2px 0 #0a0f2d;
+}
+
+.btn-cambiar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-contador {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.9em;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.btn-cambiar:active .btn-contador {
+  transform: scale(1.2);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Botón para aceptar oferta */
+.btn-aceptar {
+  background: linear-gradient(to bottom, #00aa00, #007700); 
+  color: white;
+  text-shadow: 0 1px 3px #000;
+  box-shadow: 0 5px 0 #005500, 0 10px 15px rgba(0, 0, 0, 0.4);
+}
+
+.btn-aceptar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #005500, 0 15px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-aceptar:active {
+  transform: translateY(5px);
+  box-shadow: 0 2px 0 #005500;
+}
+
+/* Botón para volver */
+.btn-volver {
+  background: linear-gradient(to bottom, #aa0000, #770000); 
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 auto;
+}
+
+.btn-volver:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #550000, 0 15px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-volver:active {
+  transform: translateY(5px);
+  box-shadow: 0 2px 0 #550000;
+}
+
+/* Contenedor del temporizador */
+.countdown-container {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #344b48 0%, var(--color-oscuro) 100%);
+  border: 4px solid #ff914d;
+  border-radius: var(--radio-borde-lg);
+  padding: 20px;
+  position: relative;
+  margin-bottom: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Efecto de borde arcoíris para el temporizador */
+.countdown-container::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 20px;
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7700,
+    #ffdd00,
+    #00ff00,
+    #0000ff,
+    #ff00ff,
+    #ff0000
+  );
+  background-size: 400% 400%;
+  z-index: -1;
+  animation: bordeArcoiris 10s linear infinite;
+  opacity: 0.7;
+}
+
+.countdown-message {
+  text-align: center;
+  color: white;
+  font-family: "MedievalSharp", cursive;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-message h2 {
+  font-size: 1.8em;
+  color: #ffd700;
+  text-shadow: 0 2px 5px #000, 0 0 10px #f00;
+  margin-bottom: 20px;
+}
+
+.flip-clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 2px solid #ffd700;
+}
+
+.flip-sign,
+.flip-digit {
+  display: inline-block;
+  width: 30px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: #222;
+  color: #ff5555;
+  font-family: "Digital", monospace;
+  font-size: 2em;
+  border-radius: 5px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.flip-sign {
+  width: 20px;
+}
+
+.flip-digit.flip {
+  animation: flip 0.5s ease-in-out;
+}
+
+.separator {
+  color: #ff5555;
+  font-size: 2em;
+  font-family: "Digital", monospace;
+}
+
+
+/* Fondo dinámico para efectos visuales */
+.efectos-juego {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.luz-efecto {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* === ANIMACIONES === */
+@keyframes girarLogo {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bordeArcoiris {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes ofertaAceptada {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes ofertaPerdida {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    background: linear-gradient(to bottom, #d4c092, #b89b67); /* Oscurecer pergamino */
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateX(0deg);
+    background: #222;
+  }
+  50% {
+    transform: rotateX(90deg);
+    background: #333;
+  }
+  100% {
+    transform: rotateX(0deg);
+    background: #222;
+  }
+}
+
+/* Animación para simular el desenrollado de un pergamino */
+@keyframes desenrollarPergamino {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scaleY(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.pantalla-ofertas.cambiando .oferta-item {
+  animation: ofertaPerdida 0.3s forwards;
+}
+
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .header-juego {
     flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
+    gap: 15px;
+  }
+
+  .info-juego {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .pantalla-ofertas {
+    flex-direction: column;
+    height: auto;
+    min-height: 400px;
+  }
+
+  .columna-ofertas {
+    height: 130px;
+    margin-bottom: 10px;
+  }
+
+  .controles-maquina {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-juego {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .countdown-message h2 {
+    font-size: 1.4em;
+  }
+
+  .flip-clock {
+    gap: 3px;
+  }
+
+  .flip-sign,
+  .flip-digit {
+    width: 25px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 1.8em;
+  }
+
+  .flip-sign {
+    width: 15px;
+  }
+}
+.oferta-tiempo {
+  margin-top: 15px;
+  color: #ff5555;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  right: 15px;
 }
 
+/* Controles: Botones de interacción */
+.controles-maquina {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
 
-/* Pagina de administracion*/
+.btn-juego {
+  position: relative;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 25px;
+  font-family: "MedievalSharp", cursive;
+  font-weight: bold;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  overflow: hidden;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
+.btn-cambiar {
+  background: linear-gradient(to bottom, #1a2a6c, #0d1542);
+  color: white;
+  box-shadow: 0 5px 0 #0a0f2d, 0 10px 15px rgba(0, 0, 0, 0.4);
+}
 
+.btn-cambiar:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #0a0f2d, 0 15px 20px rgba(0, 0, 0, 0.4);
+}
 
-    
+.btn-cambiar:active:not(:disabled) {
+  transform: translateY(5px);
+  box-shadow: 0 2px 0 #0a0f2d;
+}
 
-    #SvgInventario {
-        position: relative;
-        top: 275px;  
-        left: 195px;
-        fill:#ff914d;
-        
-    }
-   
-    
-        #SvgFnanzas {
-            position: absolute;
-            top: 275px;  
-            left: 490px; 
-            fill: #d9d9d9;
-        }
+.btn-cambiar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-       
+.btn-contador {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.9em;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
 
-       #SvgIndicadores {
-        position: absolute;
-        top: 275px; 
-        left: 785px; 
-        fill: #53bcc2;
-        
-    }
+.btn-cambiar:active .btn-contador {
+  transform: scale(1.2);
+  background: rgba(255, 255, 255, 0.4);
+}
 
+.btn-aceptar {
+  background: linear-gradient(to bottom, #00aa00, #007700);
+  color: white;
+  text-shadow: 0 1px 3px #000;
+  box-shadow: 0 5px 0 #005500, 0 10px 15px rgba(0, 0, 0, 0.4);
+}
 
-        #administracion{
-            background-color:#002071;
-            background-repeat: no-repeat;
-            background-position: center; 
-            position:absolute;
-            top: 50px;
-            left: 125px;
-            padding-left: 15px; 
-            padding-right: 575px;
-            padding-top: 10px;
-            padding-bottom: 25px;
-            border-radius: 35px 35px;
-            font-size: 50px;
-          }
-           
- #negocios{
-      color: #ff914d;  
-      position:absolute;
-      top: 90px;
-      left: 700px;
-    }
+.btn-aceptar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #005500, 0 15px 20px rgba(0, 0, 0, 0.4);
+}
 
-    #capital{
-        color: #ff914d;  
-        position:absolute;
-        top: 90px;
-      left: 900px;
-       
-      
-    }
-    #comprar{
+.btn-aceptar:active {
+  transform: translateY(5px);
+  box-shadow: 0 2px 0 #005500;
+}
 
-       position: absolute;
-       top:750px;
-       left: 150px;
-        height: 50px;
-        width: 225px;
-        margin: 10px auto;
-        padding: 12px 20px;
-        text-align: center;
-        font-size: 16px;
-        font-weight: bold;
-        color: white;
-        text-decoration: none;
-        border-radius: 20px;
-        border: none;
-        background: linear-gradient(to right, #7b1fa2, #ff9800);
-        cursor: pointer;
-        transition: 0.3s;
+.btn-volver {
+  background: linear-gradient(to bottom, #aa0000, #770000);
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 auto;
+}
 
-    }
-    
-    #comprar:hover {
-        transform: scale(1.05);
-        background: linear-gradient(to right, #bb1717, #2010b1);
-    }
+.btn-volver:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #550000, 0 15px 20px rgba(0, 0, 0, 0.4);
+}
 
+.btn-volver:active {
+  transform: translateY(5px);
+  box-shadow: 0 2px 0 #550000;
+}
 
-    #vender{
+/* Cuenta regresiva: Temporizador visual */
+.countdown-container {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #344b48 0%, var(--color-oscuro) 100%);
+  border: 4px solid #ff914d;
+  border-radius: var(--radio-borde-lg);
+  padding: 20px;
+  position: relative;
+  margin-bottom: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+}
 
-        position: absolute;
-        top: 750px;  
-        left: 425px;
-         height: 50px;
-         width: 175px;
-         margin: 10px auto;
-         padding: 12px 20px;
-         text-align: center;
-         font-size: 16px;
-         font-weight: bold;
-         color: white;
-         text-decoration: none;
-         border-radius: 20px;
-         border: none;
-         background: linear-gradient(to right, #7b1fa2, #ff9800);
-         cursor: pointer;
-         transition: 0.3s;
+.countdown-container::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 20px;
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7700,
+    #ffdd00,
+    #00ff00,
+    #0000ff,
+    #ff00ff,
+    #ff0000
+  );
+  background-size: 400% 400%;
+  z-index: -1;
+  animation: bordeArcoiris 10s linear infinite;
+  opacity: 0.7;
+}
 
-    }
-    #vender:hover {
-        transform: scale(1.05);
-        background: linear-gradient(to right, #bb1717, #2010b1);
-    }
+.countdown-message {
+  text-align: center;
+  color: white;
+  font-family: "MedievalSharp", cursive;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-    #ajustar{
+.countdown-message h2 {
+  font-size: 1.8em;
+  color: #ffd700;
+  text-shadow: 0 2px 5px #000, 0 0 10px #f00;
+  margin-bottom: 20px;
+}
 
-        position: absolute;
-        top: 750px;  
-        left: 650px;
-         height: 50px;
-         width: 175px;
-         margin: 10px auto;
-         padding: 12px 20px;
-         text-align: center;
-         font-size: 16px;
-         font-weight: bold;
-         color: white;
-         text-decoration: none;
-         border-radius: 20px;
-         border: none;
-         background: linear-gradient(to right, #7b1fa2, #ff9800);
-         cursor: pointer;
-         transition: 0.3s;
+.flip-clock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 2px solid #ffd700;
+}
 
-            
-    }
-    #ajustar:hover {
-        transform: scale(1.05);
-        background: linear-gradient(to right, #bb1717, #2010b1);
-    }
+.flip-sign,
+.flip-digit {
+  display: inline-block;
+  width: 30px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: #222;
+  color: #ff5555;
+  font-family: "Digital", monospace;
+  font-size: 2em;
+  border-radius: 5px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
 
+.flip-sign {
+  width: 20px;
+}
 
+.flip-digit.flip {
+  animation: flip 0.5s ease-in-out;
+}
 
-    #resumen{
-        position: absolute;
-        top: 750px;  
-        left: 875px;
-         height: 50px;
-         width: 175px;
-         margin: 10px auto;
-         padding: 12px 20px;
-         text-align: center;
-         font-size: 16px;
-         font-weight: bold;
-         color: white;
-         text-decoration: none;
-         border-radius: 20px;
-         border: none;
-         background: linear-gradient(to right, #7b1fa2, #ff9800);
-         cursor: pointer;
-         transition: 0.3s;
-    }
-    #resumen:hover{
-        transform: scale(1.05);
-        background: linear-gradient(to right, #bb1717, #2010b1);
-    }
-    
-    /* pagina de eventos*/
-    body{   
+.separator {
+  color: #ff5555;
+  font-size: 2em;
+  font-family: "Digital", monospace;
+}
 
+/* Efectos visuales: Fondo dinámico */
+.efectos-juego {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+}
 
-        background-image: url('../Imagenes/fondo.png');
-        
-        
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; 
-            margin: 0;
-        
-        
-            .menu-button {
-               
-               
-                background: linear-gradient(to right, #7b1fa2, #ff9800); 
-              
-                
-                padding: 10px 30px; /* Ajusta el tamaño del botón */
-                border: none; /* Sin bordes */
-                border-radius: 50px; /* Hace que el botón sea ovalado */
-                cursor: pointer; /* Cambia el cursor al pasar */
-                font-size: 16px; /* Tamaño del texto */
-            }
-        }
-        
-                .menu-button:hover {
-                    transform: scale(1.05);
-                    background: linear-gradient(to right, #bb1717, #2010b1);
-            
-                }
-           
-  body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background: linear-gradient(to right, rgb(6, 6, 49), blue);
-            margin: 0;
-            font-family: Arial, sans-serif;
-            color: white;
-            text-align: center;
-        }
-        .container {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 30px;
-            border-radius: 25px;
-            width: 80%;
-            max-width: 500px;
-        }
-       .container image{
-        width: 50%;
-        height: 50%;
-        object-fit: cover;
-    }
+.luz-efecto {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
 
+/* Animaciones */
+@keyframes girarLogo {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
+@keyframes bordeArcoiris {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
 
-       
+@keyframes ofertaAceptada {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
 
-        .logo {
-            width: 75px;
-            margin-bottom: 10px;
-        }
-        h1 {
-            color: orange;
-            font-size: 28px;
-        }
-        .menu-button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: orange;
-            color: black;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: bold;
-        }    
-        
-        
+@keyframes ofertaPerdida {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    background: linear-gradient(to bottom, #d4c092, #b89b67); /* Oscurecer pergamino */
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateX(0deg);
+    background: #222;
+  }
+  50% {
+    transform: rotateX(90deg);
+    background: #333;
+  }
+  100% {
+    transform: rotateX(0deg);
+    background: #222;
+  }
+}
+
+@keyframes desenrollarPergamino {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scaleY(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.pantalla-ofertas.cambiando .oferta-item {
+  animation: ofertaPerdida 0.3s forwards;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .header-juego {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .info-juego {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .pantalla-ofertas {
+    flex-direction: column;
+    height: auto;
+    min-height: 400px;
+  }
+
+  .columna-ofertas {
+    height: 130px;
+    margin-bottom: 10px;
+  }
+
+  .controles-maquina {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-juego {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .countdown-message h2 {
+    font-size: 1.4em;
+  }
+
+  .flip-clock {
+    gap: 3px;
+  }
+
+  .flip-sign,
+  .flip-digit {
+    width: 25px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 1.8em;
+  }
+
+  .flip-sign {
+    width: 15px;
+  }
+}
