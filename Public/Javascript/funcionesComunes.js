@@ -3,14 +3,14 @@
 let musicaFondoGlobal = null; // Instancia de música de fondo
 let musicaActiva = localStorage.getItem('musicaActiva') !== 'false'; // Estado de música
 let efectosActivos = localStorage.getItem('efectosActivos') !== 'false'; // Estado de efectos
-let capital = 1000; // Capital inicial
-let inventario = [
-    { id: 1, nombre: "Manzanas", cantidad: 20, precio: 15, codigo: "P001", demanda: 5 },
-    { id: 2, nombre: "Peras", cantidad: 15, precio: 18, codigo: "P002", demanda: 8 },
-    { id: 3, nombre: "Plátanos", cantidad: 30, precio: 12, codigo: "P003", demanda: 3 }
-]; // Inventario de productos
-let ventas = []; // Transacciones de ventas
-let clientes = ["Edwin", "Manuela", "Liyan", "Luis", "Yamira"]; // Lista de clientes
+// let capital = 1000; // Capital inicial
+// let inventario = [
+//     { id: 1, nombre: "Manzanas", cantidad: 20, precio: 15, codigo: "P001", demanda: 5 },
+//     { id: 2, nombre: "Peras", cantidad: 15, precio: 18, codigo: "P002", demanda: 8 },
+//     { id: 3, nombre: "Plátanos", cantidad: 30, precio: 12, codigo: "P003", demanda: 3 }
+// ]; // Inventario de productos
+// let ventas = []; // Transacciones de ventas
+// let clientes = ["Edwin", "Manuela", "Liyan", "Luis", "Yamira"]; // Lista de clientes
 let contenedorMensaje = null; // Contenedor de mensajes
 
 //Configura música global respetando estado de musicaActiva.
@@ -252,30 +252,30 @@ function mostrarMensaje(texto, tipo = 'exito', duracion = 3000) {
 
 //Actualiza capital con efectos visuales y de sonido.
  
-function actualizarCapital() {
-    const elementosCapital = document.querySelectorAll('#capital, .capital-value');
-    const nuevoCapital = parseFloat(capital.toFixed(2));
-    elementosCapital.forEach((elemento) => {
-        const capitalAnterior = parseFloat(elemento.getAttribute('data-previous-capital')) || 0;
-        elemento.textContent = nuevoCapital.toFixed(2);
-        elemento.classList.remove('zoom-capital', 'capital-bajo', 'resaltar');
-        if (nuevoCapital < 100) {
-            elemento.classList.add('capital-bajo', 'resaltar');
-            reproducirSonido('notificacion');
-            retroalimentacionVibracion([100, 50, 100]);
-        } else if (nuevoCapital > capitalAnterior) {
-            elemento.classList.add('zoom-capital');
-            crearParticulas(elemento, 'ganancia');
-            reproducirSonido('monedas');
-            retroalimentacionVibracion(30);
-        } else if (nuevoCapital < capitalAnterior) {
-            elemento.classList.add('zoom-capital');
-            crearParticulas(elemento, 'perdida');
-            retroalimentacionVibracion(100);
-        }
-        elemento.setAttribute('data-previous-capital', nuevoCapital);
-    });
-}
+// function actualizarCapital() {
+//     const elementosCapital = document.querySelectorAll('#capital, .capital-value');
+//     const nuevoCapital = parseFloat(capital.toFixed(2));
+//     elementosCapital.forEach((elemento) => {
+//         const capitalAnterior = parseFloat(elemento.getAttribute('data-previous-capital')) || 0;
+//         elemento.textContent = nuevoCapital.toFixed(2);
+//         elemento.classList.remove('zoom-capital', 'capital-bajo', 'resaltar');
+//         if (nuevoCapital < 100) {
+//             elemento.classList.add('capital-bajo', 'resaltar');
+//             reproducirSonido('notificacion');
+//             retroalimentacionVibracion([100, 50, 100]);
+//         } else if (nuevoCapital > capitalAnterior) {
+//             elemento.classList.add('zoom-capital');
+//             crearParticulas(elemento, 'ganancia');
+//             reproducirSonido('monedas');
+//             retroalimentacionVibracion(30);
+//         } else if (nuevoCapital < capitalAnterior) {
+//             elemento.classList.add('zoom-capital');
+//             crearParticulas(elemento, 'perdida');
+//             retroalimentacionVibracion(100);
+//         }
+//         elemento.setAttribute('data-previous-capital', nuevoCapital);
+//     });
+// }
 
 // Incrementa valor de entrada con retroalimentación.
 
@@ -287,6 +287,7 @@ function incrementarValor(id, paso = 1) {
     dispararEventoEntrada(entrada);
     entrada.classList.add('resaltar');
     setTimeout(() => entrada.classList.remove('resaltar'), 300);
+    calcularMontoVenta();
 }
 
 //Decrementa valor de entrada, evita negativos.
@@ -299,7 +300,27 @@ function decrementarValor(id, paso = 1) {
     dispararEventoEntrada(entrada);
     entrada.classList.add('resaltar');
     setTimeout(() => entrada.classList.remove('resaltar'), 300);
+    calcularMontoVenta();
 }
+function calcularMontoVenta() {
+    const entradaCantidad = document.getElementById("cantidadVender");
+    const precioVenta = document.getElementById("precio"); // asegúrate que el input tenga este id
+    const entradaMonto = document.getElementById("montoVenta");
+
+    const cantidad = parseInt(entradaCantidad.value) || 0;
+    const precio = parseFloat(precioVenta.value) || 0;
+
+    if (cantidad > 0 && precio > 0) {
+        const monto = cantidad * precio;
+        entradaMonto.value = monto.toFixed(2);
+
+        entradaMonto.classList.add("resaltar");
+        setTimeout(() => entradaMonto.classList.remove("resaltar"), 300);
+    } else {
+        entradaMonto.value = "";
+    }
+}
+
 
 //Dispara evento de entrada en un elemento.
 
@@ -310,36 +331,98 @@ function dispararEventoEntrada(entrada) {
 
 //Llena selectores de productos y clientes.
  
+let clientesData = []; // Variable global para acceder a los datos
+
 function cargarSelectores() {
-    const selectorProducto = document.getElementById('productoSelect');
-    if (selectorProducto) {
-        selectorProducto.innerHTML = '<option value="">Selecciona un producto</option>';
-        inventario.forEach(producto => {
-            const opcion = document.createElement('option');
-            opcion.value = producto.nombre;
-            opcion.textContent = producto.nombre;
-            opcion.dataset.id = producto.id;
-            selectorProducto.appendChild(opcion);
+    // Hacer fetch para obtener clientes con productos
+    fetch('../../Config/clientes.php')
+        .then(response => response.json())
+        .then(data => {
+            console.log("Clientes con productos recibidos:", data);
+            clientesData = data;
+            llenarSelectClientes(data);
         });
-        selectorProducto.value = '';
-    }
+
+    // Evento: cambio de cliente
     const selectorCliente = document.getElementById('clienteSelect');
     if (selectorCliente) {
-        selectorCliente.innerHTML = '<option value="">Selecciona un cliente</option>';
-        clientes.forEach(cliente => {
-            const opcion = document.createElement('option');
-            opcion.value = cliente;
-            opcion.textContent = cliente;
-            selectorCliente.appendChild(opcion);
+        selectorCliente.addEventListener('change', function () {
+            const clienteId = this.value;
+            const cliente = clientesData.find(c => c.cliente_id == clienteId);
+
+            if (cliente) {
+                llenarSelectProductos(cliente.productos_pedidos);
+            } else {
+                limpiarSelectProductos();
+            }
+
+            // Limpiar campos al cambiar de cliente
+            document.getElementById('cantidadPedida').value = '';
+            document.getElementById('cantidadDisponible').value = '';
+            document.getElementById('precio').value = '';
+            document.getElementById('montoVenta').value = '';
         });
-        selectorCliente.value = '';
+    }
+
+    // Evento: cambio de producto
+    const selectorProducto = document.getElementById('productoSelect');
+    if (selectorProducto) {
+        selectorProducto.addEventListener('change', function () {
+            const opcion = this.selectedOptions[0];
+
+            const cantidadPedida = opcion?.dataset.cantidadPedida || 0;
+            const cantidadDisponible = opcion?.dataset.cantidadDisponible || 0;
+            const precio = opcion?.dataset.precio || 0;
+
+            document.getElementById('cantidadPedida').value = cantidadPedida;
+            document.getElementById('cantidadDisponible').value = cantidadDisponible;
+            document.getElementById('precio').value = precio;
+            document.getElementById('montoVenta').value = ''; // limpiar monto al seleccionar nuevo producto
+        });
     }
 }
+
+// Llenar select de clientes
+function llenarSelectClientes(clientes) {
+    const selector = document.getElementById('clienteSelect');
+    selector.innerHTML = '<option value="">Selecciona un cliente</option>';
+    clientes.forEach(cliente => {
+        const opcion = document.createElement('option');
+        opcion.value = cliente.cliente_id;
+        opcion.textContent = cliente.cliente_nombre;
+        selector.appendChild(opcion);
+    });
+    selector.value = '';
+}
+
+// Llenar select de productos del cliente
+function llenarSelectProductos(productos) {
+    const selector = document.getElementById('productoSelect');
+    selector.innerHTML = '<option value="">Selecciona un producto</option>';
+    productos.forEach(producto => {
+        const opcion = document.createElement('option');
+        opcion.value = producto.id;
+        opcion.textContent = `${producto.nombre}`;
+        opcion.dataset.cantidadPedida = producto.cantidad_pedida;
+        opcion.dataset.cantidadDisponible = producto.cantidad_disponible;
+        opcion.dataset.precio = producto.precio_venta;
+        selector.appendChild(opcion);
+    });
+    selector.value = '';
+}
+
+// Limpiar productos si no hay cliente seleccionado
+function limpiarSelectProductos() {
+    const selector = document.getElementById('productoSelect');
+    selector.innerHTML = '<option value="">Selecciona un producto</option>';
+}
+
+
 
 //Actualiza UI según producto seleccionado y capital.
  
 function actualizarInterfaz() {
-    actualizarCapital();
+    // actualizarCapital();
     const selectorProducto = document.getElementById('productoSelect');
     if (selectorProducto && selectorProducto.value) {
         const producto = inventario.find(p => p.nombre === selectorProducto.value);
@@ -354,12 +437,133 @@ function actualizarInterfaz() {
             if (entradaCantidadDisponible) entradaCantidadDisponible.value = producto.cantidad;
             const entradaDemanda = document.getElementById('demanda');
             if (entradaDemanda) entradaDemanda.value = producto.demanda || 0;
-            if (document.getElementById('cantidadVender')) calcularMonto();
+            // if (document.getElementById('cantidadVender')) calcularMonto();
             if (document.getElementById('cantidadCompra')) calcularMontoCompra();
         }
     }
 }
+// Realiza la compra de un producto
+async function comprarProducto() {
+    retroalimentacionVibracion();
 
+    const selectorProducto = document.getElementById('productoSelect');
+    const entradaCantidadCompra = document.getElementById('cantidadCompra');
+    const entradaPrecioUnitario = document.getElementById('precioUnitario');
+
+    const productoId = selectorProducto.value;
+    const cantidad = parseInt(entradaCantidadCompra.value) || 0;
+    const precioUnitario = parseFloat(entradaPrecioUnitario.value) || 0;
+    const precioTotal = parseFloat((cantidad * precioUnitario).toFixed(2));
+
+    // Validaciones visuales
+    if (!productoId) {
+        selectorProducto.classList.add('sacudir');
+        setTimeout(() => selectorProducto.classList.remove('sacudir'), 500);
+        mostrarMensaje("¡Selecciona un producto!", "error");
+        return;
+    }
+    if (cantidad <= 0) {
+        entradaCantidadCompra.classList.add('sacudir');
+        setTimeout(() => entradaCantidadCompra.classList.remove('sacudir'), 500);
+        mostrarMensaje("¡Cantidad inválida!", "error");
+        return;
+    }
+
+    try {
+        const res = await fetch('../../Config/comprar.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                producto_id: productoId,
+                cantidad: cantidad,
+                precio_unitario: precioUnitario,
+                precio_total: precioTotal
+            })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            mostrarMensaje(`¡Compra exitosa! +${cantidad} unidades`, "exito");
+            reiniciarFormularioCompras();
+            document.querySelector('.contenedor-admin').classList.add('pulso');
+            setTimeout(() => document.querySelector('.contenedor-admin').classList.remove('pulso'), 500);
+
+            await actualizarCapital(); // Sincroniza el capital visual con backend
+            obtenerNegocioYProductos(); // Refresca productos
+        } else {
+            mostrarMensaje("Error: " + data.message, "error");
+        }
+    } catch (error) {
+        console.error("Error al realizar la compra:", error);
+        mostrarMensaje("Error en la comunicación con el servidor.", "error");
+    }
+}
+async function actualizarCapital() {
+    try {
+        const res = await fetch('../../Config/comprar.php'); // mismo archivo, pero GET
+        const data = await res.json();
+        
+        if (!data.success || typeof data.capital === 'undefined') {
+            console.error("No se pudo obtener el capital:", data.message);
+            return;
+        }
+
+        const elementosCapital = document.querySelectorAll('#capital');
+        const nuevoCapital = parseFloat(data.capital);
+        
+        if (isNaN(nuevoCapital)) {
+            console.error("Capital recibido no es un número:", data.capital);
+            return;
+        }
+
+
+        elementosCapital.forEach((elemento) => {
+            const capitalAnterior = parseFloat(elemento.getAttribute('data-previous-capital')) || 0;
+
+            elemento.textContent = nuevoCapital.toFixed(2);
+            
+            elemento.classList.remove('zoom-capital', 'capital-bajo', 'resaltar');
+            void elemento.offsetWidth;
+
+            if (nuevoCapital < 100) {
+                elemento.classList.add('capital-bajo', 'resaltar');
+                reproducirSonido('notificacion');
+                retroalimentacionVibracion([100, 50, 100]);
+            } else if (nuevoCapital > capitalAnterior) {
+                elemento.classList.add('zoom-capital');
+                crearParticulas(elemento, 'ganancia');
+                reproducirSonido('monedas');
+                retroalimentacionVibracion(30);
+            } else if (nuevoCapital < capitalAnterior) {
+                elemento.classList.add('zoom-capital');
+                crearParticulas(elemento, 'perdida');
+                retroalimentacionVibracion(100);
+            }
+
+            elemento.setAttribute('data-previous-capital', nuevoCapital);
+        });
+
+    } catch (error) {
+        console.error("Error al obtener capital:", error);
+    }
+}
+function reiniciarFormularioCompras() {
+  const selectorProducto = document.getElementById("productoSelect");
+  const entradaCantidadCompra = document.getElementById("cantidadCompra");
+  const entradaPrecioUnitario = document.getElementById("precioUnitario");
+  const entradaMontoCompra = document.getElementById("montoCompra");
+//   const entradaDisponible = document.getElementById("disponible");
+//   const entradaDemanda = document.getElementById("demanda");
+
+  // Limpia valores de los elementos si existen
+  if (selectorProducto) selectorProducto.value = "";
+  if (entradaCantidadCompra) entradaCantidadCompra.value = "";
+  if (entradaPrecioUnitario) entradaPrecioUnitario.value = "";
+  if (entradaMontoCompra) entradaMontoCompra.value = "";
+//   if (entradaDisponible) entradaDisponible.value = "";
+//   if (entradaDemanda) entradaDemanda.value = "";
+}
 //Inicializa página con listeners y configuraciones.
  
 document.addEventListener('DOMContentLoaded', () => {
@@ -371,6 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
     configurarEfectosBotones();
     configurarClicBotones();
     configurarMusicaGlobal();
+     actualizarCapital();
     document.querySelectorAll('.contenedor-entrada-numerica input[type="number"]').forEach(entrada => {
         entrada.addEventListener('keydown', function(e) {
             if (e.key === 'ArrowUp') {
@@ -382,13 +587,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-    const selectorProducto = document.getElementById('productoSelect');
-    if (selectorProducto) selectorProducto.addEventListener('change', () => {
-        actualizarInterfaz();
-        if (document.getElementById('clienteSelect')) generarCantidadPedida();
-    });
-    const selectorCliente = document.getElementById('clienteSelect');
-    if (selectorCliente) selectorCliente.addEventListener('change', () => generarCantidadPedida());
+    // const selectorProducto = document.getElementById('productoSelect');
+    // if (selectorProducto) selectorProducto.addEventListener('change', () => {
+    //     actualizarInterfaz();
+    //     if (document.getElementById('clienteSelect')) generarCantidadPedida();
+    // });
+    // const selectorCliente = document.getElementById('clienteSelect');
+    // if (selectorCliente) selectorCliente.addEventListener('change', () => generarCantidadPedida());
     window.addEventListener('pageshow', (event) => {
         if (event.persisted) {
             const transiciones = document.querySelectorAll('.transicion-pagina');

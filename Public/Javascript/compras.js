@@ -1,55 +1,45 @@
-// Datos iniciales del juego
-/*
-let capital = 1000; // Capital inicial del jugador
-let inventario = [
-    { id: 1, nombre: "Manzanas", cantidad: 20, precio: 15, codigo: "P001", demanda: 5 },
-    { id: 2, nombre: "Peras", cantidad: 15, precio: 18, codigo: "P002", demanda: 8 },
-    { id: 3, nombre: "Plátanos", cantidad: 30, precio: 12, codigo: "P003", demanda: 3 }
-];
-let ventas = []; // Registro de ventas
-let clientes = ["Edwin", "Manuela", "Liyan","Luis","Yamira"];
-*/
+
 let contenedorMensaje = null; // Contenedor para mensajes emergentes
 let sonidoActivado = true; // Estado del sonido
 
-async function comprarProducto() {
-    const productoSelect = document.getElementById("productoSelect");
-    const productoId = productoSelect.value;
-    const cantidad = parseInt(document.getElementById("cantidadCompra").value) || 0;
-    const precioUnitario = parseFloat(document.getElementById("precioUnitario").value) || 0;
-    const precioTotal = (cantidad * precioUnitario).toFixed(2);
+// async function comprarProducto() {
+//     const productoSelect = document.getElementById("productoSelect");
+//     const productoId = productoSelect.value;
+//     const cantidad = parseInt(document.getElementById("cantidadCompra").value) || 0;
+//     const precioUnitario = parseFloat(document.getElementById("precioUnitario").value) || 0;
+//     const precioTotal = (cantidad * precioUnitario).toFixed(2);
 
-    if (!productoId || cantidad <= 0) {
-        alert("Selecciona un producto y una cantidad válida.");
-        return;
-    }
+//     if (!productoId || cantidad <= 0) {
+//         alert("Selecciona un producto y una cantidad válida.");
+//         return;
+//     }
 
-    try {
-        const res = await fetch('../../Config/comprar.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                producto_id: productoId,
-                cantidad: cantidad,
-                precio_unitario: precioUnitario,
-                precio_total: precioTotal
-            })
-        });
+//     try {
+//         const res = await fetch('../../Config/comprar.php', {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify({
+//                 producto_id: productoId,
+//                 cantidad: cantidad,
+//                 precio_unitario: precioUnitario,
+//                 precio_total: precioTotal
+//             })
+//         });
 
-        const data = await res.json();
+//         const data = await res.json();
 
-        if (data.success) {
-            alert("¡Compra realizada con éxito!");
-            obtenerNegocioYProductos(); // refrescar
-            actualizarCapital();
-        } else {
-            alert("Error: " + data.message);
-        }
-    } catch (error) {
-        console.error("Error al realizar la compra:", error);
-        alert("Error en la comunicación con el servidor.");
-    }
-}
+//         if (data.success) {
+//             alert("¡Compra realizada con éxito!");
+//             obtenerNegocioYProductos(); // refrescar
+//             actualizarCapital();
+//         } else {
+//             alert("Error: " + data.message);
+//         }
+//     } catch (error) {
+//         console.error("Error al realizar la compra:", error);
+//         alert("Error en la comunicación con el servidor.");
+//     }
+// }
 
 
 // Crea el control de sonido en la interfaz
@@ -238,58 +228,6 @@ function mostrarMensaje(texto, tipo = 'exito', duracion = 3000) {
     }, duracion);
 }
 
-// Actualiza el capital en la interfaz
-async function actualizarCapital() {
-    try {
-        const res = await fetch('../../Config/comprar.php'); // mismo archivo, pero GET
-        const data = await res.json();
-
-        if (!data.success || typeof data.capital === 'undefined') {
-            console.error("No se pudo obtener el capital:", data.message);
-            return;
-        }
-
-        const elementosCapital = document.querySelectorAll('#capital');
-        const nuevoCapital = parseFloat(data.capital);
-
-        if (isNaN(nuevoCapital)) {
-            console.error("Capital recibido no es un número:", data.capital);
-            return;
-        }
-
-
-        elementosCapital.forEach((elemento) => {
-            const capitalAnterior = parseFloat(elemento.getAttribute('data-previous-capital')) || 0;
-
-            elemento.textContent = nuevoCapital.toFixed(2);
-            
-            elemento.classList.remove('zoom-capital', 'capital-bajo', 'resaltar');
-            void elemento.offsetWidth;
-
-            if (nuevoCapital < 100) {
-                elemento.classList.add('capital-bajo', 'resaltar');
-                reproducirSonido('notificacion');
-                retroalimentacionVibracion([100, 50, 100]);
-            } else if (nuevoCapital > capitalAnterior) {
-                elemento.classList.add('zoom-capital');
-                crearParticulas(elemento, 'ganancia');
-                reproducirSonido('monedas');
-                retroalimentacionVibracion(30);
-            } else if (nuevoCapital < capitalAnterior) {
-                elemento.classList.add('zoom-capital');
-                crearParticulas(elemento, 'perdida');
-                retroalimentacionVibracion(100);
-            }
-
-            elemento.setAttribute('data-previous-capital', nuevoCapital);
-        });
-
-    } catch (error) {
-        console.error("Error al obtener capital:", error);
-    }
-}
-
-
 
 // Calcula el monto de una compra
 function calcularMontoCompra() {
@@ -298,62 +236,62 @@ function calcularMontoCompra() {
   const entradaMontoCompra = document.getElementById("montoCompra");
 }
 // Realiza la compra de un producto
-async function comprarProducto() {
-    retroalimentacionVibracion();
+// async function comprarProducto() {
+//     retroalimentacionVibracion();
 
-    const selectorProducto = document.getElementById('productoSelect');
-    const entradaCantidadCompra = document.getElementById('cantidadCompra');
-    const entradaPrecioUnitario = document.getElementById('precioUnitario');
+//     const selectorProducto = document.getElementById('productoSelect');
+//     const entradaCantidadCompra = document.getElementById('cantidadCompra');
+//     const entradaPrecioUnitario = document.getElementById('precioUnitario');
 
-    const productoId = selectorProducto.value;
-    const cantidad = parseInt(entradaCantidadCompra.value) || 0;
-    const precioUnitario = parseFloat(entradaPrecioUnitario.value) || 0;
-    const precioTotal = parseFloat((cantidad * precioUnitario).toFixed(2));
+//     const productoId = selectorProducto.value;
+//     const cantidad = parseInt(entradaCantidadCompra.value) || 0;
+//     const precioUnitario = parseFloat(entradaPrecioUnitario.value) || 0;
+//     const precioTotal = parseFloat((cantidad * precioUnitario).toFixed(2));
 
-    // Validaciones visuales
-    if (!productoId) {
-        selectorProducto.classList.add('sacudir');
-        setTimeout(() => selectorProducto.classList.remove('sacudir'), 500);
-        mostrarMensaje("¡Selecciona un producto!", "error");
-        return;
-    }
-    if (cantidad <= 0) {
-        entradaCantidadCompra.classList.add('sacudir');
-        setTimeout(() => entradaCantidadCompra.classList.remove('sacudir'), 500);
-        mostrarMensaje("¡Cantidad inválida!", "error");
-        return;
-    }
+//     // Validaciones visuales
+//     if (!productoId) {
+//         selectorProducto.classList.add('sacudir');
+//         setTimeout(() => selectorProducto.classList.remove('sacudir'), 500);
+//         mostrarMensaje("¡Selecciona un producto!", "error");
+//         return;
+//     }
+//     if (cantidad <= 0) {
+//         entradaCantidadCompra.classList.add('sacudir');
+//         setTimeout(() => entradaCantidadCompra.classList.remove('sacudir'), 500);
+//         mostrarMensaje("¡Cantidad inválida!", "error");
+//         return;
+//     }
 
-    try {
-        const res = await fetch('../../Config/comprar.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                producto_id: productoId,
-                cantidad: cantidad,
-                precio_unitario: precioUnitario,
-                precio_total: precioTotal
-            })
-        });
+//     try {
+//         const res = await fetch('../../Config/comprar.php', {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify({
+//                 producto_id: productoId,
+//                 cantidad: cantidad,
+//                 precio_unitario: precioUnitario,
+//                 precio_total: precioTotal
+//             })
+//         });
 
-        const data = await res.json();
+//         const data = await res.json();
 
-        if (data.success) {
-            mostrarMensaje(`¡Compra exitosa! +${cantidad} unidades`, "exito");
-            reiniciarFormularioCompras();
-            document.querySelector('.contenedor-admin').classList.add('pulso');
-            setTimeout(() => document.querySelector('.contenedor-admin').classList.remove('pulso'), 500);
+//         if (data.success) {
+//             mostrarMensaje(`¡Compra exitosa! +${cantidad} unidades`, "exito");
+//             reiniciarFormularioCompras();
+//             document.querySelector('.contenedor-admin').classList.add('pulso');
+//             setTimeout(() => document.querySelector('.contenedor-admin').classList.remove('pulso'), 500);
 
-            await actualizarCapital(); // Sincroniza el capital visual con backend
-            obtenerNegocioYProductos(); // Refresca productos
-        } else {
-            mostrarMensaje("Error: " + data.message, "error");
-        }
-    } catch (error) {
-        console.error("Error al realizar la compra:", error);
-        mostrarMensaje("Error en la comunicación con el servidor.", "error");
-    }
-}
+//             await actualizarCapital(); // Sincroniza el capital visual con backend
+//             obtenerNegocioYProductos(); // Refresca productos
+//         } else {
+//             mostrarMensaje("Error: " + data.message, "error");
+//         }
+//     } catch (error) {
+//         console.error("Error al realizar la compra:", error);
+//         mostrarMensaje("Error en la comunicación con el servidor.", "error");
+//     }
+// }
 
 
 // Genera una cantidad pedida aleatoria
@@ -510,16 +448,16 @@ function reiniciarFormularioCompras() {
   const entradaCantidadCompra = document.getElementById("cantidadCompra");
   const entradaPrecioUnitario = document.getElementById("precioUnitario");
   const entradaMontoCompra = document.getElementById("montoCompra");
-  const entradaDisponible = document.getElementById("disponible");
-  const entradaDemanda = document.getElementById("demanda");
+//   const entradaDisponible = document.getElementById("disponible");
+//   const entradaDemanda = document.getElementById("demanda");
 
   // Limpia valores de los elementos si existen
   if (selectorProducto) selectorProducto.value = "";
   if (entradaCantidadCompra) entradaCantidadCompra.value = "";
   if (entradaPrecioUnitario) entradaPrecioUnitario.value = "";
   if (entradaMontoCompra) entradaMontoCompra.value = "";
-  if (entradaDisponible) entradaDisponible.value = "";
-  if (entradaDemanda) entradaDemanda.value = "";
+//   if (entradaDisponible) entradaDisponible.value = "";
+//   if (entradaDemanda) entradaDemanda.value = "";
 }
 
 // Carga los selectores con datos iniciales
@@ -585,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
     configurarEfectosEntradas();
     configurarEfectosBotones();
     crearControlSonido();
-    actualizarCapital();
+    // actualizarCapital();
 
     document.querySelectorAll('.contenedor-entrada-numerica input[type="number"]').forEach(entrada => {
         entrada.addEventListener('keydown', function(e) {

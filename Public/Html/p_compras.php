@@ -50,10 +50,10 @@
                 </select>
                 <label>Precio Unitario</label>
                 <input type="number" id="precioUnitario" placeholder="Precio unitario" readonly>
-                <label>Disponible</label>
+                <!-- <label>Disponible</label>
                 <input type="number" id="disponible" placeholder="Disponible" readonly>
                 <label>Demanda</label>
-                <input type="number" id="demanda" placeholder="Demanda" readonly>
+                <input type="number" id="demanda" placeholder="Demanda" readonly> -->
             </div>
 
             <!-- Sección derecha: Configuración de compra -->

@@ -42,12 +42,12 @@
 
                 <!-- Opciones de partida (placeholders) -->
                 <div class="opciones-partida">
-                    <a href="#" class="action-btn">
+                    <a href="p_administracion.php" class="action-btn">
                         <div class="opcion-contenido">
                             <h3>Reanudar Partida</h3>
                         </div>
                     </a>
-                    <a href="#" class="action-btn">
+                    <!-- <a href="#" class="action-btn">
                         <div class="opcion-contenido">
                             <h3>Juego 2</h3>
                         </div>
@@ -56,7 +56,7 @@
                         <div class="opcion-contenido">
                             <h3>Juego 3</h3>
                         </div>
-                    </a>
+                    </a> -->
                 </div>
                 <div class="contenedor-botones">
                     <button class="btn-secundario action-btn" id="btnVolver" onclick="transicionPagina('index.php')">

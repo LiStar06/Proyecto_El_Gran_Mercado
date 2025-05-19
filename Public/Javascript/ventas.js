@@ -1,54 +1,4 @@
-// Funciones específicas de ventas
-function generarCantidadPedida() {
-  const selectorCliente = document.getElementById("clienteSelect");
-  const selectorProducto = document.getElementById("productoSelect");
-  if (
-    selectorCliente &&
-    selectorProducto &&
-    selectorCliente.value &&
-    selectorProducto.value
-  ) {
-    const cantidadPedida = Math.floor(Math.random() * 10) + 1;
-    const entradaCantidadPedida = document.getElementById("cantidadPedida");
-    if (entradaCantidadPedida) {
-      entradaCantidadPedida.value = cantidadPedida;
-      entradaCantidadPedida.classList.add("resaltar");
-      setTimeout(
-        () => entradaCantidadPedida.classList.remove("resaltar"),
-        1000
-      );
-      calcularMonto();
-    }
-  }
-}
 
-function calcularMonto() {
-  const selectorProducto = document.getElementById("productoSelect");
-  const entradaCantidadVender = document.getElementById("cantidadVender");
-  const entradaMontoVenta = document.getElementById("montoVenta");
-
-  if (
-    selectorProducto &&
-    entradaCantidadVender &&
-    entradaMontoVenta &&
-    selectorProducto.value
-  ) {
-    const cantidad = parseInt(entradaCantidadVender.value) || 0;
-    const producto = inventario.find(
-      (p) => p.nombre === selectorProducto.value
-    );
-    if (producto) {
-      entradaMontoVenta.value = (cantidad * producto.precio).toFixed(2);
-
-      if (cantidad > 0) {
-        entradaMontoVenta.classList.add("pulso");
-        setTimeout(() => entradaMontoVenta.classList.remove("pulso"), 500);
-      }
-    } else {
-      entradaMontoVenta.value = "";
-    }
-  }
-}
 
 async function venderProducto() {
   retroalimentacionVibracion();
@@ -56,9 +6,16 @@ async function venderProducto() {
   const selectorCliente = document.getElementById("clienteSelect");
   const selectorProducto = document.getElementById("productoSelect");
   const entradaCantidadVender = document.getElementById("cantidadVender");
-  const cantidadVender = parseInt(entradaCantidadVender.value) || 0;
-  const producto = inventario.find((p) => p.nombre === selectorProducto.value);
+  const entradaDisponible = document.getElementById("cantidadDisponible");
+  const entradaPedida = document.getElementById("cantidadPedida");
 
+  const cantidadVender = parseInt(entradaCantidadVender.value) || 0;
+  const cantidadDisponible = parseInt(entradaDisponible.value) || 0;
+  const cantidadPedida = parseInt(entradaPedida.value) || 0;
+
+  // const producto = inventario.find((p) => p.nombre === selectorProducto.value);
+
+  // Validaciones básicas
   if (!selectorCliente.value) {
     selectorCliente.classList.add("sacudir");
     setTimeout(() => selectorCliente.classList.remove("sacudir"), 500);
@@ -77,11 +34,20 @@ async function venderProducto() {
     mostrarMensaje("Cantidad inválida", "error");
     return;
   }
-  if (!producto || producto.cantidad < cantidadVender) {
-    const entradaDisponible = document.getElementById("cantidadDisponible");
+
+  // Validación de stock
+  if (cantidadDisponible < cantidadVender) {
     entradaDisponible.classList.add("sacudir");
     setTimeout(() => entradaDisponible.classList.remove("sacudir"), 500);
     mostrarMensaje("Stock insuficiente", "error");
+    return;
+  }
+
+  // Validación contra cantidad pedida
+  if (cantidadVender > cantidadPedida) {
+    entradaCantidadVender.classList.add("sacudir");
+    setTimeout(() => entradaCantidadVender.classList.remove("sacudir"), 500);
+    mostrarMensaje("No puedes vender más de lo que el cliente pidió", "error");
     return;
   }
 
@@ -115,36 +81,78 @@ async function venderProducto() {
   } catch (error) {
     mostrarMensaje("Error al procesar venta: " + error.message, "error");
   }
-
-  // Añadir al final:
+  registrarVenta();
   crearParticulas(document.querySelector(".action-btn"), "monedas");
   reproducirSonido("transicion");
   efectoActualizacion(document.getElementById("capital"));
 }
+async function registrarVenta() {
+    const clienteId = document.getElementById("clienteSelect").value;
+    const productoSelect = document.getElementById("productoSelect");
+    const productoId = productoSelect.value;
+    const cantidad = parseInt(document.getElementById("cantidadVender").value) || 0;
+    const precioUnitario = parseFloat(document.getElementById("precio").value) || 0;
+    const montoTotal = parseFloat(document.getElementById("montoVenta").value) || 0;
 
-function reiniciarFormularioVentas() {
-  const selectorCliente = document.getElementById("clienteSelect");
-  const selectorProducto = document.getElementById("productoSelect");
-  const entradaCantidadPedida = document.getElementById("cantidadPedida");
-  const entradaCantidadVender = document.getElementById("cantidadVender");
-  const entradaCantidadDisponible =
-    document.getElementById("cantidadDisponible");
-  const entradaMontoVenta = document.getElementById("montoVenta");
+    if (!clienteId || !productoId || cantidad <= 0 || precioUnitario <= 0) {
+        mostrarMensaje("Datos inválidos", "error");
+        return;
+    }
 
-  if (selectorCliente) selectorCliente.value = "";
-  if (selectorProducto) selectorProducto.value = "";
-  if (entradaCantidadPedida) entradaCantidadPedida.value = "";
-  if (entradaCantidadVender) entradaCantidadVender.value = "0";
-  if (entradaCantidadDisponible) entradaCantidadDisponible.value = "";
-  if (entradaMontoVenta) entradaMontoVenta.value = "";
+    const venta = {
+        cliente_id: parseInt(clienteId),
+        producto_id: parseInt(productoId), // 👈 Cambiado
+        cantidad: cantidad,
+        precio_unitario: precioUnitario,
+        monto_total: montoTotal
+    };
+
+    try {
+        const response = await fetch("../../Config/vender.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(venta)
+        });
+
+        const result = await response.json();
+
+        if (result.exito) {
+            mostrarMensaje(result.exito, "exito");
+            reiniciarFormularioVentas(); // 👈 Puedes reiniciar si fue exitosa
+        } else {
+            mostrarMensaje(result.error, "error");
+        }
+    } catch (error) {
+        mostrarMensaje("Error de red: " + error.message, "error");
+    }
 }
+function reiniciarFormularioVentas() {
+    const selectorCliente = document.getElementById("clienteSelect");
+    const selectorProducto = document.getElementById("productoSelect");
+    const entradaCantidadPedida = document.getElementById("cantidadPedida");
+    const entradaCantidadDisponible = document.getElementById("cantidadDisponible");
+    const entradaCantidadVender = document.getElementById("cantidadVender");
+    const entradaPrecio = document.getElementById("precio");
+    const entradaMontoVenta = document.getElementById("montoVenta");
+
+    if (selectorCliente) selectorCliente.value = "";
+    if (selectorProducto) selectorProducto.innerHTML = '<option value="">Selecciona un producto</option>';
+    if (entradaCantidadPedida) entradaCantidadPedida.value = "";
+    if (entradaCantidadDisponible) entradaCantidadDisponible.value = "";
+    if (entradaCantidadVender) entradaCantidadVender.value = "";
+    if (entradaPrecio) entradaPrecio.value = "";
+    if (entradaMontoVenta) entradaMontoVenta.value = "";
+}
+
 
 // Event listeners específicos de ventas
 document.addEventListener("DOMContentLoaded", () => {
   const entradaCantidadVender = document.getElementById("cantidadVender");
   if (entradaCantidadVender) {
-    entradaCantidadVender.addEventListener("input", calcularMonto);
+    // entradaCantidadVender.addEventListener("input", calcularMonto);
   }
 
-  reiniciarFormularioVentas();
+  // reiniciarFormularioVentas();
 });

@@ -70,6 +70,8 @@
                             <button type="button" class="number-input-button decrement" onclick="decrementarValor('cantidadVender')"></button>
                         </div>
                     </div>
+                    <label>Precio</label>
+                    <input type="number" id="precio" placeholder="Disponible" min="0" readonly>
                     <label>Monto</label>
                     <input type="number" id="montoVenta" placeholder="Monto" readonly> <!-- Monto total calculado-->
                 </div>
@@ -80,21 +82,24 @@
                 <button class="action-btn" onclick="venderProducto()">
                     <img src="../Imagenes/vender-icon.png" alt="Vender" class="btn-icon"> Vender
                 </button>
+                
+                    <button class="nav-btn" onclick="transicionPagina('p_resumen.php')">
+                        <img src="../Imagenes/resumen-icon.png" alt="Detalles" class="btn-icon"> Detalles
+                    </button>
+                    <button class="nav-btn" onclick="transicionPagina('EGM-002.php')">
+                        <img src="../Imagenes/menu-icon.png" alt="Menú" class="btn-icon"> Menú
+                    </button>
+                
             </div>
+           
         </main>
 
         <!-- Pie de página con botones de navegación -->
-        <footer class="botones">
-            <button class="nav-btn" onclick="transicionPagina('p_resumen.php')">
-                <img src="../Imagenes/resumen-icon.png" alt="Detalles" class="btn-icon"> Detalles
-            </button>
-            <button class="nav-btn" onclick="transicionPagina('EGM-002.php')">
-                <img src="../Imagenes/menu-icon.png" alt="Menú" class="btn-icon"> Menú
-            </button>
-        </footer>
+        
         </div>
         <script src="../Javascript/funcionesComunes.js"></script>
         <script src="../Javascript/ventas.js"></script>
+        
     </body>
 
 </html>

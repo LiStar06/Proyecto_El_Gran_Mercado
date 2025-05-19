@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (data.success) {
         mostrarMensaje("¡Bienvenido!", "exito", 2000);
-        setTimeout(() => transicionPagina("../Html/partida.php"), 2000);
+        setTimeout(() => transicionPagina("../Html/EGM-002.php"), 2000);
       } else {
         throw new Error(data.message || "Credenciales incorrectas");
       }
