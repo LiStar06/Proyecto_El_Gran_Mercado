@@ -46,17 +46,7 @@
                     <select id="productoSelect">
                         <option value="">Selecciona un producto</option>
                     </select>
-                    <div class="info-producto">
-                        <label>Código</label>
-                        <input type="text" id="codigoProducto" readonly> 
-                        <label>Existencias</label>
-                        <input type="number" id="existencias" readonly>
-                        <label>Demanda</label>
-                        <div class="barra-demanda">
-                            <div class="barra-demanda-llena" id="barraDemanda"></div>
-                            <span id="textoDemanda"></span>
-                        </div>
-                    </div>
+                    
                 </div>
 
                 <!-- Sección derecha: Configuración de nuevo precio -->
@@ -67,21 +57,15 @@
                     <label>Nuevo Precio</label>
                     <div class="contenedor-entrada-numerica">
                         <input type="number" id="nuevoPrecio" min="0"> 
-                        <div class="number-input-buttons">
-                            <!-- Botones para ajustar precio en incrementos de 5 -->
-                            <button type="button" class="number-input-button increment" onclick="incrementarValor('nuevoPrecio', 5)"></button>
-                            <button type="button" class="number-input-button decrement" onclick="decrementarValor('nuevoPrecio', 5)"></button>
-                        </div>
+                        
                     </div>
-                    <div class="diferencia-precio" id="diferenciaPrecio">
-                        <span id="textoDiferencia">+$0 (0%)</span> 
-                    </div>
+                    
                 </div>
             </section>
 
             <!-- Botón para guardar cambios -->
             <div class="action-buttons">
-                <button class="action-btn" onclick="guardarPrecio()">
+                <button class="action-btn" onclick="enviarPrecios()">
                     <img src="../Imagenes/ajustar-icon.png" alt="Ajustar" class="btn-icon"> Aplicar Cambios
                 </button>
             </div>
@@ -92,12 +76,12 @@
             <button class="nav-btn" onclick="transicionPagina('p_resumen.php')">
                 <img src="../Imagenes/resumen-icon.png" alt="Resumen" class="btn-icon"> Resumen
             </button>
-            <button class="nav-btn" onclick="transicionPagina('EGM-002.php')">
-                <img src="../Imagenes/menu-icon.png" alt="Menú" class="btn-icon"> Menú
+            <button class="nav-btn" onclick="transicionPagina('p_administracion.php')">
+                <img src="../Imagenes/menu-icon.png" alt="Menú" class="btn-icon"> Administracion
             </button>
         </footer>
     </div>
-
+    <script src="../Javascript/mostrar_prod.js"></script>
     <script src="../Javascript/funcionesComunes.js"></script>
     <script src="../Javascript/precios.js"></script>
 </body>

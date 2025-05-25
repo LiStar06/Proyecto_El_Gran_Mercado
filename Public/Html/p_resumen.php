@@ -92,7 +92,7 @@
             </div>
 
             <div class="button-container">
-                <a onclick="transicionPagina('EGM-002.php')" class="action-button action-btn">Menú Principal</a>
+                <a onclick="transicionPagina('p_administracion.php')" class="action-button action-btn">Administracion</a>
                 <a onclick="transicionPagina('p_resumen_historico.php')" class="action-button action-btn" >Histórico de Precios</a>
             </div>
         </main>

@@ -4,7 +4,7 @@ async function obtenerNegocioYProductos() {
         const data = await res.json();
 
         if (data.success) {
-            console.log("Negocio activo:", data.nombre_negocio);
+            // console.log("Negocio activo:", data.nombre_negocio);
             cargarProductosDesdeRespuesta(data.productos);
         } else {
             alert("No se pudo obtener el negocio activo: " + data.message);
@@ -13,7 +13,7 @@ async function obtenerNegocioYProductos() {
         console.error("Error al obtener datos:", error);
     }
 }
-
+let id_producto;
 function cargarProductosDesdeRespuesta(productos) {
     const select = document.getElementById("productoSelect");
     select.innerHTML = '<option value="">Selecciona un producto</option>';
@@ -28,17 +28,34 @@ function cargarProductosDesdeRespuesta(productos) {
 
     select.addEventListener('change', () => {
         const selected = select.selectedOptions[0];
-        document.getElementById("precioUnitario").value = selected.dataset.precio || '';
-        document.getElementById("cantidadCompra").value = 0;
-        document.getElementById("montoCompra").value = 0;
+        const precio = selected?.dataset.precio || '';
+
+        const precioActualInput = document.getElementById("precioActual");
+        const nuevoPrecioInput = document.getElementById("precioUnitario");
+
+        if (precioActualInput) precioActualInput.value = precio;
+        if (nuevoPrecioInput) nuevoPrecioInput.value = precio;
+
+        const cantidadInput = document.getElementById("cantidadCompra");
+        const montoInput = document.getElementById("montoCompra");
+
+        if (cantidadInput) cantidadInput.value = 0;
+        if (montoInput) montoInput.value = 0;
     });
 
-    document.getElementById("cantidadCompra").addEventListener("input", () => {
-        const cantidad = parseInt(document.getElementById("cantidadCompra").value) || 0;
-        const precio = parseFloat(document.getElementById("precioUnitario").value) || 0;
-        document.getElementById("montoCompra").value = (cantidad * precio).toFixed(2);
-    });
+    const cantidadInput = document.getElementById("cantidadCompra");
+    const precioUnitarioInput = document.getElementById("precioUnitario");
+    const montoInput = document.getElementById("montoCompra");
+
+    if (cantidadInput && precioUnitarioInput && montoInput) {
+        cantidadInput.addEventListener("input", () => {
+            const cantidad = parseInt(cantidadInput.value) || 0;
+            const precio = parseFloat(precioUnitarioInput.value) || 0;
+            montoInput.value = (cantidad * precio).toFixed(2);
+        });
+    }
 }
+
 
 obtenerNegocioYProductos();
 

@@ -29,10 +29,10 @@ try {
                 $categoria = 'Joyería';
                 break;
             case 2:
-                $categoria = 'Ropa';
+                $categoria = 'Tienda de Ropas';
                 break;
             case 3:
-                $categoria = 'Víveres';
+                $categoria = 'Tienda de viveres';
                 break;
             default:
                 echo json_encode(['success' => false, 'message' => 'Tipo de negocio no reconocido']);

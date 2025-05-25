@@ -120,10 +120,12 @@ async function registrarVenta() {
 
         if (result.exito) {
             mostrarMensaje(result.exito, "exito");
-            reiniciarFormularioVentas(); // 👈 Puedes reiniciar si fue exitosa
+            reiniciarFormularioVentas();
+            actualizarCapital();
         } else {
             mostrarMensaje(result.error, "error");
         }
+
     } catch (error) {
         mostrarMensaje("Error de red: " + error.message, "error");
     }

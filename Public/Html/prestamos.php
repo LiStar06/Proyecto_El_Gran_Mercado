@@ -32,7 +32,7 @@
     <!-- Encabezado: Barra superior con logo, título y capital -->
     <header class="header-bar">
         <img src="../Imagenes/logo.png" alt="Logo" class="logo">
-        <h1>Área de compras</h1>
+        <h1>Área de prestamos</h1>
         <p class="visualizador-capital">
             Capital: $<span id="capital" class="capital-value"></span>
         </p>
@@ -43,39 +43,25 @@
         <section class="secciones">
             <!-- Sección izquierda: Selección y detalles de productos -->
             <div class="seccion izquierda">
-                <h2>Lista de productos</h2>
-                <label>Nombre</label>
-                <select id="productoSelect">
-                    <option value="">Selecciona un producto</option>
-                </select>
-                <label>Precio Unitario</label>
-                <input type="number" id="precioUnitario" placeholder="Precio unitario" readonly>
-                <!-- <label>Disponible</label>
-                <input type="number" id="disponible" placeholder="Disponible" readonly>
-                <label>Demanda</label>
-                <input type="number" id="demanda" placeholder="Demanda" readonly> -->
+                <h2>Cantidad aprobada</h2>          
+                <input type="number" id="cantidadAprobada"  readonly>
+                <h2>Total a pagar</h2>
+                <input type="number" id="montoAPagar"  readonly>
+                
             </div>
 
             <!-- Sección derecha: Configuración de compra -->
             <div class="seccion derecha">
-                <h2>Opciones de compra</h2>
-                <label>Cantidad a Comprar</label>
-                <div class="contenedor-entrada-numerica">
-                    <input type="number" id="cantidadCompra" min="0" placeholder="0">
-                    <div class="number-input-buttons">
-                        <!-- Botones para ajustar cantidad -->
-                        <button type="button" class="number-input-button increment" onclick="incrementarValor('cantidadCompra')"></button>
-                        <button type="button" class="number-input-button decrement" onclick="decrementarValor('cantidadCompra')"></button>
-                    </div>
-                </div>
-                <label>Monto</label>
-                <input type="number" id="montoCompra" placeholder="Monto" readonly>
+                <h2>Cuotas</h2>
+                <input type="number" id="cantidadCuotas"  readonly>
+                <h2>Monto de cuotas</h2>
+                <input type="number" id="montoDeCuotas"  readonly>
             </div>
         </section>
 
         <!-- Botón de acción para confirmar compra -->
-        <button class="action-btn" onclick="comprarProducto()">
-            <img src="../Imagenes/comprar-icon.png" alt="Comprar" class="btn-icon"> Comprar
+        <button class="action-btn" onclick="guardarPrestamo()">
+            <img src="../Imagenes/comprar-icon.png" alt="Comprar" class="btn-icon"> Aceptar
         </button>
     </main>
 
@@ -91,8 +77,7 @@
     </div>
 
     <script src="../Javascript/funcionesComunes.js"></script>
-    <script src="../Javascript/compras.js"></script>
-    <script src="../Javascript/mostrar_prod.js"></script>
+    <script src="../Javascript/prestamos.js"></script>
 </body>
 
 </html>

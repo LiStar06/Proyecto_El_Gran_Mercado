@@ -53,9 +53,13 @@ try {
         }
 
         // 1. Registrar la transacción
-        $stmt = $conn->prepare("INSERT INTO transacciones (negocio_id, producto_id, tipo, cantidad, precio_unitario, precio_total) VALUES (?, ?, 'compra', ?, ?, ?)");
-        $stmt->bind_param("iiidd", $negocio_id, $producto_id, $cantidad, $precio_unitario, $precio_total);
+       $stmt = $conn->prepare("INSERT INTO transacciones 
+            (negocio_id, producto_id, tipo, cantidad, precio_unitario, precio_total, fecha, jugador_id) 
+            VALUES (?, ?, 'compra', ?, ?, ?, NOW(), ?)");
+
+        $stmt->bind_param("iiiddi", $negocio_id, $producto_id, $cantidad, $precio_unitario, $precio_total, $jugador_id);
         $stmt->execute();
+
 
         // 2. Actualizar el capital del negocio
         $nuevo_capital = $capital_actual - $precio_total;

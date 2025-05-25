@@ -47,6 +47,14 @@ $sql = "INSERT INTO ventas (jugador_id, negocio_id, cliente_id, producto_id, can
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("iiiiidd", $jugador_id, $negocio_id, $cliente_id, $producto_id, $cantidad, $precio_unitario, $monto);
 
+$stms = $conn->prepare("INSERT INTO transacciones 
+    (negocio_id, producto_id, tipo, cantidad, precio_unitario, precio_total, fecha, jugador_id) 
+    VALUES (?, ?, 'venta', ?, ?, ?, NOW(), ?)");
+
+$stms->bind_param("iiiddi", $negocio_id, $producto_id, $cantidad, $precio_unitario, $monto, $jugador_id);
+$stms->execute();
+
+
 if ($stmt->execute()) {
     echo json_encode(['exito' => 'Venta registrada correctamente']);
 } else {
@@ -55,4 +63,5 @@ if ($stmt->execute()) {
 
 $stmt->close();
 $conn->close();
+$stms->close();
 

@@ -86,8 +86,8 @@
                     <button class="nav-btn" onclick="transicionPagina('p_resumen.php')">
                         <img src="../Imagenes/resumen-icon.png" alt="Detalles" class="btn-icon"> Detalles
                     </button>
-                    <button class="nav-btn" onclick="transicionPagina('EGM-002.php')">
-                        <img src="../Imagenes/menu-icon.png" alt="Menú" class="btn-icon"> Menú
+                    <button class="nav-btn" onclick="transicionPagina('p_administracion.php')">
+                        <img src="../Imagenes/menu-icon.png" alt="Menú" class="btn-icon"> Administracion
                     </button>
                 
             </div>

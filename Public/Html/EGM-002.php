@@ -49,13 +49,13 @@
 
                 <!-- Botones de navegación del menú -->
                 <div class="menu-botones">
-                    <button class="btn-menu btn-glow action-btn" onclick="transicionPagina('crearnegocio.php')">
+                    <!-- <button class="btn-menu btn-glow action-btn" onclick="transicionPagina('crearnegocio.php')">
                         <img src="../Imagenes/nuevo-negocio.png" alt="Nuevo" class="btn-icono-menu">
                         <span class="btn-texto"> Nuevo Negocio</span>
-                    </button>
-                    <button class="btn-menu btn-glow action-btn" onclick="transicionPagina('partida.php')">
+                    </button> -->
+                    <button class="btn-menu btn-glow action-btn" onclick="transicionPagina('p_administracion.php')">
                         <img src="../Imagenes/crecimiento.png" alt="Continuar" class="btn-icono-menu">
-                        <span class="btn-texto">Continuar</span>
+                        <span class="btn-texto">Reanudar Partida</span>
                     </button>
                     <button class="btn-menu btn-glow action-btn" onclick="transicionPagina('p_eventos.php')">
                         <img src="../Imagenes/eventos-icon.png" alt="Eventos" class="btn-icono-menu">

@@ -38,11 +38,15 @@
         <div class="info-negocio">
             <div class="info-caja">
                 <span class="info-etiqueta">NEGOCIO:</span>
-                <span class="info-valor">Mercado Central</span>
+                <span id="nombre-negocio" class="info-valor">Mercado Central</span>
+            </div>
+            <div class="info-caja">
+                <span class="info-etiqueta">Credito:</span>
+                <span id="nombre-negocio" class="info-valor">0</span>
             </div>
             <div class="info-caja capital-box">
                 <span class="info-etiqueta">CAPITAL:</span>
-                <span class="info-valor" id="capital">$1,000.00</span>
+                <span class="info-valor" id="capital"></span>
                 <span class="moneda-icono"></span>
             </div>
         </div>
@@ -97,6 +101,19 @@
             <button class="action-btn btn-resumen" onclick="transicionPagina('p_resumen.php')">
                 <img src="../Imagenes/resumen-icon.png" alt="Detalles" class="btn-icon"> RESUMEN
             </button>
+
+            <button class="action-btn btn-ajustar" onclick="transicionPagina('EGM-002.php')">
+                <img src="../Imagenes/volver-icon.png" alt="Ajustes" class="btn-icon"> Menu 
+            </button>
+
+            <button class="action-btn btn-comprar" onclick="transicionPagina('prestamos.php')">
+                <img src="../Imagenes/comprar-icon.png" alt="Comprar" class="btn-icon"> Prestamos
+            </button>
+
+            <button class="action-btn btn-vender" onclick="transicionPagina('pagar_prestamos.php')">
+                <img src="../Imagenes/vender-icon.png" alt="Vender" class="btn-icon"> Pagar
+            </button>
+
         </div>
     </main>
 

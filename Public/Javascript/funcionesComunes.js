@@ -250,34 +250,10 @@ function mostrarMensaje(texto, tipo = 'exito', duracion = 3000) {
     setTimeout(() => divMensaje.style.transform = 'translate(-50%, -50%) scale(1)', 50);
 }
 
-//Actualiza capital con efectos visuales y de sonido.
- 
-// function actualizarCapital() {
-//     const elementosCapital = document.querySelectorAll('#capital, .capital-value');
-//     const nuevoCapital = parseFloat(capital.toFixed(2));
-//     elementosCapital.forEach((elemento) => {
-//         const capitalAnterior = parseFloat(elemento.getAttribute('data-previous-capital')) || 0;
-//         elemento.textContent = nuevoCapital.toFixed(2);
-//         elemento.classList.remove('zoom-capital', 'capital-bajo', 'resaltar');
-//         if (nuevoCapital < 100) {
-//             elemento.classList.add('capital-bajo', 'resaltar');
-//             reproducirSonido('notificacion');
-//             retroalimentacionVibracion([100, 50, 100]);
-//         } else if (nuevoCapital > capitalAnterior) {
-//             elemento.classList.add('zoom-capital');
-//             crearParticulas(elemento, 'ganancia');
-//             reproducirSonido('monedas');
-//             retroalimentacionVibracion(30);
-//         } else if (nuevoCapital < capitalAnterior) {
-//             elemento.classList.add('zoom-capital');
-//             crearParticulas(elemento, 'perdida');
-//             retroalimentacionVibracion(100);
-//         }
-//         elemento.setAttribute('data-previous-capital', nuevoCapital);
-//     });
-// }
 
 // Incrementa valor de entrada con retroalimentación.
+
+
 
 function incrementarValor(id, paso = 1) {
     retroalimentacionVibracion(20);
@@ -290,8 +266,6 @@ function incrementarValor(id, paso = 1) {
     calcularMontoVenta();
 }
 
-//Decrementa valor de entrada, evita negativos.
-
 function decrementarValor(id, paso = 1) {
     retroalimentacionVibracion(20);
     const entrada = document.getElementById(id);
@@ -302,6 +276,7 @@ function decrementarValor(id, paso = 1) {
     setTimeout(() => entrada.classList.remove('resaltar'), 300);
     calcularMontoVenta();
 }
+
 function calcularMontoVenta() {
     const entradaCantidad = document.getElementById("cantidadVender");
     const precioVenta = document.getElementById("precio"); // asegúrate que el input tenga este id
@@ -366,34 +341,46 @@ function cargarSelectores() {
 
     // Evento: cambio de producto
     const selectorProducto = document.getElementById('productoSelect');
-    if (selectorProducto) {
-        selectorProducto.addEventListener('change', function () {
-            const opcion = this.selectedOptions[0];
 
-            const cantidadPedida = opcion?.dataset.cantidadPedida || 0;
-            const cantidadDisponible = opcion?.dataset.cantidadDisponible || 0;
-            const precio = opcion?.dataset.precio || 0;
+if (selectorProducto) {
+    selectorProducto.addEventListener('change', function () {
+        const opcion = this.selectedOptions[0];
 
-            document.getElementById('cantidadPedida').value = cantidadPedida;
-            document.getElementById('cantidadDisponible').value = cantidadDisponible;
-            document.getElementById('precio').value = precio;
-            document.getElementById('montoVenta').value = ''; // limpiar monto al seleccionar nuevo producto
-        });
-    }
+        const cantidadPedida = opcion?.dataset.cantidadPedida || 0;
+        const cantidadDisponible = opcion?.dataset.cantidadDisponible || 0;
+        const precio = opcion?.dataset.precio || 0;
+
+        const inputCantidadPedida = document.getElementById('cantidadPedida');
+        const inputCantidadDisponible = document.getElementById('cantidadDisponible');
+        const inputPrecio = document.getElementById('precio');
+        const inputMontoVenta = document.getElementById('montoVenta');
+
+        if (inputCantidadPedida) inputCantidadPedida.value = cantidadPedida;
+        if (inputCantidadDisponible) inputCantidadDisponible.value = cantidadDisponible;
+        if (inputPrecio) inputPrecio.value = precio;
+        if (inputMontoVenta) inputMontoVenta.value = ''; // limpiar monto
+    });
+}
+
 }
 
 // Llenar select de clientes
 function llenarSelectClientes(clientes) {
     const selector = document.getElementById('clienteSelect');
+    if (!selector) return;
+
     selector.innerHTML = '<option value="">Selecciona un cliente</option>';
+
     clientes.forEach(cliente => {
         const opcion = document.createElement('option');
         opcion.value = cliente.cliente_id;
         opcion.textContent = cliente.cliente_nombre;
         selector.appendChild(opcion);
     });
+
     selector.value = '';
 }
+
 
 // Llenar select de productos del cliente
 function llenarSelectProductos(productos) {
@@ -422,7 +409,7 @@ function limpiarSelectProductos() {
 //Actualiza UI según producto seleccionado y capital.
  
 function actualizarInterfaz() {
-    // actualizarCapital();
+    
     const selectorProducto = document.getElementById('productoSelect');
     if (selectorProducto && selectorProducto.value) {
         const producto = inventario.find(p => p.nombre === selectorProducto.value);
@@ -499,6 +486,7 @@ async function comprarProducto() {
         mostrarMensaje("Error en la comunicación con el servidor.", "error");
     }
 }
+let conseguirCapital;
 async function actualizarCapital() {
     try {
         const res = await fetch('../../Config/comprar.php'); // mismo archivo, pero GET
@@ -543,11 +531,14 @@ async function actualizarCapital() {
 
             elemento.setAttribute('data-previous-capital', nuevoCapital);
         });
-
+        
+        conseguirCapital = nuevoCapital;
     } catch (error) {
         console.error("Error al obtener capital:", error);
     }
+   
 }
+
 function reiniciarFormularioCompras() {
   const selectorProducto = document.getElementById("productoSelect");
   const entradaCantidadCompra = document.getElementById("cantidadCompra");

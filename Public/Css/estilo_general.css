@@ -487,8 +487,9 @@ main.contenedor-admin::after {
 /* === CONTROL DE SONIDO === */
 .sound-control {
     position: fixed;
-    bottom: 20px;
-    right: 150px;
+    /* bottom: 20px; */
+    right: 15px;
+    margin-top: 1vh;
     z-index: 1000;
     display: flex;
     flex-direction: column;
