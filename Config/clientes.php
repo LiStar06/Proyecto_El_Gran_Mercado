@@ -62,7 +62,7 @@ while ($cliente = $resultado->fetch_assoc()) {
             SELECT nombre FROM tipos_negocio WHERE id = ?
         )
         ORDER BY RAND()
-        LIMIT 3
+        LIMIT 6
     ";
 
     $stmtProd = $conn->prepare($productos_query);

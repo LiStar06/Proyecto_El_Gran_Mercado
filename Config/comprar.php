@@ -41,6 +41,7 @@ try {
         $cantidad = $data['cantidad'] ?? 0;
         $precio_unitario = $data['precio_unitario'] ?? 0;
         $precio_total = $data['precio_total'] ?? 0;
+        $precioVenta = $precio_unitario * 0.20 + $precio_unitario;
 
         if (!$producto_id || $cantidad <= 0 || $precio_unitario <= 0 || $precio_total <= 0) {
             echo json_encode(['success' => false, 'message' => 'Datos inválidos']);
@@ -78,8 +79,8 @@ try {
             $stmt = $conn->prepare("UPDATE productos_negocio SET cantidad = ? WHERE negocio_id = ? AND producto_id = ?");
             $stmt->bind_param("iii", $nueva_cantidad, $negocio_id, $producto_id);
         } else {
-            $stmt = $conn->prepare("INSERT INTO productos_negocio (negocio_id, producto_id, cantidad, precio_compra) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("iiid", $negocio_id, $producto_id, $cantidad, $precio_unitario);
+            $stmt = $conn->prepare("INSERT INTO productos_negocio (negocio_id, producto_id, cantidad, precio_compra, precio_venta) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("iiidd", $negocio_id, $producto_id, $cantidad, $precio_unitario, $precioVenta);
         }
         $stmt->execute();
 

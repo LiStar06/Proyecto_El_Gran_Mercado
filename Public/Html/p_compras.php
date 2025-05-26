@@ -92,7 +92,7 @@
 
     <script src="../Javascript/funcionesComunes.js"></script>
     <script src="../Javascript/compras.js"></script>
-    <script src="../Javascript/mostrar_prod.js"></script>
+    <script src="../Javascript/mostrarProductosCompras.js"></script>
 </body>
 
 </html>

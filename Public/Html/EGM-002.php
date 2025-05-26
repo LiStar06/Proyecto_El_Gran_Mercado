@@ -43,7 +43,7 @@
                     <h1 class="titulo-menu">Menú Principal</h1>
                     <div class="bienvenida-container">
                         <!-- Saludo personalizado con nombre de usuario -->
-                        <p class="bienvenida-usuario">¡Hola Aventureros <span class="nombre-usuario"></span>!</p>
+                        <p class="bienvenida-usuario">¡Hola Aventurero <span class="nombre-usuario"></span>!</p>
                     </div>
                 </div>
 
@@ -59,7 +59,7 @@
                     </button>
                     <button class="btn-menu btn-glow action-btn" onclick="transicionPagina('p_eventos.php')">
                         <img src="../Imagenes/eventos-icon.png" alt="Eventos" class="btn-icono-menu">
-                        <span class="btn-texto">Eventos</span>
+                        <span class="btn-texto">Ofertas</span>
                     </button>
                     <button class="btn-menu btn-salir btn-glow action-btn" id="btnSalir">
                         <div class="btn-icono-menu">

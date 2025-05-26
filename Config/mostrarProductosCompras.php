@@ -39,27 +39,20 @@ try {
                 exit;
         }
 
-        // Obtener productos comprados por el jugador en esa categoría
-    $stmt = $conn->prepare("
-        SELECT p.id, p.nombre, p.precio_base
-        FROM productos p
-        INNER JOIN transacciones t ON t.producto_id = p.id
-        WHERE t.jugador_id = ? AND t.tipo = 'compra' AND p.categoria = ?
-        GROUP BY p.id
-    ");
-    $stmt->bind_param("is", $jugador_id, $categoria);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
+        // Obtener productos de la categoría correspondiente
+        $stmt = $conn->prepare("SELECT id, nombre, precio_base FROM productos WHERE categoria = ?");
+        $stmt->bind_param("s", $categoria);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
 
-    $productos = [];
-    while ($row = $resultado->fetch_assoc()) {
-        $productos[] = [
-            "id" => $row["id"],
-            "nombre" => $row["nombre"],
-            "precio" => $row["precio_base"]
-        ];
-    }
-
+        $productos = [];
+        while ($row = $resultado->fetch_assoc()) {
+            $productos[] = [
+                "id" => $row["id"],
+                "nombre" => $row["nombre"],
+                "precio" => $row["precio_base"]
+            ];
+        }
 
         echo json_encode([
             "success" => true,
