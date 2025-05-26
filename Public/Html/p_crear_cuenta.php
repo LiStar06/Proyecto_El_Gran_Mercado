@@ -128,6 +128,6 @@
     </div>
 
     <script src="../Javascript/funcionesComunes2.js"></script>
-    <script src="../Javascript/crear_registro.js"></script>
+    <script src="../Javascript/crear_registro2.js"></script>
 </body>
 </html>

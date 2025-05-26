@@ -3,14 +3,14 @@
 let musicaFondoGlobal = null; // Instancia de música de fondo
 let musicaActiva = localStorage.getItem('musicaActiva') !== 'false'; // Estado de música
 let efectosActivos = localStorage.getItem('efectosActivos') !== 'false'; // Estado de efectos
-let capital = 1000; // Capital inicial
-let inventario = [
-    { id: 1, nombre: "Manzanas", cantidad: 20, precio: 15, codigo: "P001", demanda: 5 },
-    { id: 2, nombre: "Peras", cantidad: 15, precio: 18, codigo: "P002", demanda: 8 },
-    { id: 3, nombre: "Plátanos", cantidad: 30, precio: 12, codigo: "P003", demanda: 3 }
-]; // Inventario de productos
-let ventas = []; // Transacciones de ventas
-let clientes = ["Edwin", "Manuela", "Liyan", "Luis", "Yamira"]; // Lista de clientes
+// let capital = 1000; // Capital inicial
+// let inventario = [
+//     { id: 1, nombre: "Manzanas", cantidad: 20, precio: 15, codigo: "P001", demanda: 5 },
+//     { id: 2, nombre: "Peras", cantidad: 15, precio: 18, codigo: "P002", demanda: 8 },
+//     { id: 3, nombre: "Plátanos", cantidad: 30, precio: 12, codigo: "P003", demanda: 3 }
+// ]; // Inventario de productos
+// let ventas = []; // Transacciones de ventas
+// let clientes = ["Edwin", "Manuela", "Liyan", "Luis", "Yamira"]; // Lista de clientes
 let contenedorMensaje = null; // Contenedor de mensajes
 
 //Configura música global respetando estado de musicaActiva.
@@ -252,30 +252,30 @@ function mostrarMensaje(texto, tipo = 'exito', duracion = 3000) {
 
 //Actualiza capital con efectos visuales y de sonido.
  
-function actualizarCapital() {
-    const elementosCapital = document.querySelectorAll('#capital, .capital-value');
-    const nuevoCapital = parseFloat(capital.toFixed(2));
-    elementosCapital.forEach((elemento) => {
-        const capitalAnterior = parseFloat(elemento.getAttribute('data-previous-capital')) || 0;
-        elemento.textContent = nuevoCapital.toFixed(2);
-        elemento.classList.remove('zoom-capital', 'capital-bajo', 'resaltar');
-        if (nuevoCapital < 100) {
-            elemento.classList.add('capital-bajo', 'resaltar');
-            reproducirSonido('notificacion');
-            retroalimentacionVibracion([100, 50, 100]);
-        } else if (nuevoCapital > capitalAnterior) {
-            elemento.classList.add('zoom-capital');
-            crearParticulas(elemento, 'ganancia');
-            reproducirSonido('monedas');
-            retroalimentacionVibracion(30);
-        } else if (nuevoCapital < capitalAnterior) {
-            elemento.classList.add('zoom-capital');
-            crearParticulas(elemento, 'perdida');
-            retroalimentacionVibracion(100);
-        }
-        elemento.setAttribute('data-previous-capital', nuevoCapital);
-    });
-}
+// function actualizarCapital() {
+//     const elementosCapital = document.querySelectorAll('#capital, .capital-value');
+//     const nuevoCapital = parseFloat(capital.toFixed(2));
+//     elementosCapital.forEach((elemento) => {
+//         const capitalAnterior = parseFloat(elemento.getAttribute('data-previous-capital')) || 0;
+//         elemento.textContent = nuevoCapital.toFixed(2);
+//         elemento.classList.remove('zoom-capital', 'capital-bajo', 'resaltar');
+//         if (nuevoCapital < 100) {
+//             elemento.classList.add('capital-bajo', 'resaltar');
+//             reproducirSonido('notificacion');
+//             retroalimentacionVibracion([100, 50, 100]);
+//         } else if (nuevoCapital > capitalAnterior) {
+//             elemento.classList.add('zoom-capital');
+//             crearParticulas(elemento, 'ganancia');
+//             reproducirSonido('monedas');
+//             retroalimentacionVibracion(30);
+//         } else if (nuevoCapital < capitalAnterior) {
+//             elemento.classList.add('zoom-capital');
+//             crearParticulas(elemento, 'perdida');
+//             retroalimentacionVibracion(100);
+//         }
+//         elemento.setAttribute('data-previous-capital', nuevoCapital);
+//     });
+// }
 
 // Incrementa valor de entrada con retroalimentación.
 
@@ -339,7 +339,7 @@ function cargarSelectores() {
 //Actualiza UI según producto seleccionado y capital.
  
 function actualizarInterfaz() {
-    actualizarCapital();
+    // actualizarCapital();
     const selectorProducto = document.getElementById('productoSelect');
     if (selectorProducto && selectorProducto.value) {
         const producto = inventario.find(p => p.nombre === selectorProducto.value);
