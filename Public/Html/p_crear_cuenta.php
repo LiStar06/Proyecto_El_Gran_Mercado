@@ -127,7 +127,7 @@
         </div>
     </div>
 
-    <script src="../Javascript/funcionesComunes.js"></script>
+    <script src="../Javascript/funcionesComunes2.js"></script>
     <script src="../Javascript/crear_registro.js"></script>
 </body>
 </html>
