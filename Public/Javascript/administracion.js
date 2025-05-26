@@ -5,6 +5,7 @@ function inicializarAdministracion() {
   actualizarDatosNegocio();
   iniciarEfectosVisuales();
   mostrarMontoPrestamo();
+  obtenerNivelJugador();
   // Actualizar cada 5 segundos (simulación)
   setInterval(actualizarDatosNegocio, 5000);
 
@@ -104,6 +105,20 @@ function mostrarMontoPrestamo() {
         })
         .catch(error => {
             console.error("Error al obtener el monto del préstamo:", error);
+        });
+}
+function obtenerNivelJugador() {
+    fetch('../../Config/obtener_nivel.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('nivel').textContent = data.nivel;
+            } else {
+                console.error("Error:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error al obtener el nivel del jugador:", error);
         });
 }
 

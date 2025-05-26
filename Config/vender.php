@@ -17,7 +17,7 @@ $producto_id = $data['producto_id'] ?? null;
 $cantidad = $data['cantidad'] ?? 0;
 $precio_unitario = $data['precio_unitario'] ?? 0;
 $monto = $data['monto_total'] ?? 0;
-error_log(print_r($data, true));
+// error_log(print_r($data, true));
 
 
 if (!$cliente_id || !$producto_id || $cantidad <= 0 || $precio_unitario <= 0 || $monto <= 0) {
