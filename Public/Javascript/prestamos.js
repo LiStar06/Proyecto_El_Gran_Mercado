@@ -71,6 +71,7 @@ function obtenerDatosPrestamo() {
         document.getElementById('valorPendiente').value = data.valorPendiente;
         document.getElementById('cuotasPendientes').value = data.cuotasPendientes;
         document.getElementById('montoAPagar').value = data.montoAPagar;
+        document.getElementById('totalAPagar').value = data.montoAPagar;
       } else {
         alert(data.message);
       }
@@ -123,15 +124,46 @@ function decrementarValorPagar(id, paso = 1) {
     setTimeout(() => entrada.classList.remove('resaltar'), 300);
     actualizarMontoAPagar();
 }
+
 function actualizarMontoAPagar() {
     const numeroDeCuota = parseInt(document.getElementById('numeroDeCuota').value);
-    const montoDeCuotas = parseFloat(document.getElementById('montoAPagar').value);
-
-    if (!isNaN(numeroDeCuota) && !isNaN(montoDeCuotas)) {
-        const montoAPagar = numeroDeCuota * montoDeCuotas;
-        document.getElementById('montoAPagar').value = montoAPagar.toFixed(2);
+    const montoPorCuota = parseFloat(document.getElementById('montoAPagar').value); // <-- este es el correcto
+    
+    if (!isNaN(numeroDeCuota) && !isNaN(montoPorCuota)) {
+        const montoAPagar = numeroDeCuota * montoPorCuota;
+        document.getElementById('totalAPagar').value = montoAPagar.toFixed(2);
     }
 }
+function guardarPagoCuotas() {
+    const numeroDeCuota = parseInt(document.getElementById('numeroDeCuota').value);
+    const totalAPagar = parseFloat(document.getElementById('totalAPagar').value);
+
+    if (isNaN(numeroDeCuota) || isNaN(totalAPagar)) {
+        alert("Datos inválidos");
+        return;
+    }
+
+    fetch("../../Config/actualizarPrestamo.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            numero_cuotas: numeroDeCuota,
+            monto: totalAPagar
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            mostrarMensaje("Pago procesado correctamente", "exito");
+        } else {
+            mostrarMensaje("Error: " + data.message, "error");
+        }
+    })
+    .catch(error => {
+        console.error("Error al actualizar préstamo:", error);
+    });
+}
+
 
 setTimeout(() => {
     actualizarCapital();

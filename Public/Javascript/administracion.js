@@ -1,49 +1,14 @@
-// administracion.js - Funciones específicas para el panel de administración
 
-// Datos iniciales del negocio
-// const datosNegocio = {
-//   nombre: "Mercado Central",
-//   capital: 1000,
-//   productos: [
-//     {
-//       id: 1,
-//       nombre: "Manzanas",
-//       cantidad: 20,
-//       precio: 15,
-//       codigo: "P001",
-//       demanda: 5,
-//     },
-//     {
-//       id: 2,
-//       nombre: "Peras",
-//       cantidad: 15,
-//       precio: 18,
-//       codigo: "P002",
-//       demanda: 8,
-//     },
-//     {
-//       id: 3,
-//       nombre: "Plátanos",
-//       cantidad: 30,
-//       precio: 12,
-//       codigo: "P003",
-//       demanda: 3,
-//     },
-//   ],
-//   ventas: [],
-//   clientes: ["Edwin", "Manuela", "Liyan", "Luis", "Yamira"],
-// };
 
 // Inicializar el panel de administración
 function inicializarAdministracion() {
   actualizarDatosNegocio();
-  configurarInteracciones();
   iniciarEfectosVisuales();
-
+  mostrarMontoPrestamo();
   // Actualizar cada 5 segundos (simulación)
   setInterval(actualizarDatosNegocio, 5000);
 
-  setInterval(() => crearBackgroundParticles(), 1000);
+  // setInterval(() => crearBackgroundParticles(), 1000);
 }
 
 // Actualizar los datos del negocio en la interfaz
@@ -98,11 +63,11 @@ async function actualizarDatosNegocio() {
       <span class="item-valor">7 días</span></div>
     `;
 
-    document.querySelectorAll(".caja-juego").forEach((caja) => {
-      caja.classList.add("pulso");
-      setTimeout(() => caja.classList.remove("pulso"), 500);
-      crearBoxParticles(caja);
-    });
+    // document.querySelectorAll(".caja-juego").forEach((caja) => {
+    //   caja.classList.add("pulso");
+    //   setTimeout(() => caja.classList.remove("pulso"), 500);
+    //   crearBoxParticles(caja);
+    // });
 
   } catch (error) {
     console.error("Error al cargar estadísticas:", error);
@@ -122,6 +87,24 @@ function iniciarEfectosVisuales() {
   document.querySelectorAll(".caja-juego").forEach((caja, index) => {
     caja.style.animationDelay = `${index * 0.2}s`;
   });
+}
+function mostrarMontoPrestamo() {
+    fetch('../../Config/obtenerMontoPrestamo.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('credito').innerText = data.montoPrestamo;
+                document.getElementById('credito').style.color = 'red';
+                
+            } else {
+                console.error("Error:", data.message);
+                document.getElementById('credito').innerText = "0";
+                
+            }
+        })
+        .catch(error => {
+            console.error("Error al obtener el monto del préstamo:", error);
+        });
 }
 
 // Inicializar cuando el DOM esté listo

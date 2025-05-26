@@ -42,7 +42,7 @@
             </div>
             <div class="info-caja">
                 <span class="info-etiqueta">Credito:</span>
-                <span id="nombre-negocio" class="info-valor">0</span>
+                <span id="credito" class="info-valor">0</span>
             </div>
             <div class="info-caja capital-box">
                 <span class="info-etiqueta">CAPITAL:</span>

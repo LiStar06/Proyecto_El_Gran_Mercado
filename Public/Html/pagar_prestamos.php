@@ -55,7 +55,7 @@
                 <h2>Cuota</h2>            
                 <!-- <input type="number" id="numeroDeCuota"  readonly> -->
                 <div class="contenedor-entrada-numerica">
-                        <input type="number" id="numeroDeCuota"readonly min="1" value="1">
+                        <input type="number" id="numeroDeCuota" readonly min="1" value="1">
                         <div class="number-input-buttons">
                             <!-- Botones para incrementar/decrementar la cantidad -->
                             <button type="button" class="number-input-button increment" onclick="incrementarValorPagar('numeroDeCuota')"></button>
@@ -64,11 +64,13 @@
                 </div>
                 <h2>Cuotas pendientes</h2>            
                 <input type="number" id="cuotasPendientes"  readonly>
+                <h2>Total a Pagar</h2>            
+                <input type="number" id="totalAPagar"  readonly>
             </div>
         </section>
 
         <!-- Botón de acción para confirmar pago -->
-        <button class="action-btn" onclick="guardarPrestamo()">
+        <button class="action-btn" onclick="guardarPagoCuotas()">
             <img src="../Imagenes/comprar-icon.png" alt="Comprar" class="btn-icon"> Pagar
         </button>
     </main>
