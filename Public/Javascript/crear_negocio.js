@@ -1,9 +1,9 @@
 // Asegúrate de que todo cargue después de que el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
 
-    const tipoNegocioSelect = document.getElementById('tipoNegocio');
-    const capitalInicialDiv = document.getElementById('capitalInicial');
-    const formulario = document.getElementById('crear-negocio-form');
+    const tipoNegocioSelect = document.getElementById('tipo');
+    const capitalInicialDiv = document.getElementById('valorCapital');
+    const formulario = document.getElementById('formularioNegocio');
 
     let tiposNegocioData = []; // Aquí guardaremos los tipos con su saldo
 
@@ -60,9 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         const nombre = document.getElementById('nombre').value;
-        const tipoNegocio = document.getElementById('tipoNegocio').value;
+        const tipoNegocio = document.getElementById('tipo').value;
         const capitalInicial = tiposNegocioData.find(t => t.id === tipoNegocio)?.saldo_inicial || 0;
-
+        
         fetch('../../Config/crearNegocio.php', {
             method: 'POST',
             headers: {
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             if (data.mensaje) {
                 console.log('Negocio creado:', data.mensaje);
-                alert('Negocio creado exitosamente!');
+                mostrarMensaje('Negocio creado exitosamente!');
                 formulario.reset();
                 capitalInicialDiv.textContent = ''; // Limpia el div
             } else if (data.error) {
